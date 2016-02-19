@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Simon Denier &amp; Yannis Guedel</authors>
+    <owners>yannisgu</owners>
+    <licenseUrl>https://github.com/yannisgu/GecoSI.Net/blob/master/LICENCE.txt</licenseUrl>
+    <projectUrl>https://github.com/yannisgu/GecoSI.Net</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/yannisgu/GecoSI.Net/master/docs/GecoSI-Logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) 2014 Simon Denier &amp; Yannis Guedel</copyright>
+  </metadata>
+</package>

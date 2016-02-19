@@ -1,0 +1,38 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:local="clr-namespace:OrienteeringToolWPF.Windows" 
+        xmlns:Net="clr-namespace:GecoSI.Net;assembly=GecoSI.Net" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
+        x:Name="mainWindow" x:Class="OrienteeringToolWPF.Windows.MainWindow"
+        Title="MainWindow" Height="386" Width="537" Closing="mainWindow_Closing" 
+        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <Menu x:Name="menuBar" DockPanel.Dock="Top" Height="23" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+                <MenuItem x:Name="fileMItem" Header="Plik">
+                    <MenuItem x:Name="createMItem" Header="Utwórz">
+                        <MenuItem x:Name="kidsCompetitionMItem" Header="Zawody &quot;Dziecinada&quot;" Click="kidsCompetitionMItem_Click"/>
+                        <MenuItem x:Name="orienteeringCompetitionMItem" Header="Zawody BnO" IsEnabled="False"/>
+                        <MenuItem x:Name="orienteeringTrainingMItem" Header="Trening BnO" IsEnabled="False"/>
+                    </MenuItem>
+                    <MenuItem x:Name="openMItem" Header="Otwórz" Click="openMItem_Click"/>
+                    <MenuItem x:Name="exitMItem" Header="Zakończ" Click="exitMItem_Click"/>
+                </MenuItem>
+                <MenuItem x:Name="connectionMItem" Header="Połączenie">
+                    <MenuItem x:Name="connectToMItem" Header="Połącz ze stacją..." Click="connectToMItem_Click" IsEnabled="{Binding NotIsConnected}"/>
+                    <MenuItem x:Name="disconnectMItem" Header="Rozłącz" Click="disconnectMItem_Click" IsEnabled="{Binding isConnected}"/>
+                </MenuItem>
+                <MenuItem x:Name="settingsMItem" Header="Ustawienia">
+                    <MenuItem Header="..." IsEnabled="False"/>
+                </MenuItem>
+            </Menu>
+            <StatusBar x:Name="statusBar" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
+                <Label x:Name="label" Width="244" Content="{Binding Status}" Padding="5,0,0,0" Height="16"/>
+            </StatusBar>
+            <ContentControl DataContext="local:MainWindow" x:Name="contentControl" Content="{Binding CurrentView}" />
+        </DockPanel>
+    </Grid>
+</Window>

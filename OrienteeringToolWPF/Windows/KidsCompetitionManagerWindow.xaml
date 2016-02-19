@@ -1,0 +1,13 @@
+﻿<src:CommonManager x:Class="OrienteeringToolWPF.Windows.KidsCompetitionManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OrienteeringToolWPF.Windows"
+        xmlns:src="clr-namespace:OrienteeringToolWPF.CompetitionManagers"
+        mc:Ignorable="d"
+        Title="KidsCompetitionManagerWindow" Height="300" Width="300">
+    <Grid>
+        <ListView Name="listView"></ListView>
+    </Grid>
+</src:CommonManager>
