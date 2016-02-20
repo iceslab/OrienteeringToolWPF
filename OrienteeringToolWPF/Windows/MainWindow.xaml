@@ -7,7 +7,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
         x:Name="mainWindow" x:Class="OrienteeringToolWPF.Windows.MainWindow"
-        Title="MainWindow" Height="386" Width="537" Closing="mainWindow_Closing" 
+        Title="MainWindow" Height="400" Width="550" Closing="mainWindow_Closing" 
+        MinHeight="400" MinWidth="550"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
     <Grid>
         <DockPanel LastChildFill="True">

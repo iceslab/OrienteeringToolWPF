@@ -55,7 +55,6 @@ namespace OrienteeringToolWPF.Windows
                         dao.update(tournament);
 
                         Show();
-
                         MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
                     }
                 }
@@ -72,8 +71,12 @@ namespace OrienteeringToolWPF.Windows
 
         protected override void Resume()
         {
-            Show();
-            MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
+            // If not connected to station, ask for connection
+            if (PromptForConnection())
+            {
+                Show();
+                MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
+            }
         }
 
         private bool PromptForConnection()
