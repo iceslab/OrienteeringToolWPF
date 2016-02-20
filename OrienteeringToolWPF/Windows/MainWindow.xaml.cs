@@ -88,7 +88,7 @@ namespace OrienteeringToolWPF.Windows
             timer.Tick += Timer_Tick;
             timer.Start();
 
-            CurrentView = null;
+            _currentView = null;
 
             // Do bindowania
             menuBar.DataContext = Handler;
