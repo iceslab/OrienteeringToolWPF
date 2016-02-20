@@ -15,7 +15,6 @@ namespace GecoSI.Net
 {
     public class SiHandler : INotifyPropertyChanged
     {
-
         private readonly BlockingCollection<ISiDataFrame> dataQueue;
 
         public readonly ISiListener siListener;
@@ -111,7 +110,6 @@ namespace GecoSI.Net
             siListener.Notify(status);
         }
 
-
         public virtual void NotifyError(CommStatus errorStatus, String errorMessage)
         {
             GecoSiLogger.Error(errorMessage);
@@ -165,8 +163,7 @@ namespace GecoSI.Net
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
