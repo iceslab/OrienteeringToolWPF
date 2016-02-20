@@ -24,7 +24,7 @@
                 </MenuItem>
                 <MenuItem x:Name="connectionMItem" Header="Połączenie">
                     <MenuItem x:Name="connectToMItem" Header="Połącz ze stacją..." Click="connectToMItem_Click" IsEnabled="{Binding NotIsConnected}"/>
-                    <MenuItem x:Name="disconnectMItem" Header="Rozłącz" Click="disconnectMItem_Click" IsEnabled="{Binding isConnected}"/>
+                    <MenuItem x:Name="disconnectMItem" Header="Rozłącz" Click="disconnectMItem_Click" IsEnabled="{Binding IsConnected}"/>
                 </MenuItem>
                 <MenuItem x:Name="settingsMItem" Header="Ustawienia">
                     <MenuItem Header="..." IsEnabled="False"/>

@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data.SQLite;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -79,6 +80,14 @@ namespace OrienteeringToolWPF.Windows
                     XmlLanguage.GetLanguage(
                         CultureInfo.CurrentCulture.IetfLanguageTag)));
 
+#if DEBUG
+            var asm = AppDomain.CurrentDomain.GetAssemblies();
+
+            Console.WriteLine("=====================");
+            foreach (var a in asm)
+                Console.WriteLine(a.GetName().Name);
+            Console.WriteLine("=====================");
+#endif
             InitializeComponent();
             FormatTimeString = "HH:mm:ss.f";
             _currentTime = DateTime.Now;

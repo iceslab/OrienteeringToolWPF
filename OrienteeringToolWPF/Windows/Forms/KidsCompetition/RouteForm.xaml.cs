@@ -49,7 +49,10 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 var routeStepDao = new RouteStepDAO();
 
                 if (route.Id == null)
+                {
                     routeDao.insert(route);
+                    route = routeDao.findAllByName(route.Name)[0];
+                }
                 else
                     routeDao.update(route);
 

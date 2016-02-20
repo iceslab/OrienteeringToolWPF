@@ -98,15 +98,19 @@ namespace OrienteeringToolWPF.DAO.Implementation
             return ExecuteNonQuery(connection, command);
         }
 
-        public override int deleteById(long id)
+        public override int deleteById(long? id)
         {
-            var connection = MainWindow.GetConnection();
-            SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = "DELETE FROM TOURNAMENT WHERE ID=@Id";
+            if(id != null)
+            {
+                var connection = MainWindow.GetConnection();
+                SQLiteCommand command = connection.CreateCommand();
+                command.CommandText = "DELETE FROM TOURNAMENT WHERE ID=@Id";
 
-            command.Parameters.AddWithValue("@Id", id);
+                command.Parameters.AddWithValue("@Id", id);
 
-            return ExecuteNonQuery(connection, command);
+                return ExecuteNonQuery(connection, command);
+            }
+            return 0;
         }
 
         protected override List<Tournament> Select(SQLiteCommand command)
