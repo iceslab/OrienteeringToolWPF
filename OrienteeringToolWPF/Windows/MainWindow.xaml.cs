@@ -102,22 +102,22 @@ namespace OrienteeringToolWPF.Windows
             CurrentTime = DateTime.Now;
         }
 
-        // Rozłącz ze stacją
+        // Disconnect from station
         private void Disconnect()
         {
             Handler?.Stop();
         }
 
-        // Pobierz połączenie z bazą
+        // Get connection to database
         public static SQLiteConnection GetConnection()
         {
             return new SQLiteConnection("Data Source=" + DatabasePath + ";Version=3;foreign keys=True");
         }
 
-        // Utwórz projekt i bazę danych "Dziecinady"
+        // Create project and database for "Kids Competition"
         private void CreateKCDatabase()
         {
-            //TODO: Sprawdzić czy nie nadpisujemy bazy
+            //TODO: Check if database is overwritten
             SQLiteConnection.CreateFile(DatabasePath);
             var connection = GetConnection();
             var command = connection.CreateCommand();
@@ -139,14 +139,14 @@ namespace OrienteeringToolWPF.Windows
             }
         }
 
-        // Zamykanie okna
+        // Closing window
         private void mainWindow_Closing(object sender, CancelEventArgs e)
         {
             Disconnect();
             timer.Stop();
         }
 
-        // Połącz ze stacją - menu
+        // Connect to station - menu
         private void connectToMItem_Click(object sender, RoutedEventArgs e)
         {
             ConnectionWindow window = new ConnectionWindow();
@@ -154,19 +154,19 @@ namespace OrienteeringToolWPF.Windows
             window.ShowDialog();
         }
 
-        // Rozłącz ze stacją - menu
+        // Disconnect from station - menu
         private void disconnectMItem_Click(object sender, RoutedEventArgs e)
         {
             Disconnect();
         }
 
-        // Zamknij z menu
+        // Cloe from menu
         private void exitMItem_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        // Otwórz projekt
+        // Open project
         private void openMItem_Click(object sender, RoutedEventArgs e)
         {
             var ofd = new OpenFileDialog();
@@ -184,7 +184,7 @@ namespace OrienteeringToolWPF.Windows
             }
         }
 
-        // Utwórz projekt "Dziecinada"
+        // Create project "Kids Competition"
         private void kidsCompetitionMItem_Click(object sender, RoutedEventArgs e)
         {
             var sfd = new SaveFileDialog();
