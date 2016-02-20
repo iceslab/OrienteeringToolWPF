@@ -2,56 +2,37 @@
 using OrienteeringToolWPF.DAO.Implementation;
 using OrienteeringToolWPF.Model;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace OrienteeringToolWPF.Windows
 {
-    /// <summary>
-    /// Interaction logic for KidsCompetitionManagerWindow.xaml
-    /// </summary>
     public partial class KidsCompetitionManagerWindow : CommonManager
     {
-        private Tournament tournament;
+        public Tournament tournament { get; private set; }
+
         public KidsCompetitionManagerWindow(Tournament tournament) : base()
         {
             InitializeComponent();
             this.tournament = tournament;
-            if (this.tournament.StartedAtTime != null)
-                _hasStarted = true;
-            if (this.tournament.FinishedAtTime != null)
-                _hasFinished = true;
         }
 
         public override void Start()
         {
-            if (HasStarted == true)
+            if (tournament.IsRunning == true)
             {
                 Resume();
             }
+            else if (tournament.HasFinished == true)
+            {
+                MessageBox.Show(this,
+                    "Nie można rozpocząć zakończonych zawodów",
+                    "Zawody zostały zakończone",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
             else
             {
-                if (HasFinished == true)
-                {
-                    MessageBox.Show(this,
-                        "Nie można rozpocząć zakończonych zawodów",
-                        "Zawody zostały zakończone",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                    return;
-                }
-
                 MessageBoxResult result = MessageBoxResult.Yes;
                 if (DateTime.Now < tournament.StartTime)
                 {
@@ -63,38 +44,20 @@ namespace OrienteeringToolWPF.Windows
                         MessageBoxResult.No);
                 }
 
-                // Rozpoczęcie zawodów
+                // Actual start of tournament
                 if (result == MessageBoxResult.Yes)
                 {
-                    while (MainWindow.Handler.NotIsConnected)
+                    // If not connected to station, ask for connection
+                    if(PromptForConnection())
                     {
-                        var connectionW = new ConnectionWindow();
-                        connectionW.Owner = Owner;
-                        if (connectionW.ShowDialog() != true)
-                        {
-                            var connectionResult = MessageBox.Show(Owner,
-                                "Aby móc rozpocząć zawody należy połączyć się ze stacją." +
-                                "\nSpróbować ponownie?",
-                                "Nie połączono się ze stacją.",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Information,
-                                MessageBoxResult.Yes);
+                        tournament.StartedAtTime = DateTime.Now;
+                        var dao = new TournamentDAO();
+                        dao.update(tournament);
 
-                            // Użytkownik odmawia połączenia
-                            if (connectionResult == MessageBoxResult.No)
-                                return;
-                        }
+                        Show();
+
+                        MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
                     }
-
-                    tournament.StartedAtTime = DateTime.Now;
-                    var dao = new TournamentDAO();
-                    dao.update(tournament);
-
-                    Show();
-
-                    HasStarted = true;
-                    IsRunning = true;
-                    MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
                 }
             }
         }
@@ -104,16 +67,38 @@ namespace OrienteeringToolWPF.Windows
             tournament.FinishedAtTime = DateTime.Now;
             var dao = new TournamentDAO();
             dao.update(tournament);
-            IsRunning = false;
-            HasFinished = true;
             Close();
         }
 
         protected override void Resume()
         {
             Show();
-            IsRunning = true;
             MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
+        }
+
+        private bool PromptForConnection()
+        {
+            while (MainWindow.Handler.NotIsConnected)
+            {
+                var connectionW = new ConnectionWindow();
+                connectionW.Owner = Owner;
+                if (connectionW.ShowDialog() != true)
+                {
+                    var connectionResult = MessageBox.Show(Owner,
+                        "Aby móc rozpocząć zawody należy połączyć się ze stacją." +
+                        "\nSpróbować ponownie?",
+                        "Nie połączono się ze stacją.",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Information,
+                        MessageBoxResult.Yes);
+
+                    // Użytkownik odmawia połączenia
+                    if (connectionResult == MessageBoxResult.No)
+                        return false;
+                }
+            }
+
+            return true;
         }
 
         private void Listener_PropertyChanged(object sender, PropertyChangedEventArgs e)

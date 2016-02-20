@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
         x:Class="OrienteeringToolWPF.Windows.ConnectionWindow"
-        Title="Połącz ze stacją" Height="300" Width="300" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner">
+        Title="Połącz ze stacją" Height="300" Width="300" ResizeMode="CanMinimize" 
+        WindowStartupLocation="CenterOwner" 
+        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
     <StackPanel Orientation="Vertical" Margin="5">
         <ListBox x:Name="portLBox" Height="225" SelectionChanged="portLBox_SelectionChanged" IsEnabled="False">
             <ListBoxItem Content="Naciśnij &quot;Wyszukaj&quot; aby znaleźć stację"/>
