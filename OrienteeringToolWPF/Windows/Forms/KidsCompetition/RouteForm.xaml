@@ -42,7 +42,7 @@
                             <DataTemplate>
                                 <Grid>
                                     <TextBlock Margin="2"
-    											Text="{Binding Id}" />
+    											Text="{Binding Order}" />
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

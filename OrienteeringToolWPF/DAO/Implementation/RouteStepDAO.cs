@@ -48,17 +48,18 @@ namespace OrienteeringToolWPF.DAO.Implementation
             if (obj.Id != null)
             {
                 command.CommandText =
-                    "INSERT INTO ROUTE_STEPS (ID, CODE, ROUTE_ID) " +
+                    "INSERT INTO ROUTE_STEPS (ID, ORDER, CODE, ROUTE_ID) " +
                     "VALUES (@Id,@Code,@RouteId)";
                 command.Parameters.AddWithValue("@Id", obj.Id);
             }
             else
             {
                 command.CommandText =
-                    "INSERT INTO ROUTE_STEPS (CODE, ROUTE_ID) " +
+                    "INSERT INTO ROUTE_STEPS (ORDER, CODE, ROUTE_ID) " +
                     "VALUES (@Code,@RouteId)";
             }
 
+            command.Parameters.AddWithValue("@Order", obj.Order);
             command.Parameters.AddWithValue("@Code", obj.Code);
             command.Parameters.AddWithValue("@RouteId", obj.RouteId);
 
@@ -71,10 +72,11 @@ namespace OrienteeringToolWPF.DAO.Implementation
             SQLiteCommand command = connection.CreateCommand();
             command.CommandText =
                 "UPDATE ROUTE_STEPS " +
-                "SET CODE=@Code, ROUTE_ID=@RouteId " +
+                "SET ORDER=@Order, CODE=@Code, ROUTE_ID=@RouteId " +
                 "WHERE ID=@Id";
 
             command.Parameters.AddWithValue("@Id", obj.Id);
+            command.Parameters.AddWithValue("@Order", obj.Order);
             command.Parameters.AddWithValue("@Code", obj.Code);
             command.Parameters.AddWithValue("@RouteId", obj.RouteId);
 
@@ -87,9 +89,10 @@ namespace OrienteeringToolWPF.DAO.Implementation
             SQLiteCommand command = connection.CreateCommand();
             command.CommandText =
                 "DELETE FROM ROUTE_STEPS " +
-                "WHERE ID=@Id AND CODE=@Code AND ROUTE_ID=@RouteId";
+                "WHERE ID=@Id AND ORDER=@Order AND CODE=@Code AND ROUTE_ID=@RouteId";
 
             command.Parameters.AddWithValue("@Id", obj.Id);
+            command.Parameters.AddWithValue("@Order", obj.Order);
             command.Parameters.AddWithValue("@Code", obj.Code);
             command.Parameters.AddWithValue("@RouteId", obj.RouteId);
 
@@ -191,8 +194,9 @@ namespace OrienteeringToolWPF.DAO.Implementation
                     var r = new RouteStep();
 
                     r.Id = (long)dr.ItemArray[0];
-                    r.Code = (long)dr.ItemArray[1];
-                    r.RouteId = (long)dr.ItemArray[2];
+                    r.Order = (long)dr.ItemArray[1];
+                    r.Code = (long)dr.ItemArray[2];
+                    r.RouteId = (long)dr.ItemArray[3];
 
                     routeSteps.Add(r);
                 }

@@ -10,6 +10,7 @@ namespace OrienteeringToolWPF.Model
     public class RouteStep : BaseModel
     {
         public long? Id { get; set; }
+        public long Order { get; set; }
         public long Code { get; set; }
         public long RouteId { get; set; }
 
@@ -44,6 +45,55 @@ namespace OrienteeringToolWPF.Model
         {
             foreach (var r in rs)
                 r.RouteId = RouteId;
+        }
+
+        public override bool Equals(object other)
+        {
+            if (other == null)
+                return false;
+            if (other is RouteStep)
+            {
+                var rs = other as RouteStep;
+                if (Id != rs.Id)
+                    return false;
+                if (Order != rs.Order)
+                    return false;
+                if (Code != rs.Code)
+                    return false;
+                if (RouteId != rs.RouteId)
+                    return false;
+            }
+            else
+                return false;
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            var hash = Order ^ Code ^ RouteId;
+            if (Id != null)
+                hash ^= (long)Id;
+            return (int)hash;
+        }
+
+        public static bool operator <(RouteStep lhs, RouteStep rhs)
+        {
+            return lhs.Order < rhs.Order;
+        }
+
+        public static bool operator >(RouteStep lhs, RouteStep rhs)
+        {
+            return lhs.Order > rhs.Order;
+        }
+
+        public static bool operator ==(RouteStep lhs, RouteStep rhs)
+        {
+            return lhs.Order == rhs.Order;
+        }
+
+        public static bool operator !=(RouteStep lhs, RouteStep rhs)
+        {
+            return lhs.Order != rhs.Order;
         }
     }
 }

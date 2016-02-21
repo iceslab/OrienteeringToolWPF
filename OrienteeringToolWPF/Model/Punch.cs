@@ -49,5 +49,54 @@ namespace OrienteeringToolWPF.Model
             foreach (var p in punches)
                 p.Chip = Chip;
         }
+
+        public override bool Equals(object other)
+        {
+            if (other == null)
+                return false;
+            if (other is Punch)
+            {
+                var p = other as Punch;
+                if (Id != p.Id)
+                    return false;
+                if (Chip != p.Chip)
+                    return false;
+                if (Code != p.Code)
+                    return false;
+                if (Timestamp != p.Timestamp)
+                    return false;
+            }
+            else
+                return false;
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            var hash = Chip ^ Code ^ Timestamp;
+            if (Id != null)
+                hash ^= (long)Id;
+            return (int)hash;
+        }
+
+        public static bool operator <(Punch lhs, Punch rhs)
+        {
+            return lhs.Timestamp < rhs.Timestamp;
+        }
+
+        public static bool operator >(Punch lhs, Punch rhs)
+        {
+            return lhs.Timestamp > rhs.Timestamp;
+        }
+
+        public static bool operator ==(Punch lhs, Punch rhs)
+        {
+            return lhs.Timestamp == rhs.Timestamp;
+        }
+
+        public static bool operator !=(Punch lhs, Punch rhs)
+        {
+            return lhs.Timestamp != rhs.Timestamp;
+        }
     }
 }
