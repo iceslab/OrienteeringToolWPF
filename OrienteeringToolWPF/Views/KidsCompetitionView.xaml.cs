@@ -28,10 +28,9 @@ namespace OrienteeringToolWPF.Views
         public List<Relay> RelaysList { get; private set; }
         public List<Route> RoutesList { get; private set; }
 
-        public KidsCompetitionView(MainWindow mw)
+        public KidsCompetitionView()
         {
             InitializeComponent();
-            currentTimeL.DataContext = mw;
         }
 
         private void GetTournaments()

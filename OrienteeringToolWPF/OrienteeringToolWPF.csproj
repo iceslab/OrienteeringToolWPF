@@ -117,6 +117,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ActualTime.cs" />
     <Compile Include="CompetitionManagers\CommonManager.cs" />
     <Compile Include="DAO\CommonDAO.cs" />
     <Compile Include="DAO\Implementation\CompetitorDAO.cs" />

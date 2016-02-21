@@ -34,24 +34,7 @@ namespace OrienteeringToolWPF.Windows
                 OnPropertyChanged("CurrentView");
             }
         }
-        private DateTime _currentTime;
-        public DateTime CurrentTime
-        {
-            get { return _currentTime; }
-            set
-            {
-                _currentTime = value;
-                OnPropertyChanged("CurrentTime");
-                OnPropertyChanged("FormattedCurrentTime");
-            }
-        }
-        public string FormattedCurrentTime
-        {
-            get { return CurrentTime.ToString(FormatTimeString); }
-        }
-        public string FormatTimeString;
-
-        private DispatcherTimer timer;
+        
         public static string DatabasePath { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -89,13 +72,6 @@ namespace OrienteeringToolWPF.Windows
             Console.WriteLine("=====================");
 #endif
             InitializeComponent();
-            FormatTimeString = "HH:mm:ss.f";
-            _currentTime = DateTime.Now;
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(100);
-            timer.Tick += Timer_Tick;
-            timer.Start();
-
             _currentView = null;
 
             // Do bindowania
@@ -104,11 +80,6 @@ namespace OrienteeringToolWPF.Windows
             contentControl.DataContext = this;
 
             Listener.Notify(CommStatus.Off);
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            CurrentTime = DateTime.Now;
         }
 
         // Disconnect from station
@@ -152,7 +123,6 @@ namespace OrienteeringToolWPF.Windows
         private void mainWindow_Closing(object sender, CancelEventArgs e)
         {
             Disconnect();
-            timer.Stop();
         }
 
         // Connect to station - menu
@@ -187,7 +157,7 @@ namespace OrienteeringToolWPF.Windows
             if (ofd.ShowDialog() == true)
             {
                 DatabasePath = ofd.FileName;
-                CurrentView = new KidsCompetitionView(this);
+                CurrentView = new KidsCompetitionView();
             }
         }
 
@@ -210,7 +180,7 @@ namespace OrienteeringToolWPF.Windows
 
                 if (window.ShowDialog() == true)
                 {
-                    CurrentView = new KidsCompetitionView(this);
+                    CurrentView = new KidsCompetitionView();
                 }
                 else
                 {

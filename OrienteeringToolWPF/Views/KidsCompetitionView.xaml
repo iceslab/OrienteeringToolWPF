@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:OrienteeringToolWPF.Views"
              xmlns:main="clr-namespace:OrienteeringToolWPF.Windows"
              xmlns:model="clr-namespace:OrienteeringToolWPF.Model"
+             xmlns:root="clr-namespace:OrienteeringToolWPF"
              mc:Ignorable="d" 
              d:DesignHeight="300">
     <UserControl.DataContext>
@@ -47,7 +48,11 @@
                     <Label Content="{Binding Name}" Grid.Row="1" Grid.Column="1" Margin="2"/>
                     <Label Content="{Binding CourseType}" Grid.Row="2" Grid.Column="1" Margin="2"/>
                     <Label Content="{Binding Description}" Grid.Row="3" Grid.Column="1" Margin="2"/>
-                    <Label Name="currentTimeL" Content="{Binding FormattedCurrentTime}" Grid.Row="4" Grid.Column="1" Margin="2"/>
+                    <Label Name="currentTimeL" Content="{Binding FormattedCurrentTime}" Grid.Row="4" Grid.Column="1" Margin="2">
+                        <Label.DataContext>
+                            <root:ActualTime/>
+                        </Label.DataContext>
+                    </Label>
 
                     <Button x:Name="startTournamentB" Content="Rozpocznij" Grid.Row="5" Grid.Column="1" 
                             Margin="2" HorizontalAlignment="Left" Width="75" Click="startTournamentB_Click"/>
