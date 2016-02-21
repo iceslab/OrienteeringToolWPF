@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrienteeringToolWPF.Views"
              xmlns:main="clr-namespace:OrienteeringToolWPF.Windows"
+             xmlns:model="clr-namespace:OrienteeringToolWPF.Model"
              mc:Ignorable="d" 
              d:DesignHeight="300">
-    <Grid RenderTransformOrigin="0.471,0.49">
+    <UserControl.DataContext>
+        <model:Tournament/>
+    </UserControl.DataContext>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>

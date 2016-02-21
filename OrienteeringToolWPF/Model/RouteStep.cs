@@ -21,7 +21,7 @@ namespace OrienteeringToolWPF.Model
             RouteId = 0;
         }
 
-        public RouteStep(SiPunch sp, long RouteId = 0) : this()
+        public RouteStep(SiPunch sp, long Order, long RouteId = 0) : this()
         {
             Code = sp.Code;
             this.RouteId = RouteId;
@@ -32,8 +32,8 @@ namespace OrienteeringToolWPF.Model
             if (siPunches != null)
             {
                 var rs = new List<RouteStep>(siPunches.Length);
-                foreach (var sp in siPunches)
-                    rs.Add(new RouteStep(sp, RouteId));
+                for (int i = 0; i < siPunches.Length; ++i)
+                    rs.Add(new RouteStep(siPunches[i], i + 1, RouteId));
 
                 return rs;
             }

@@ -78,6 +78,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             window.Owner = this;
             if (window.ShowDialog() == true)
             {
+                RefreshOrder();
                 routeStepsList.Add(window.routeStep);
                 routeStepsLV.Items.Refresh();
             }
@@ -92,6 +93,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 window.Owner = this;
                 if (window.ShowDialog() == true)
                 {
+                    RefreshOrder();
                     routeStepsLV.Items.Refresh();
                 }
             }
@@ -103,6 +105,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             foreach (RouteStep rs in si)
                 routeStepsList.Remove(rs);
 
+            RefreshOrder();
             routeStepsLV.Items.Refresh();
         }
 
@@ -148,6 +151,12 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             if (route.Id != null)
                 routeStepsList = dao.findAllByRouteID((long)route.Id);
             routeStepsLV.ItemsSource = routeStepsList;
+        }
+
+        private void RefreshOrder()
+        {
+            for (int i = 0; i < routeStepsList.Count; ++i)
+                routeStepsList[i].Order = i + 1;
         }
     }
 }

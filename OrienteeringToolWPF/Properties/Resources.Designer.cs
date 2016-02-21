@@ -62,27 +62,16 @@ namespace OrienteeringToolWPF.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to --
-        ///-- Plik wygenerowany przez SQLiteStudio v3.0.7 dnia Pt lut 19 14:55:02 2016
+        ///-- Plik wygenerowany przez SQLiteStudio v3.0.7 dnia N lut 21 21:21:29 2016
         ///--
         ///-- Użyte kodowanie tekstu: windows-1250
         ///--
         ///PRAGMA foreign_keys = off;
         ///BEGIN TRANSACTION;
         ///
-        ///-- Tabela: PROJECT_INFO
-        ///CREATE TABLE [PROJECT_INFO] (        ///
-        ///[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,        ///
-        ///[TOURNAMENT_TYPE] INTEGER  NOT NULL        ///
-        ///);
-        ///
-        ///-- Tabela: RELAYS
-        ///CREATE TABLE [RELAYS] (        ///
-        ///[ID] INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,        ///
-        ///[NAME] VARCHAR(255)  UNIQUE NOT NULL        ///
-        ///);
-        ///
         ///-- Tabela: TOURNAMENT
-        ///CREATE TABLE T [rest of string was truncated]&quot;;.
+        ///CREATE TABLE TOURNAMENT (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, START_TIME DATETIME NOT NULL, STARTED_AT_TIME DATETIME, FINISHED_AT_TIME DATETIME, NAME VARCHAR (255) NOT NULL, COURSE_TYPE INTEGER NOT NULL, DESCRIPTION TEXT);
+        ///INSERT INTO TOURNAMENT (ID, START_TIME, STARTED_AT_TIME, FINISHED_AT_TIME, N [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateKCDatabase {
             get {

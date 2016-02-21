@@ -5,13 +5,9 @@ using System.Windows;
 
 namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 {
-    /// <summary>
-    /// Interaction logic for KCRelayForm.xaml
-    /// </summary>
     public partial class RouteStepForm : Window
     {
         public RouteStep routeStep { get; private set; }
-        private List<Route> routesList;
         private bool noSave;
 
         public RouteStepForm(bool noSave = false)
@@ -21,17 +17,17 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             this.noSave = noSave;
         }
 
-        public RouteStepForm(RouteStep r, bool noSave = false)
+        public RouteStepForm(RouteStep r, bool noSave = false) : this(noSave)
         {
-            InitializeComponent();
             routeStep = r;
+            PopulateOrderCB(routeStep.RouteId, false);
             ObjectToForm();
-            this.noSave = noSave;
         }
 
         public RouteStepForm(Route r, bool noSave = false) : this(noSave)
         {
             routeStep.RouteId = (long)r.Id;
+            PopulateOrderCB(routeStep.RouteId, true);
         }
 
         private void SaveB_Click(object sender, RoutedEventArgs e)
@@ -69,22 +65,31 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 
         private void ObjectToForm()
         {
-            PopulateRouteIdCB();
+            OrderCB.SelectedIndex = (int)(routeStep.Order - 1);
             CodeTB.Text = routeStep.Code.ToString();
         }
 
         private bool ValidateForm()
         {
+            if (OrderCB.SelectedItem == null)
+                return false;
             long n;
             if (!long.TryParse(CodeTB.Text, out n))
                 return false;
             return true;
         }
 
-        private void PopulateRouteIdCB()
+        private void PopulateOrderCB(long routeId, bool insertMode)
         {
-            var r = new RouteDAO();
-            routesList = r.findAll();
+            var r = new RouteStepDAO();
+            var routeStepsCount = r.findAllByRouteID(routeId).Count;
+
+            // When inserting there should be one place more for new item
+            if (insertMode)
+                ++routeStepsCount;
+
+            for(int i = 1; i <= routeStepsCount; ++i)
+                OrderCB.Items.Add(i);
         }
 
     }

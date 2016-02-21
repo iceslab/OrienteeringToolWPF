@@ -187,9 +187,7 @@ namespace OrienteeringToolWPF.Windows
             if (ofd.ShowDialog() == true)
             {
                 DatabasePath = ofd.FileName;
-                var kc = new KidsCompetitionView();
-                kc.currentTimeL.DataContext = this;
-                CurrentView = kc;
+                CurrentView = new KidsCompetitionView(this);
             }
         }
 
@@ -212,7 +210,7 @@ namespace OrienteeringToolWPF.Windows
 
                 if (window.ShowDialog() == true)
                 {
-                    CurrentView = new KidsCompetitionView();
+                    CurrentView = new KidsCompetitionView(this);
                 }
                 else
                 {
