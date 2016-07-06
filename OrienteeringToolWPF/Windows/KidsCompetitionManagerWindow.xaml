@@ -9,6 +9,6 @@
         Title="KidsCompetitionManagerWindow" Height="300" Width="300"
         WindowStartupLocation="CenterOwner">
     <Grid>
-        <ListView Name="listView"></ListView>
+        <ContentControl DataContext="local:KidsCompetitionManagerWindow" x:Name="contentControl" Content="{Binding CurrentView}" />
     </Grid>
 </src:CommonManager>

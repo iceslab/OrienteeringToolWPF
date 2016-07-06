@@ -151,7 +151,7 @@ namespace OrienteeringToolWPF.Windows
             var ofd = new OpenFileDialog();
             //ofd.InitialDirectory = Directory.GetCurrentDirectory();
             ofd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
-            ofd.Filter = "Baza danych SQLite3 (.s3db)|*.s3db|Wszystkie pliki (*.*)|*.*";
+            ofd.Filter = Properties.Resources.DatabaseDialogFilters;
             ofd.FilterIndex = 1;
 
             if (ofd.ShowDialog() == true)
@@ -167,7 +167,7 @@ namespace OrienteeringToolWPF.Windows
             var sfd = new SaveFileDialog();
             //sfd.InitialDirectory = Directory.GetCurrentDirectory();
             sfd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
-            sfd.Filter = "Baza danych SQLite3 (.s3db)|*.s3db|Wszystkie pliki (*.*)|*.*";
+            sfd.Filter = Properties.Resources.DatabaseDialogFilters;
             sfd.FilterIndex = 1;
 
             if (sfd.ShowDialog() == true)

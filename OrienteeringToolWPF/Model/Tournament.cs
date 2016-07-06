@@ -144,6 +144,10 @@ namespace OrienteeringToolWPF.Model
                 else
                     IsRunning = true;
             }
+            else
+            {
+                IsRunning = false;
+            }
         }
     }
 }

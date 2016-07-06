@@ -17,12 +17,15 @@ namespace OrienteeringToolWPF.Windows
             this.tournament = tournament;
         }
 
+        // Starts or resumes competition
         public override void Start()
         {
+            // Competition in progress - resume
             if (tournament.IsRunning == true)
             {
                 Resume();
             }
+            // Competition finished - show information
             else if (tournament.HasFinished == true)
             {
                 MessageBox.Show(this,
@@ -31,11 +34,15 @@ namespace OrienteeringToolWPF.Windows
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
+            // Competition starting
             else
             {
                 MessageBoxResult result = MessageBoxResult.Yes;
+
+                // When current date is earlier than planned start date
                 if (DateTime.Now < tournament.StartTime)
                 {
+                    // Prompt warning and allow override
                     result = MessageBox.Show(this,
                         "Czas rozpoczęcia jeszcze nie minął.\nRozpocząć mimo to?",
                         "Ostrzeżenie",
@@ -50,10 +57,12 @@ namespace OrienteeringToolWPF.Windows
                     // If not connected to station, ask for connection
                     if(PromptForConnection())
                     {
+                        // Save actual start of tournament
                         tournament.StartedAtTime = DateTime.Now;
                         var dao = new TournamentDAO();
                         dao.update(tournament);
 
+                        // Show window and register listener
                         Show();
                         MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
                     }
@@ -61,24 +70,32 @@ namespace OrienteeringToolWPF.Windows
             }
         }
 
+        // Finish competition
         public override void Finish()
         {
+            // Save competition finish time
             tournament.FinishedAtTime = DateTime.Now;
             var dao = new TournamentDAO();
             dao.update(tournament);
+
+            // Close window
             Close();
         }
 
+        // Resume competition
         protected override void Resume()
         {
             // If not connected to station, ask for connection
             if (PromptForConnection())
             {
+                // Show window and register listener
                 Show();
                 MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
             }
         }
 
+        // Prompts user for connection to station if not connected
+        // returns true when connected, false when user refuses to connect
         private bool PromptForConnection()
         {
             while (MainWindow.Handler.NotIsConnected)
@@ -95,7 +112,7 @@ namespace OrienteeringToolWPF.Windows
                         MessageBoxImage.Information,
                         MessageBoxResult.Yes);
 
-                    // Użytkownik odmawia połączenia
+                    // User refuses to connect
                     if (connectionResult == MessageBoxResult.No)
                         return false;
                 }
@@ -104,6 +121,7 @@ namespace OrienteeringToolWPF.Windows
             return true;
         }
 
+        // Listener for incoming chip dataframes
         private void Listener_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "DataFrame")

@@ -71,11 +71,24 @@ namespace OrienteeringToolWPF.Properties {
         ///
         ///-- Tabela: TOURNAMENT
         ///CREATE TABLE TOURNAMENT (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, START_TIME DATETIME NOT NULL, STARTED_AT_TIME DATETIME, FINISHED_AT_TIME DATETIME, NAME VARCHAR (255) NOT NULL, COURSE_TYPE INTEGER NOT NULL, DESCRIPTION TEXT);
-        ///INSERT INTO TOURNAMENT (ID, START_TIME, STARTED_AT_TIME, FINISHED_AT_TIME, N [rest of string was truncated]&quot;;.
+        ///
+        ///-- Tabela: PROJECT_INFO
+        ///CREATE TABLE [PROJECT_INFO] (
+        ///
+        ///[ID] INTEGER  NO [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateKCDatabase {
             get {
                 return ResourceManager.GetString("CreateKCDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Baza danych SQLite3|*.s3db;*.sqlite3;*.db3|Wszystkie pliki (*.*)|*.*.
+        /// </summary>
+        internal static string DatabaseDialogFilters {
+            get {
+                return ResourceManager.GetString("DatabaseDialogFilters", resourceCulture);
             }
         }
     }
