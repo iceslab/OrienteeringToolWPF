@@ -146,9 +146,16 @@
     <Compile Include="Model\RouteStep.cs" />
     <Compile Include="Model\Tournament.cs" />
     <Compile Include="SiListener.cs" />
+    <Compile Include="Views\KidsCompetitionManagerView.xaml.cs">
+      <DependentUpon>KidsCompetitionManagerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\KidsCompetitionView.xaml.cs">
       <DependentUpon>KidsCompetitionView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\KidsCompetitionManagerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Windows\ConnectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

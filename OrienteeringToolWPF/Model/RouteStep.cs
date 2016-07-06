@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Models one step in route - one point to acqiure by competitor
+/// </summary>
 namespace OrienteeringToolWPF.Model
 {
     public class RouteStep : BaseModel

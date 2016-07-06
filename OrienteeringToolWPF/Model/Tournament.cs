@@ -1,6 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 
+/// <summary>
+/// Models tournament info
+/// </summary>
 namespace OrienteeringToolWPF.Model
 {
     public enum CourseEnum : long

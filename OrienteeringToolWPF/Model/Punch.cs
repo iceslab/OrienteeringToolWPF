@@ -1,10 +1,9 @@
 ﻿using GecoSI.Net.Dataframe;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
+/// <summary>
+/// Models punch - data from chip describing acquired checkpoints
+/// </summary>
 namespace OrienteeringToolWPF.Model
 {
     public class Punch : BaseModel

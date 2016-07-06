@@ -1,4 +1,7 @@
-﻿namespace OrienteeringToolWPF.Model
+﻿/// <summary>
+/// Models relay info
+/// </summary>
+namespace OrienteeringToolWPF.Model
 {
     public class Relay : BaseModel
     {

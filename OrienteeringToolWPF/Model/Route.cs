@@ -5,6 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Models route description - eg. every category has its own route (a set of route steps)
+/// here you only have Id and Name of it
+/// </summary>
 namespace OrienteeringToolWPF.Model
 {
     public class Route : BaseModel

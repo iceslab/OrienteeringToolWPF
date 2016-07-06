@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrienteeringToolWPF.Windows"
+        xmlns:views="clr-namespace:OrienteeringToolWPF.Views"
         xmlns:src="clr-namespace:OrienteeringToolWPF.CompetitionManagers" mc:Ignorable="d" 
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
         Title="KidsCompetitionManagerWindow" Height="300" Width="300"
         WindowStartupLocation="CenterOwner">
     <Grid>
-        <ContentControl DataContext="local:KidsCompetitionManagerWindow" x:Name="contentControl" Content="{Binding CurrentView}" />
+        <views:KidsCompetitionManagerView/>
     </Grid>
 </src:CommonManager>
