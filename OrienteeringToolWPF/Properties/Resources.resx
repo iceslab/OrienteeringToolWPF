@@ -166,6 +166,6 @@ COMMIT TRANSACTION;
 PRAGMA foreign_keys = on;</value>
   </data>
   <data name="DatabaseDialogFilters" xml:space="preserve">
-    <value>Baza danych SQLite3|*.s3db;*.sqlite3;*.db3|Wszystkie pliki (*.*)|*.*</value>
+    <value>Baza danych SQLite3|*.sqlite;*.db|Wszystkie pliki (*.*)|*.*</value>
   </data>
 </root>

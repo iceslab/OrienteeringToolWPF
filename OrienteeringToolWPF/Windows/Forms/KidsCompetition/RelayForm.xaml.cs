@@ -28,11 +28,13 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         {
             if (FormToObject())
             {
-                RelayDAO dao = new RelayDAO();
-                if (relay.Id == null)
-                    dao.insert(relay);
-                else
-                    dao.update(relay);
+                var db = MainWindow.GetDatabase();
+                db.Relays.Upsert(relay);
+                //RelayDAO dao = new RelayDAO();
+                //if (relay.Id == null)
+                //    dao.insert(relay);
+                //else
+                //    dao.update(relay);
 
                 Close();
             }
@@ -47,11 +49,13 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         {
             if (FormToObject())
             {
-                RelayDAO dao = new RelayDAO();
-                if (relay.Id == null)
-                    dao.insert(relay);
-                else
-                    dao.update(relay);
+                var db = MainWindow.GetDatabase();
+                db.Relays.Upsert(relay);
+                //RelayDAO dao = new RelayDAO();
+                //if (relay.Id == null)
+                //    dao.insert(relay);
+                //else
+                //    dao.update(relay);
 
                 relay = new Relay();
 

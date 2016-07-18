@@ -45,23 +45,43 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         {
             if (FormToObject())
             {
-                var routeDao = new RouteDAO();
-                var routeStepDao = new RouteStepDAO();
+                var db = MainWindow.GetDatabase();
 
-                if (route.Id == null)
+                using (var tx = db.BeginTransaction())
                 {
-                    routeDao.insert(route);
-                    route = routeDao.findAllByName(route.Name)[0];
+                    // Update route
+                    route = tx.Routes.Upsert(route);
+
+                    // Clear old content
+                    tx.RouteSteps.DeleteByRouteId(route.Id);
+
+                    RouteStep inserted = null;
+                    // Insert new route steps
+                    foreach (var rs in routeStepsList)
+                    {
+                        inserted = tx.RouteSteps.Insert(rs);
+                    }
+                    tx.Commit();
                 }
-                else
-                    routeDao.update(route);
+                /*------------------------------*/
+                //var routeDao = new RouteDAO();
+                //var routeStepDao = new RouteStepDAO();
 
-                // Usuwanie zawartości tabeli
-                routeStepDao.deleteByRouteId((long)route.Id);
+                //if (route.Id == null)
+                //{
+                //    routeDao.insert(route);
+                //    route = routeDao.findAllByName(route.Name)[0];
+                //}
+                //else
+                //    routeDao.update(route);
 
-                // Zapisywanie zmian w tabeli
-                foreach (var rs in routeStepsList)
-                    routeStepDao.insert(rs);
+                //// Usuwanie zawartości tabeli
+                //routeStepDao.deleteByRouteId((long)route.Id);
+
+                //// Zapisywanie zmian w tabeli
+                //foreach (var rs in routeStepsList)
+                //    routeStepDao.insert(rs);
+                /*------------------------------*/
 
                 Close();
             }
@@ -147,9 +167,10 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 
         private void PrepareRouteStepsList()
         {
-            var dao = new RouteStepDAO();
+            var db = MainWindow.GetDatabase();
             if (route.Id != null)
-                routeStepsList = dao.findAllByRouteID((long)route.Id);
+                routeStepsList = db.RouteSteps.FindAllByRouteId(route.Id);
+
             routeStepsLV.ItemsSource = routeStepsList;
         }
 

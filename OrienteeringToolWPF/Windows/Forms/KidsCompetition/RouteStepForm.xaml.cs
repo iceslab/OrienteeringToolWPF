@@ -36,11 +36,14 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             {
                 if(!noSave)
                 {
-                    var dao = new RouteStepDAO();
-                    if (routeStep.Id == null)
-                        dao.insert(routeStep);
-                    else
-                        dao.update(routeStep);
+                    var db = MainWindow.GetDatabase();
+                    db.RouteSteps.Upsert(routeStep);
+
+                    //var dao = new RouteStepDAO();
+                    //if (routeStep.Id == null)
+                    //    dao.insert(routeStep);
+                    //else
+                    //    dao.update(routeStep);
                 }
                 
                 DialogResult = true;
@@ -81,8 +84,14 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 
         private void PopulateOrderCB(long routeId, bool insertMode)
         {
-            var r = new RouteStepDAO();
-            var routeStepsCount = r.findAllByRouteID(routeId).Count;
+            var db = MainWindow.GetDatabase();
+            // TODO: Take into account records added but not yet inserted into database
+            var routeStepsCount = db.RouteSteps.GetCount(db.RouteSteps.RouteId == routeId);
+            
+                //FindAllByRouteId(routeId).Count;
+
+            //var r = new RouteStepDAO();
+            //var routeStepsCount = r.findAllByRouteID(routeId).Count;
 
             // When inserting there should be one place more for new item
             if (insertMode)

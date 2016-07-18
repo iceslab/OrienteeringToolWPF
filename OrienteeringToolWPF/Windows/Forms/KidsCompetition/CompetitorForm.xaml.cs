@@ -15,15 +15,6 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         private Competitor competitor;
         private List<Relay> relaysList;
 
-        public CompetitorForm()
-        {
-            InitializeComponent();
-            MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
-            competitor = new Competitor();
-            BirthDateDP.SelectedDate =
-                new DateTime(DateTime.Now.Year - 8, 1, 1);
-        }
-
         private void Listener_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "DataFrame")
@@ -35,6 +26,14 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                             ChipTB.Text = MainWindow.Listener.DataFrame.SiNumber;
                         }));
             }
+        }
+        public CompetitorForm()
+        {
+            InitializeComponent();
+            MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
+            competitor = new Competitor();
+            BirthDateDP.SelectedDate =
+                new DateTime(DateTime.Now.Year - 8, 1, 1);
         }
 
         public CompetitorForm(Competitor c)
@@ -48,12 +47,8 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         {
             if (FormToObject())
             {
-                CompetitorDAO dao = new CompetitorDAO();
-                if (competitor.Id == null)
-                    dao.insert(competitor);
-                else
-                    dao.update(competitor);
-
+                var db = MainWindow.GetDatabase();
+                db.Competitors.Upsert(competitor);
                 Close();
             }
             else
@@ -67,11 +62,8 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         {
             if (FormToObject())
             {
-                CompetitorDAO dao = new CompetitorDAO();
-                if (competitor.Id == null)
-                    dao.insert(competitor);
-                else
-                    dao.update(competitor);
+                var db = MainWindow.GetDatabase();
+                db.Competitors.Upsert(competitor);
 
                 competitor = new Competitor();
 
@@ -161,8 +153,8 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 
         private void PopulateRelayCB()
         {
-            var r = new RelayDAO();
-            relaysList = r.findAll();
+            var db = MainWindow.GetDatabase();
+            relaysList = db.Relays.All();
 
             RelayIdCB.Items.Clear();
 
@@ -188,8 +180,8 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                     window.Owner = this;
                     window.ShowDialog();
 
-                    var r = new RelayDAO();
-                    var newRelays = r.findAll();
+                    var db = MainWindow.GetDatabase();
+                    List<Relay> newRelays = db.Relays.All();
 
                     if(newRelays.Count > relaysList.Count)
                     {

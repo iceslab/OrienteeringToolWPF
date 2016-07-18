@@ -20,232 +20,27 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TreeView Grid.Column="0" x:Name="relaysTV" HorizontalAlignment="Left" Margin="5" MinWidth="200"/>
+        </Grid>
         <TabControl x:Name="tabControl" Grid.Row="0" Grid.Column="0" 
                     Margin="5"
                     SelectionChanged="tabControl_SelectionChanged">
-            <TabItem Header="Szczegóły zawodów" x:Name="tournamentTab">
-                <Grid x:Name="tournamentG">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="40*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label Content="Czas startu" Grid.Row="0" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
-                    <Label Content="Nazwa" Grid.Row="1" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
-                    <Label Content="Typ sztafety" Grid.Row="2" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
-                    <Label Content="Opis" Grid.Row="3" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
-                    <Label Content="Czas" Grid.Row="4" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
-
-                    <Label Content="{Binding StartTime}" Grid.Row="0" Grid.Column="1" Margin="2"/>
-                    <Label Content="{Binding Name}" Grid.Row="1" Grid.Column="1" Margin="2"/>
-                    <Label Content="{Binding CourseType}" Grid.Row="2" Grid.Column="1" Margin="2"/>
-                    <Label Content="{Binding Description}" Grid.Row="3" Grid.Column="1" Margin="2"/>
-                    <Label Name="currentTimeL" Content="{Binding FormattedCurrentTime}" Grid.Row="4" Grid.Column="1" Margin="2">
-                        <Label.DataContext>
-                            <root:ActualTime/>
-                        </Label.DataContext>
-                    </Label>
-
-                    <Button x:Name="startTournamentB" Content="Rozpocznij" Grid.Row="5" Grid.Column="1" 
-                            Margin="2" HorizontalAlignment="Left" Width="75" Click="startTournamentB_Click"/>
-                </Grid>
-            </TabItem>
             <TabItem Header="Zawodnicy" x:Name="competitorsTab">
-                <ListView x:Name="competitorsLV" DockPanel.Dock="Right">
-                    <ListView.View>
-                        <GridView AllowsColumnReorder="True">
-                            <GridViewColumn>
-                                <GridViewColumn.HeaderTemplate>
-                                    <DataTemplate >
-                                        <TextBlock Text="Id" Margin="2" />
-                                    </DataTemplate>
-                                </GridViewColumn.HeaderTemplate>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Margin="2"
-    											Text="{Binding Id}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="Imię i nazwisko" Margin="2" />
-                                    </DataTemplate>
-                                </GridViewColumn.HeaderTemplate>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Margin="2"
-    											Text="{Binding Name}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="Nr chipa" Margin="2" />
-                                    </DataTemplate>
-                                </GridViewColumn.HeaderTemplate>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Margin="2"
-    											Text="{Binding Chip}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="Sztafeta" Margin="2" />
-                                    </DataTemplate>
-                                </GridViewColumn.HeaderTemplate>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Margin="2"
-    											Text="{Binding RelayId}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="Klasa" Margin="2" />
-                                    </DataTemplate>
-                                </GridViewColumn.HeaderTemplate>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Margin="2"
-    											Text="{Binding Class}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="Płeć" Margin="2" />
-                                    </DataTemplate>
-                                </GridViewColumn.HeaderTemplate>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Margin="2"
-    											Text="{Binding Gender}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="Data urodzenia" Margin="2" />
-                                    </DataTemplate>
-                                </GridViewColumn.HeaderTemplate>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Margin="2"
-    											Text="{Binding BirthDate}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <local:CompetitorsListView/>
             </TabItem>
             <TabItem Header="Sztafety" x:Name="relaysTab">
-                <ListView x:Name="relaysLV" DockPanel.Dock="Right">
-                    <ListView.View>
-                        <GridView AllowsColumnReorder="True">
-                            <GridViewColumn>
-                                <GridViewColumn.HeaderTemplate>
-                                    <DataTemplate >
-                                        <TextBlock Text="Id" Margin="2" />
-                                    </DataTemplate>
-                                </GridViewColumn.HeaderTemplate>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Margin="2"
-    											Text="{Binding Id}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="Nazwa" Margin="2" />
-                                    </DataTemplate>
-                                </GridViewColumn.HeaderTemplate>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Margin="2"
-    											Text="{Binding Name}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <local:RelaysListView/>
             </TabItem>
             <TabItem Header="Trasy" x:Name="routesTab">
-                <ListView x:Name="routesLV" DockPanel.Dock="Right">
-                    <ListView.View>
-                        <GridView AllowsColumnReorder="True">
-                            <GridViewColumn>
-                                <GridViewColumn.HeaderTemplate>
-                                    <DataTemplate >
-                                        <TextBlock Text="Id" Margin="2" />
-                                    </DataTemplate>
-                                </GridViewColumn.HeaderTemplate>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Margin="2"
-    											Text="{Binding Id}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="Nazwa" Margin="2" />
-                                    </DataTemplate>
-                                </GridViewColumn.HeaderTemplate>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Margin="2"
-    											Text="{Binding Name}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <local:RoutesListView/>
             </TabItem>
         </TabControl>
         <WrapPanel Grid.Row="1">

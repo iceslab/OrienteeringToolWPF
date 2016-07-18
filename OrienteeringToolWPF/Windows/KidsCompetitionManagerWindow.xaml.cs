@@ -59,8 +59,10 @@ namespace OrienteeringToolWPF.Windows
                     {
                         // Save actual start of tournament
                         tournament.StartedAtTime = DateTime.Now;
-                        var dao = new TournamentDAO();
-                        dao.update(tournament);
+                        var db = MainWindow.GetDatabase();
+                        db.Update(tournament);
+                        //var dao = new TournamentDAO();
+                        //dao.update(tournament);
 
                         // Show window and register listener
                         Show();
@@ -75,8 +77,10 @@ namespace OrienteeringToolWPF.Windows
         {
             // Save competition finish time
             tournament.FinishedAtTime = DateTime.Now;
-            var dao = new TournamentDAO();
-            dao.update(tournament);
+            var db = MainWindow.GetDatabase();
+            db.Tournament.Update(tournament);
+            //var dao = new TournamentDAO();
+            //dao.update(tournament);
 
             // Close window
             Close();

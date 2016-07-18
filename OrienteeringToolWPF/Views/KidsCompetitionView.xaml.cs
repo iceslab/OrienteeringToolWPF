@@ -15,6 +15,7 @@ namespace OrienteeringToolWPF.Views
 
     public partial class KidsCompetitionView : UserControl
     {
+        #region KidsCompetitionView fields
         enum TabIndexEnum
         {
             TOURNAMENT = 0,
@@ -27,48 +28,42 @@ namespace OrienteeringToolWPF.Views
         public List<Competitor> CompetitorsList { get; private set; }
         public List<Relay> RelaysList { get; private set; }
         public List<Route> RoutesList { get; private set; }
+        #endregion
 
         public KidsCompetitionView()
         {
             InitializeComponent();
         }
 
+        #region Tab and data handling methods
         private void GetTournaments()
         {
-            var dao = new TournamentDAO();
-            var TournamentList = dao.findAll();
-            for (int i = 1; i < TournamentList.Count; i++)
-                dao.deleteById(TournamentList[i]);
+            var db = MainWindow.GetDatabase();
+            tournament = db.Tournament.Get(1);
+            db.Tournament.DeleteAll(db.Tournament.Id != tournament.Id);
 
-            if (TournamentList.Count > 1)
-                TournamentList = dao.findAll();
-            tournament = TournamentList[0];
-
-            tournamentG.DataContext = tournament;
+            tournamentView.tournamentG.DataContext = tournament;
         }
 
         private void GetCompetitors()
         {
-            var dao = new CompetitorDAO();
-            CompetitorsList = dao.findAll();
-
-            competitorsLV.ItemsSource = CompetitorsList;
+            var db = MainWindow.GetDatabase();
+            CompetitorsList = db.Competitors.All();
+            competitorsView.competitorsLV.ItemsSource = CompetitorsList;
         }
 
         private void GetRelays()
         {
-            var dao = new RelayDAO();
-            RelaysList = dao.findAll();
-
-            relaysLV.ItemsSource = RelaysList;
+            var db = MainWindow.GetDatabase();
+            RelaysList = db.Relays.All();
+            relaysView.relaysLV.ItemsSource = RelaysList;
         }
 
         private void GetRoutes()
         {
-            var dao = new RouteDAO();
-            RoutesList = dao.findAll();
-
-            routesLV.ItemsSource = RoutesList;
+            var db = MainWindow.GetDatabase();
+            RoutesList = db.Routes.All();
+            routesView.routesLV.ItemsSource = RoutesList;
         }
 
         private void PrepareTab(TabIndexEnum index)
@@ -84,26 +79,28 @@ namespace OrienteeringToolWPF.Views
                 case TabIndexEnum.COMPETITORS:
                     addB.Visibility = Visibility.Visible;
                     deleteB.Visibility = Visibility.Visible;
-                    ManageButtons(competitorsLV);
+                    ManageButtons(competitorsView.competitorsLV);
                     GetCompetitors();
                     break;
                 case TabIndexEnum.RELAYS:
                     addB.Visibility = Visibility.Visible;
                     deleteB.Visibility = Visibility.Visible;
-                    ManageButtons(relaysLV);
+                    ManageButtons(relaysView.relaysLV);
                     GetRelays();
                     break;
                 case TabIndexEnum.ROUTES:
                     addB.Visibility = Visibility.Visible;
                     deleteB.Visibility = Visibility.Visible;
-                    ManageButtons(routesLV);
+                    ManageButtons(routesView.routesLV);
                     GetRoutes();
                     break;
                 default:
                     break;
             }
         }
+        #endregion
 
+        #region Button callback methods
         private void addB_Click(object sender, RoutedEventArgs e)
         {
             Window window = null;
@@ -138,13 +135,13 @@ namespace OrienteeringToolWPF.Views
                     window = new TournamentForm(tournament);
                     break;
                 case TabIndexEnum.COMPETITORS:
-                    window = new CompetitorForm((Competitor)competitorsLV.SelectedItem);
+                    window = new CompetitorForm((Competitor)competitorsView.competitorsLV.SelectedItem);
                     break;
                 case TabIndexEnum.RELAYS:
-                    window = new RelayForm((Relay)relaysLV.SelectedItem);
+                    window = new RelayForm((Relay)relaysView.relaysLV.SelectedItem);
                     break;
                 case TabIndexEnum.ROUTES:
-                    window = new RouteForm((Route)routesLV.SelectedItem);
+                    window = new RouteForm((Route)routesView.routesLV.SelectedItem);
                     break;
                 default:
                     return;
@@ -157,45 +154,29 @@ namespace OrienteeringToolWPF.Views
 
         private void deleteB_Click(object sender, RoutedEventArgs e)
         {
-            object dao = null;
-            var index = (TabIndexEnum)tabControl.SelectedIndex;
-            switch (index)
+            if (ShowDeleteWarning() == MessageBoxResult.OK)
             {
-                case TabIndexEnum.COMPETITORS:
-                    if (ShowDeleteWarning() != MessageBoxResult.OK)
+                var db = MainWindow.GetDatabase();
+                var index = (TabIndexEnum)tabControl.SelectedIndex;
+                switch (index)
+                {
+                    case TabIndexEnum.COMPETITORS:
+                        foreach (Competitor c in competitorsView.competitorsLV.SelectedItems)
+                            db.Competitors.DeleteById(c.Id);
                         break;
-                    dao = new CompetitorDAO();
-                    foreach (Competitor c in competitorsLV.SelectedItems)
-                        ((CompetitorDAO)dao).deleteById(c);
-                    break;
-                case TabIndexEnum.RELAYS:
-                    if (ShowDeleteWarning() != MessageBoxResult.OK)
+                    case TabIndexEnum.RELAYS:
+                        foreach (Relay r in relaysView.relaysLV.SelectedItems)
+                            db.Relays.DeleteById(r.Id);
                         break;
-                    dao = new RelayDAO();
-                    foreach (Relay r in relaysLV.SelectedItems)
-                        ((RelayDAO)dao).deleteById(r);
-                    break;
-                case TabIndexEnum.ROUTES:
-                    if (ShowDeleteWarning() != MessageBoxResult.OK)
+                    case TabIndexEnum.ROUTES:
+                        foreach (Route r in routesView.routesLV.SelectedItems)
+                            db.Routes.DeleteById(r.Id);
                         break;
-                    dao = new RouteDAO();
-                    foreach (Route r in routesLV.SelectedItems)
-                        ((RouteDAO)dao).deleteById(r);
-                    break;
-                default:
-                    return;
+                    default:
+                        return;
+                }
+                PrepareTab(index);
             }
-            PrepareTab(index);
-        }
-
-        private MessageBoxResult ShowDeleteWarning()
-        {
-            return MessageBox.Show(
-                Window.GetWindow(this),
-                "Uwaga!\nUsunięte zostaną także wszystkie powiązane dane.",
-                "Ostrzeżenie",
-                MessageBoxButton.OKCancel,
-                MessageBoxImage.Warning);
         }
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -231,5 +212,16 @@ namespace OrienteeringToolWPF.Views
             kcWindow.Owner = Window.GetWindow(this);
             kcWindow.Start();
         }
+#endregion
+        private MessageBoxResult ShowDeleteWarning()
+        {
+            return MessageBox.Show(
+                Window.GetWindow(this),
+                "Uwaga!\nUsunięte zostaną także wszystkie powiązane dane.",
+                "Ostrzeżenie",
+                MessageBoxButton.OKCancel,
+                MessageBoxImage.Warning);
+        }
+
     }
 }

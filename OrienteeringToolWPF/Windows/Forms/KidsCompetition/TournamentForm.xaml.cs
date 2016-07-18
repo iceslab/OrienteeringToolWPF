@@ -30,11 +30,13 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         {
             if (FormToObject())
             {
-                TournamentDAO dao = new TournamentDAO();
-                if (tournament.Id == null)
-                    dao.insert(tournament);
-                else
-                    dao.update(tournament);
+                var db = MainWindow.GetDatabase();
+                db.Tournament.Upsert(tournament);
+                //TournamentDAO dao = new TournamentDAO();
+                //if (tournament.Id == null)
+                //    dao.insert(tournament);
+                //else
+                //    dao.update(tournament);
 
                 DialogResult = true;
                 Close();

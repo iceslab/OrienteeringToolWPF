@@ -84,7 +84,7 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Baza danych SQLite3|*.s3db;*.sqlite3;*.db3|Wszystkie pliki (*.*)|*.*.
+        ///   Looks up a localized string similar to Baza danych SQLite3|*.sqlite;*.db|Wszystkie pliki (*.*)|*.*.
         /// </summary>
         internal static string DatabaseDialogFilters {
             get {
