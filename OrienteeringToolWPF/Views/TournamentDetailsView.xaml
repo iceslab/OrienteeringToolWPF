@@ -7,37 +7,47 @@
              xmlns:root="clr-namespace:OrienteeringToolWPF"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid x:Name="tournamentG">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="40*"/>
-        </Grid.ColumnDefinitions>
+        <Grid x:Name="tournamentG" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="40*"/>
+            </Grid.ColumnDefinitions>
 
-        <Label Content="Czas startu" Grid.Row="0" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
-        <Label Content="Nazwa" Grid.Row="1" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
-        <Label Content="Typ sztafety" Grid.Row="2" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
-        <Label Content="Opis" Grid.Row="3" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
-        <Label Content="Czas" Grid.Row="4" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
+            <Label Content="Czas startu" Grid.Row="0" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
+            <Label Content="Nazwa" Grid.Row="1" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
+            <Label Content="Typ sztafety" Grid.Row="2" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
+            <Label Content="Opis" Grid.Row="3" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
+            <Label Content="Czas" Grid.Row="4" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
 
-        <Label Content="{Binding StartTime}" Grid.Row="0" Grid.Column="1" Margin="2"/>
-        <Label Content="{Binding Name}" Grid.Row="1" Grid.Column="1" Margin="2"/>
-        <Label Content="{Binding CourseType}" Grid.Row="2" Grid.Column="1" Margin="2"/>
-        <Label Content="{Binding Description}" Grid.Row="3" Grid.Column="1" Margin="2"/>
-        <Label Name="currentTimeL" Content="{Binding FormattedCurrentTime}" Grid.Row="4" Grid.Column="1" Margin="2">
-            <Label.DataContext>
-                <root:ActualTime/>
-            </Label.DataContext>
-        </Label>
+            <Label Content="{Binding StartTime}" Grid.Row="0" Grid.Column="1" Margin="2"/>
+            <Label Content="{Binding Name}" Grid.Row="1" Grid.Column="1" Margin="2"/>
+            <Label Content="{Binding CourseType}" Grid.Row="2" Grid.Column="1" Margin="2"/>
+            <Label Content="{Binding Description}" Grid.Row="3" Grid.Column="1" Margin="2"/>
+            <Label Name="currentTimeL" Content="{Binding FormattedCurrentTime}" Grid.Row="4" Grid.Column="1" Margin="2">
+                <Label.DataContext>
+                    <root:ActualTime/>
+                </Label.DataContext>
+            </Label>
 
-        <Button x:Name="startTournamentB" Content="Rozpocznij" Grid.Row="5" Grid.Column="1" 
+            <Button x:Name="startTournamentB" Content="Rozpocznij" Grid.Row="5" Grid.Column="1" 
                             Margin="2" HorizontalAlignment="Left" Width="75" Click="startTournamentB_Click"/>
+        </Grid>
+        <WrapPanel Grid.Row="1">
+            <Button x:Name="editB" Content="Edytuj" Width="75" Margin="2" Click="editB_Click"/>
+        </WrapPanel>
     </Grid>
+    
 </UserControl>

@@ -1,5 +1,4 @@
 ﻿using OrienteeringToolWPF.CompetitionManagers;
-using OrienteeringToolWPF.DAO.Implementation;
 using OrienteeringToolWPF.Model;
 using System;
 using System.ComponentModel;
@@ -14,6 +13,9 @@ namespace OrienteeringToolWPF.Windows
         public KidsCompetitionManagerWindow(Tournament tournament) : base()
         {
             InitializeComponent();
+            managerView.competitorsView.SetButtonsVisibility(Visibility.Collapsed);
+            managerView.relaysView.SetButtonsVisibility(Visibility.Collapsed);
+            managerView.routesView.SetButtonsVisibility(Visibility.Collapsed);
             this.tournament = tournament;
         }
 
@@ -79,8 +81,6 @@ namespace OrienteeringToolWPF.Windows
             tournament.FinishedAtTime = DateTime.Now;
             var db = MainWindow.GetDatabase();
             db.Tournament.Update(tournament);
-            //var dao = new TournamentDAO();
-            //dao.update(tournament);
 
             // Close window
             Close();

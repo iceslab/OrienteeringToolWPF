@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="OrienteeringToolWPF.Views.Lists.RoutesListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OrienteeringToolWPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListView x:Name="routesLV" DockPanel.Dock="Right" Grid.Row="0" SelectionChanged="routesLV_SelectionChanged">
+            <ListView.View>
+                <GridView AllowsColumnReorder="True">
+                    <GridViewColumn>
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate >
+                                <TextBlock Text="Id" Margin="2" />
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Margin="2"
+    											Text="{Binding Id}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Nazwa" Margin="2" />
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Margin="2"
+    											Text="{Binding Name}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <WrapPanel Grid.Row="1">
+            <Button x:Name="addB" Content="Dodaj" Width="75" Margin="2" Click="addB_Click"/>
+            <Button x:Name="editB" Content="Edytuj" Width="75" Margin="2" Click="editB_Click"/>
+            <Button x:Name="deleteB" Content="Usuń" Width="75" Margin="2" Click="deleteB_Click"/>
+        </WrapPanel>
+    </Grid>
+</UserControl>

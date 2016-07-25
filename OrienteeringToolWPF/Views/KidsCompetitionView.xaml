@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrienteeringToolWPF.Views"
+             xmlns:lists="clr-namespace:OrienteeringToolWPF.Views.Lists"
              xmlns:main="clr-namespace:OrienteeringToolWPF.Windows"
              xmlns:model="clr-namespace:OrienteeringToolWPF.Model"
              xmlns:root="clr-namespace:OrienteeringToolWPF"
@@ -20,26 +21,20 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl x:Name="tabControl" Grid.Row="0" Grid.Column="0" 
-                    Margin="5"
-                    SelectionChanged="tabControl_SelectionChanged">
+        <TabControl x:Name="tabControl" Grid.Row="0" Grid.Column="0" SelectionChanged="tabControl_SelectionChanged"
+                    Margin="5">
             <TabItem Header="Szczegóły zawodów" x:Name="tournamentTab">
                 <local:TournamentDetailsView x:Name="tournamentView"/>
             </TabItem>
             <TabItem Header="Zawodnicy" x:Name="competitorsTab">
-                <local:CompetitorsListView x:Name="competitorsView"/>
+                <lists:CompetitorsListView x:Name="competitorsView"/>
             </TabItem>
             <TabItem Header="Sztafety" x:Name="relaysTab">
-                <local:RelaysListView x:Name="relaysView"/>
+                <lists:RelaysListView x:Name="relaysView"/>
             </TabItem>
             <TabItem Header="Trasy" x:Name="routesTab">
-                <local:RoutesListView x:Name="routesView"/>
+                <lists:RoutesListView x:Name="routesView"/>
             </TabItem>
         </TabControl>
-        <WrapPanel Grid.Row="1">
-            <Button x:Name="addB" Content="Dodaj" Width="75" Margin="2" Click="addB_Click"/>
-            <Button x:Name="editB" Content="Edytuj" Width="75" Margin="2" Click="editB_Click"/>
-            <Button x:Name="deleteB" Content="Usuń" Width="75" Margin="2" Click="deleteB_Click"/>
-        </WrapPanel>
     </Grid>
 </UserControl>

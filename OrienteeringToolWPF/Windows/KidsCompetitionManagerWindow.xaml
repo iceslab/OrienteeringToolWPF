@@ -7,9 +7,9 @@
         xmlns:views="clr-namespace:OrienteeringToolWPF.Views"
         xmlns:src="clr-namespace:OrienteeringToolWPF.CompetitionManagers" mc:Ignorable="d" 
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-        Title="KidsCompetitionManagerWindow" Height="300" Width="300"
+        Title="KidsCompetitionManagerWindow" Height="500" Width="700"
         WindowStartupLocation="CenterOwner">
     <Grid>
-        <views:KidsCompetitionManagerView/>
+        <views:KidsCompetitionManagerView x:Name="managerView"/>
     </Grid>
 </src:CommonManager>

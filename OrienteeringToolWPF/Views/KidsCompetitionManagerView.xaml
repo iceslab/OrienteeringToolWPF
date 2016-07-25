@@ -4,49 +4,34 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrienteeringToolWPF.Views"
+             xmlns:lists="clr-namespace:OrienteeringToolWPF.Views.Lists"
              xmlns:main="clr-namespace:OrienteeringToolWPF.Windows"
              xmlns:model="clr-namespace:OrienteeringToolWPF.Model"
              xmlns:root="clr-namespace:OrienteeringToolWPF"
              mc:Ignorable="d" 
-             d:DesignHeight="300">
+             d:DesignHeight="300" d:DesignWidth="500">
     <UserControl.DataContext>
         <model:Tournament/>
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <TreeView Grid.Column="0" x:Name="relaysTV" HorizontalAlignment="Left" Margin="5" MinWidth="200"/>
-        </Grid>
-        <TabControl x:Name="tabControl" Grid.Row="0" Grid.Column="0" 
-                    Margin="5"
-                    SelectionChanged="tabControl_SelectionChanged">
+        <local:RelaysAndCompetitorsTreeView x:Name="relaysTV" Grid.Column="0" HorizontalAlignment="Left" Margin="5" MinWidth="200"/>
+        <TabControl x:Name="tabControl" Grid.Column="1" Margin="5">
             <TabItem Header="Zawodnicy" x:Name="competitorsTab">
-                <local:CompetitorsListView/>
+                <lists:CompetitorsListView x:Name="competitorsView"/>
             </TabItem>
             <TabItem Header="Sztafety" x:Name="relaysTab">
-                <local:RelaysListView/>
+                <lists:RelaysListView x:Name="relaysView"/>
             </TabItem>
             <TabItem Header="Trasy" x:Name="routesTab">
-                <local:RoutesListView/>
+                <lists:RoutesListView x:Name="routesView"/>
             </TabItem>
         </TabControl>
-        <WrapPanel Grid.Row="1">
-            <Button x:Name="addB" Content="Dodaj" Width="75" Margin="2" Click="addB_Click"/>
-            <Button x:Name="editB" Content="Edytuj" Width="75" Margin="2" Click="editB_Click"/>
-            <Button x:Name="deleteB" Content="Usuń" Width="75" Margin="2" Click="deleteB_Click"/>
-        </WrapPanel>
     </Grid>
 </UserControl>

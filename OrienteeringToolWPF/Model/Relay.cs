@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿using OrienteeringToolWPF.Model;
+using System.Collections.Generic;
+/// <summary>
 /// Models relay info
 /// </summary>
 namespace OrienteeringToolWPF.Model
@@ -7,6 +9,7 @@ namespace OrienteeringToolWPF.Model
     {
         public long? Id { get; set; }
         public string Name { get; set; }
+        public IList<Competitor> Competitors { get; set; }
 
         public override string ToString()
         {

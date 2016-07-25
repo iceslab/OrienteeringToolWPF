@@ -198,12 +198,7 @@ namespace OrienteeringToolWPF.Windows
             if (ofd.ShowDialog() == true)
             {
                 DatabasePath = ofd.FileName;
-
-                //var db = GetDatabase();
-                //var x = db.Tournament.FindById(1);
-                //db.Tournament.Upsert();
-                //Tournament t = (Tournament)x;
-
+                DatabaseType = DatabaseTypeEnum.SQLITE3;
                 CurrentView = new KidsCompetitionView();
             }
         }
@@ -220,6 +215,7 @@ namespace OrienteeringToolWPF.Windows
             if (sfd.ShowDialog() == true)
             {
                 DatabasePath = sfd.FileName;
+                DatabaseType = DatabaseTypeEnum.SQLITE3;
                 CreateKCDatabase();
 
                 var window = new TournamentForm();
@@ -233,6 +229,7 @@ namespace OrienteeringToolWPF.Windows
                 {
                     File.Delete(DatabasePath);
                     DatabasePath = "";
+                    DatabaseType = DatabaseTypeEnum.NONE;
                 }
             }
         }

@@ -158,7 +158,8 @@
     <Compile Include="Model\RouteStep.cs" />
     <Compile Include="Model\Tournament.cs" />
     <Compile Include="SiListener.cs" />
-    <Compile Include="Views\CompetitorsListView.xaml.cs">
+    <Compile Include="Utils\MessageUtils.cs" />
+    <Compile Include="Views\Lists\CompetitorsListView.xaml.cs">
       <DependentUpon>CompetitorsListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\KidsCompetitionManagerView.xaml.cs">
@@ -167,7 +168,7 @@
     <Compile Include="Views\KidsCompetitionView.xaml.cs">
       <DependentUpon>KidsCompetitionView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\CompetitorsListView.xaml">
+    <Page Include="Views\Lists\CompetitorsListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -175,11 +176,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\RelaysListView.xaml">
+    <Page Include="Views\RelaysAndCompetitorsTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RoutesListView.xaml">
+    <Page Include="Views\Lists\RelaysListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Lists\RoutesListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -223,10 +228,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\RelaysListView.xaml.cs">
+    <Compile Include="Interfaces\ButtonsManageable.cs" />
+    <Compile Include="Interfaces\Refreshable.cs" />
+    <Compile Include="Views\RelaysAndCompetitorsTreeView.xaml.cs">
+      <DependentUpon>RelaysAndCompetitorsTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Lists\RelaysListView.xaml.cs">
       <DependentUpon>RelaysListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RoutesListView.xaml.cs">
+    <Compile Include="Views\Lists\RoutesListView.xaml.cs">
       <DependentUpon>RoutesListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TournamentDetailsView.xaml.cs">
