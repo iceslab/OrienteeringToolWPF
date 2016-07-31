@@ -65,7 +65,7 @@ namespace OrienteeringToolWPF.Windows
                         // Save actual start of tournament
                         tournament.StartedAtTime = DateTime.Now;
                         var db = MainWindow.GetDatabase();
-                        db.Update(tournament);
+                        db.Tournaments.Update(tournament);
 
                         // Show window and register listener
                         Show();

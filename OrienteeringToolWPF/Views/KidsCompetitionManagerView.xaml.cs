@@ -1,7 +1,6 @@
 ﻿using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Windows;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Controls;
 
@@ -33,19 +32,23 @@ namespace OrienteeringToolWPF.Views
                         break;
                 }
 
-                //foreach(var item in relaysTV.)
-
-                if(competitor != null)
+                // If competitor exists insert punches and select from tree view
+                if (competitor != null)
                 {
                     var punchesList = Punch.Parse(MainWindow.Listener.DataFrame.Punches, result.Chip);
-                    //relaysTV.
-                }
-
-                if (relaysTV.RelayList.Exists(x =>
-                    ((List<Competitor>)x.Competitors).Exists(y
-                        => y.Chip == result.Chip)))
-                {
-                    
+                    var db = MainWindow.GetDatabase();
+                    using (var tx = db.BeginTransaction())
+                    {
+                        tx.Results.Upsert(result);
+                        var deleted = tx.Punches.DeleteByChip(result.Chip);
+                        Punch inserted = null;
+                        foreach (var p in punchesList)
+                        {
+                            inserted = tx.Punches.Insert(p);
+                        }
+                        tx.Commit();
+                    }
+                    relaysTV.SelectCompetitor(competitor);
                 }
             }
         }

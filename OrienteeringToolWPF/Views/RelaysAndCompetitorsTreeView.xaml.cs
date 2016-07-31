@@ -2,6 +2,7 @@
 using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Views.Lists;
 using OrienteeringToolWPF.Windows;
+using OrienteeringToolWPF.Utils;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -19,12 +20,6 @@ namespace OrienteeringToolWPF.Views
         {
             InitializeComponent();
             Refresh();
-            foreach(var item in relaysAndCompetitorsTV.Items)
-            {
-                Console.WriteLine(item);
-            }
-            RelayList[0].IsExpanded = true;
-            RelayList[0].Competitors[0].IsSelected = true;
         }
 
         public void Refresh()
@@ -67,6 +62,15 @@ namespace OrienteeringToolWPF.Views
                 }
             }
             catch (InvalidCastException) { }
+        }
+
+        public void SelectCompetitor(Competitor competitor)
+        {
+            Dispatcher.Invoke(new Action(() => 
+            {
+                relaysAndCompetitorsTV.Focus();
+                relaysAndCompetitorsTV.SetSelectedItem(competitor);
+            }));
         }
     }
 }

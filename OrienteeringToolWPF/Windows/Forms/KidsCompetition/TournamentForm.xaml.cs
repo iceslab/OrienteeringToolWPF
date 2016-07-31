@@ -1,5 +1,6 @@
 ﻿using OrienteeringToolWPF.DAO.Implementation;
 using OrienteeringToolWPF.Model;
+using OrienteeringToolWPF.Utils;
 using System;
 using System.Windows;
 
@@ -38,8 +39,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             }
             else
             {
-                MessageBox.Show(this, "Nieprawidłowe dane", "Błąd",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageUtils.ShowValidatorErrors(this, errors);
             }
         }
 

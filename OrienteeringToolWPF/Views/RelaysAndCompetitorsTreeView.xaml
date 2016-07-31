@@ -8,11 +8,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <TreeView Name="relaysAndCompetitorsTV" SelectedItemChanged="relaysAndCompetitorsTV_SelectedItemChanged">
-        <TreeView.Resources>
+        <TreeView.ItemContainerStyle>
+            <Style TargetType="{x:Type TreeViewItem}">
+                <Setter Property="IsExpanded" Value="True"/>
+            </Style>
+        </TreeView.ItemContainerStyle>
+        <TreeView.ItemTemplate>
             <!-- Relay template -->
-            <HierarchicalDataTemplate 
-                DataType="{x:Type model:Competitor}" 
-                ItemsSource="{Binding Competitors}">
+            <HierarchicalDataTemplate ItemsSource="{Binding Competitors}">
                 <TextBlock Text="{Binding Name}"/>
                 <!-- Competitor template -->
                 <HierarchicalDataTemplate.ItemTemplate>
@@ -29,11 +32,7 @@
                 </HierarchicalDataTemplate.ItemTemplate>
                 <!-- End of Competitor template -->
             </HierarchicalDataTemplate>
-            <Style TargetType="TreeViewItem">
-                <Setter Property="IsSelected" Value="{Binding Path=IsSelected}"/>
-                <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded}"/>
-            </Style>
             <!-- End of Relay template -->
-        </TreeView.Resources>
+        </TreeView.ItemTemplate>
     </TreeView>
 </UserControl>

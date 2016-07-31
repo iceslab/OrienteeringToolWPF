@@ -1,11 +1,4 @@
-﻿using OrienteeringToolWPF.DAO.Implementation;
-using OrienteeringToolWPF.Interfaces;
-using OrienteeringToolWPF.Model;
-using OrienteeringToolWPF.Windows;
-using OrienteeringToolWPF.Windows.Forms.KidsCompetition;
-using System;
-using System.Collections.Generic;
-using System.Windows;
+﻿using OrienteeringToolWPF.Interfaces;
 using System.Windows.Controls;
 
 namespace OrienteeringToolWPF.Views

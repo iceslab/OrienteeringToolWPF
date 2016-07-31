@@ -60,18 +60,6 @@ namespace OrienteeringToolWPF.Windows
 
         public MainWindow()
         {
-            var culture = new CultureInfo("pl");
-
-            CultureInfo.DefaultThreadCurrentCulture = culture;
-            CultureInfo.DefaultThreadCurrentUICulture = culture;
-            Thread.CurrentThread.CurrentCulture = culture;
-            Thread.CurrentThread.CurrentUICulture = culture;
-
-            LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
-                new FrameworkPropertyMetadata(
-                    XmlLanguage.GetLanguage(
-                        CultureInfo.CurrentCulture.IetfLanguageTag)));
-
             InitializeComponent();
             _currentView = null;
 
