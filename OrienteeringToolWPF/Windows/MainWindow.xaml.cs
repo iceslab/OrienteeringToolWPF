@@ -98,7 +98,7 @@ namespace OrienteeringToolWPF.Windows
         // Get dynamic database object
         public static dynamic GetDatabase()
         {
-            switch(DatabaseType)
+            switch (DatabaseType)
             {
                 case DatabaseTypeEnum.SQLITE3:
                     return GetDatabaseSQLite3();
@@ -114,38 +114,27 @@ namespace OrienteeringToolWPF.Windows
         // Create project and database for "Kids Competition"
         private void CreateKCDatabase()
         {
-            // Default answer
-            var result = true;
+            // Create database file
+            SQLiteConnection.CreateFile(DatabasePath);
+            var connection = GetConnection();
+            var command = connection.CreateCommand();
 
-            // Checks if database exists
-            if(File.Exists(DatabasePath))
-                result =  MessageUtils.ShowOverwriteWarning(this);
+            // Prepare creation command
+            command.CommandText = Properties.Resources.CreateKCDatabase;
 
-            // If database does not exist or user wants to overwrite
-            if(result == true)
+            // Execute command
+            try
             {
-                // Create database file
-                SQLiteConnection.CreateFile(DatabasePath);
-                var connection = GetConnection();
-                var command = connection.CreateCommand();
-
-                // Prepare creation command
-                command.CommandText = Properties.Resources.CreateKCDatabase;
-
-                // Execute command
-                try
-                {
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
-                finally
-                {
-                    connection.Close();
-                }
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
