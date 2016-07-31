@@ -145,7 +145,8 @@
     <value>Sztafeta</value>
   </data>
   <data name="ConnectionNeeddedInfo" xml:space="preserve">
-    <value>Aby móc rozpocząć lub kontynuować zawody należy połączyć się ze stacją.\nSpróbować ponownie?</value>
+    <value>Aby móc rozpocząć lub kontynuować zawody należy połączyć się ze stacją.
+Spróbować ponownie?</value>
   </data>
   <data name="ConnectionNotConnected" xml:space="preserve">
     <value>Nie połączono się ze stacją</value>
@@ -207,13 +208,15 @@ COMMIT TRANSACTION;
 PRAGMA foreign_keys = on;</value>
   </data>
   <data name="DatabaseCascadeDeleteWarning" xml:space="preserve">
-    <value>Uwaga!\nUsunięte zostaną także wszystkie powiązane dane.</value>
+    <value>Uwaga!
+Usunięte zostaną także wszystkie powiązane dane.</value>
   </data>
   <data name="DatabaseDialogFilters" xml:space="preserve">
     <value>Baza danych SQLite3|*.sqlite;*.db|Wszystkie pliki (*.*)|*.*</value>
   </data>
   <data name="DatabaseOverwriteWarning" xml:space="preserve">
-    <value>Uwaga!\nBaza danych istnieje, czy chcesz nadpisać?</value>
+    <value>Uwaga!
+Baza danych istnieje, czy chcesz nadpisać?</value>
   </data>
   <data name="Errors" xml:space="preserve">
     <value>Błędy:</value>
@@ -291,7 +294,8 @@ PRAGMA foreign_keys = on;</value>
     <value>Czas startu: {0}</value>
   </data>
   <data name="StartTimeNotPassedWarning" xml:space="preserve">
-    <value>Czas rozpoczęcia jeszcze nie minął.\nRozpocząć mimo to?</value>
+    <value>Czas rozpoczęcia jeszcze nie minął.
+Rozpocząć mimo to?</value>
   </data>
   <data name="TournamentCourseType" xml:space="preserve">
     <value>Typ sztafety</value>

@@ -142,7 +142,8 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aby móc rozpocząć lub kontynuować zawody należy połączyć się ze stacją.\nSpróbować ponownie?.
+        ///   Looks up a localized string similar to Aby móc rozpocząć lub kontynuować zawody należy połączyć się ze stacją.
+        ///Spróbować ponownie?.
         /// </summary>
         public static string ConnectionNeeddedInfo {
             get {
@@ -183,7 +184,8 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uwaga!\nUsunięte zostaną także wszystkie powiązane dane..
+        ///   Looks up a localized string similar to Uwaga!
+        ///Usunięte zostaną także wszystkie powiązane dane..
         /// </summary>
         public static string DatabaseCascadeDeleteWarning {
             get {
@@ -201,7 +203,8 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uwaga!\nBaza danych istnieje, czy chcesz nadpisać?.
+        ///   Looks up a localized string similar to Uwaga!
+        ///Baza danych istnieje, czy chcesz nadpisać?.
         /// </summary>
         public static string DatabaseOverwriteWarning {
             get {
@@ -435,7 +438,8 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Czas rozpoczęcia jeszcze nie minął.\nRozpocząć mimo to?.
+        ///   Looks up a localized string similar to Czas rozpoczęcia jeszcze nie minął.
+        ///Rozpocząć mimo to?.
         /// </summary>
         public static string StartTimeNotPassedWarning {
             get {

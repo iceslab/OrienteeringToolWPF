@@ -145,19 +145,22 @@
     <value>Relay</value>
   </data>
   <data name="ConnectionNeeddedInfo" xml:space="preserve">
-    <value>To start or continue competition you need to be connected to SPORTident station.\nTry again?</value>
+    <value>To start or continue competition you need to be connected to SPORTident station.
+Try again?</value>
   </data>
   <data name="ConnectionNotConnected" xml:space="preserve">
     <value>Not connected to station</value>
   </data>
   <data name="DatabaseCascadeDeleteWarning" xml:space="preserve">
-    <value>Caution!\nAll constrained data will be deleted.</value>
+    <value>Caution!
+All constrained data will be deleted.</value>
   </data>
   <data name="DatabaseDialogFilters" xml:space="preserve">
     <value>SQLite3 database|*.sqlite;*.db|All files (*.*)|*.*</value>
   </data>
   <data name="DatabaseOverwriteWarning" xml:space="preserve">
-    <value>Caution!\nDatabase exists, do you want to overwrite?</value>
+    <value>Caution!
+Database exists, do you want to overwrite?</value>
   </data>
   <data name="Errors" xml:space="preserve">
     <value>Errors:</value>
@@ -235,7 +238,8 @@
     <value>Start time: {0}</value>
   </data>
   <data name="StartTimeNotPassedWarning" xml:space="preserve">
-    <value>Start time has not passed.\nStart anyway?</value>
+    <value>Start time has not passed.
+Start anyway?</value>
   </data>
   <data name="TournamentCourseType" xml:space="preserve">
     <value>Course type</value>
