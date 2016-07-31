@@ -13,7 +13,7 @@ namespace OrienteeringToolWPF.Views.Lists
     /// <summary>
     /// Interaction logic for CompetitorsListView.xaml
     /// </summary>
-    public partial class CompetitorsListView : UserControl, Refreshable, ButtonsManageable
+    public partial class CompetitorsListView : UserControl, IRefreshable, IButtonsManageable
     {
         public long? RelayId { get; set; }
         public List<Competitor> CompetitorsList { get; private set; }

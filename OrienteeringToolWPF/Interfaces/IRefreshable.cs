@@ -1,6 +1,6 @@
 ﻿namespace OrienteeringToolWPF.Interfaces
 {
-    interface Refreshable
+    interface IRefreshable
     {
         void Refresh();
     }

@@ -1,5 +1,6 @@
 ﻿using OrienteeringToolWPF.Interfaces;
 using OrienteeringToolWPF.Model;
+using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Windows;
 using OrienteeringToolWPF.Windows.Forms.KidsCompetition;
 using System.Windows;
@@ -10,7 +11,7 @@ namespace OrienteeringToolWPF.Views
     /// <summary>
     /// Interaction logic for TournamentDetailsView.xaml
     /// </summary>
-    public partial class TournamentDetailsView : UserControl, Refreshable
+    public partial class TournamentDetailsView : UserControl, IRefreshable
     {
         public Tournament tournament { get; private set; }
 
@@ -38,9 +39,12 @@ namespace OrienteeringToolWPF.Views
 
         private void startTournamentB_Click(object sender, RoutedEventArgs e)
         {
-            var kcWindow = new KidsCompetitionManagerWindow(tournament);
-            kcWindow.Owner = Window.GetWindow(this);
-            kcWindow.Start();
+            if(MessageUtils.PromptForConnection(this) == true)
+            {
+                var kcWindow = new KidsCompetitionManagerWindow(tournament);
+                kcWindow.Owner = Window.GetWindow(this);
+                kcWindow.Start();
+            }
         }
     }
 }

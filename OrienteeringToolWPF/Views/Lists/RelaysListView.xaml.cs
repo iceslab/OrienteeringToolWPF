@@ -13,7 +13,7 @@ namespace OrienteeringToolWPF.Views.Lists
     /// <summary>
     /// Interaction logic for RelaysListView.xaml
     /// </summary>
-    public partial class RelaysListView : UserControl, Refreshable, ButtonsManageable
+    public partial class RelaysListView : UserControl, IRefreshable, IButtonsManageable
     {
         public List<Relay> RelaysList { get; private set; }
 

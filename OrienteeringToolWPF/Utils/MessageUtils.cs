@@ -1,10 +1,7 @@
 ﻿using GecoSI.Net;
+using OrienteeringToolWPF.Windows;
 using OrienteeringToolWPF.Windows.Forms;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace OrienteeringToolWPF.Utils
@@ -52,6 +49,56 @@ namespace OrienteeringToolWPF.Utils
                                     Properties.Resources.Warning,
                                     MessageBoxButton.YesNo,
                                     MessageBoxImage.Warning);
+            return GetBoolFromMessageBoxResult(mbr);
+        }
+
+        public static bool ShowConnectionNeeddedInfo(DependencyObject obj)
+        {
+            var mbr = MessageBox.Show(Window.GetWindow(obj),
+                        Properties.Resources.ConnectionNeeddedInfo,
+                        Properties.Resources.ConnectionNotConnected,
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Information,
+                        MessageBoxResult.Yes);
+            return GetBoolFromMessageBoxResult(mbr);
+        }
+
+        public static void ShowCannotStartFinishedInfo(DependencyObject obj)
+        {
+            MessageBox.Show(Window.GetWindow(obj),
+                    Properties.Resources.CompetitionCannotStart,
+                    Properties.Resources.CompetitionHasFinished,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+        }
+
+        // Prompts user for connection to station if not connected
+        // returns true when connected, false when user refuses to connect
+        public static bool PromptForConnection(DependencyObject obj)
+        {
+            while (MainWindow.Handler.NotIsConnected)
+            {
+                var connectionW = new ConnectionWindow();
+                connectionW.Owner = Window.GetWindow(obj);
+                if (connectionW.ShowDialog() != true)
+                {
+                    // User refuses to connect
+                    if (ShowConnectionNeeddedInfo(obj) == false)
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool ShowStartBeforeTimeWarning(DependencyObject obj)
+        {
+            var mbr = MessageBox.Show(Window.GetWindow(obj),
+                        Properties.Resources.StartTimeNotPassedWarning,
+                        Properties.Resources.Warning,
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning,
+                        MessageBoxResult.No);
             return GetBoolFromMessageBoxResult(mbr);
         }
 

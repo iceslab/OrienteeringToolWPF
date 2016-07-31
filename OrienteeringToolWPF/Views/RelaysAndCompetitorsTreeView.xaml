@@ -4,12 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrienteeringToolWPF.Views"
+             xmlns:model="clr-namespace:OrienteeringToolWPF.Model"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <TreeView Name="relaysAndCompetitorsTV" SelectedItemChanged="relaysAndCompetitorsTV_SelectedItemChanged">
-        <TreeView.ItemTemplate>
+        <TreeView.Resources>
             <!-- Relay template -->
-            <HierarchicalDataTemplate ItemsSource="{Binding Competitors}">
+            <HierarchicalDataTemplate 
+                DataType="{x:Type model:Competitor}" 
+                ItemsSource="{Binding Competitors}">
                 <TextBlock Text="{Binding Name}"/>
                 <!-- Competitor template -->
                 <HierarchicalDataTemplate.ItemTemplate>
@@ -26,7 +29,11 @@
                 </HierarchicalDataTemplate.ItemTemplate>
                 <!-- End of Competitor template -->
             </HierarchicalDataTemplate>
+            <Style TargetType="TreeViewItem">
+                <Setter Property="IsSelected" Value="{Binding Path=IsSelected}"/>
+                <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded}"/>
+            </Style>
             <!-- End of Relay template -->
-        </TreeView.ItemTemplate>
+        </TreeView.Resources>
     </TreeView>
 </UserControl>

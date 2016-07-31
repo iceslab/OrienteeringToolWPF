@@ -23,7 +23,7 @@ namespace OrienteeringToolWPF.Views
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var lv = (tabControl.SelectedItem as TabItem)?.Content as Refreshable;
+            var lv = (tabControl.SelectedItem as TabItem)?.Content as IRefreshable;
             lv?.Refresh();
         }
 

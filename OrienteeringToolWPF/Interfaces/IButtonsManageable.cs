@@ -2,7 +2,7 @@
 
 namespace OrienteeringToolWPF.Interfaces
 {
-    interface ButtonsManageable
+    interface IButtonsManageable
     {
         void SetButtonsVisibility(Visibility all);
         void SetButtonsVisibility(Visibility add, Visibility edit, Visibility delete);

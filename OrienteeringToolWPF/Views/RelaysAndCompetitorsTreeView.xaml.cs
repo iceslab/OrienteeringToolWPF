@@ -12,13 +12,19 @@ namespace OrienteeringToolWPF.Views
     /// <summary>
     /// Interaction logic for RelaysAndCompetitorsTreeView.xaml
     /// </summary>
-    public partial class RelaysAndCompetitorsTreeView : UserControl, Refreshable
+    public partial class RelaysAndCompetitorsTreeView : UserControl, IRefreshable
     {
         public List<Relay> RelayList { get; private set; }
         public RelaysAndCompetitorsTreeView()
         {
             InitializeComponent();
             Refresh();
+            foreach(var item in relaysAndCompetitorsTV.Items)
+            {
+                Console.WriteLine(item);
+            }
+            RelayList[0].IsExpanded = true;
+            RelayList[0].Competitors[0].IsSelected = true;
         }
 
         public void Refresh()
@@ -35,28 +41,32 @@ namespace OrienteeringToolWPF.Views
 
         private void relaysAndCompetitorsTV_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            SetNewView(e.NewValue);
+            Console.WriteLine(sender);
+        }
+
+        private void SetNewView(object NewValue)
+        {
             ICurrentView window = null;
             try
             {
                 window = (ICurrentView)Window.GetWindow(this);
-                if (e.NewValue is Competitor)
+                if (NewValue is Competitor)
                 {
-                    var c = (Competitor)e.NewValue;
+                    var c = (Competitor)NewValue;
                     var uc = new ResultsAndPunchesListView(c.Chip);
                     uc.SetButtonsVisibility(Visibility.Collapsed);
                     window.CurrentView = uc;
                 }
-                else if (e.NewValue is Relay)
+                else if (NewValue is Relay)
                 {
-                    var r = (Relay)e.NewValue;
+                    var r = (Relay)NewValue;
                     var uc = new CompetitorsListView(r.Id);
                     uc.SetButtonsVisibility(Visibility.Collapsed);
                     window.CurrentView = uc;
                 }
             }
-            catch(InvalidCastException){}
-
-            Console.WriteLine(sender);
+            catch (InvalidCastException) { }
         }
     }
 }

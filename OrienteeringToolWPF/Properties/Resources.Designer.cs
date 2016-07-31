@@ -79,6 +79,24 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nie można rozpocząć zakończonych zawodów..
+        /// </summary>
+        public static string CompetitionCannotStart {
+            get {
+                return ResourceManager.GetString("CompetitionCannotStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zawody zostały zakończone.
+        /// </summary>
+        public static string CompetitionHasFinished {
+            get {
+                return ResourceManager.GetString("CompetitionHasFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data urodzenia.
         /// </summary>
         public static string CompetitorBirthDate {
@@ -120,6 +138,24 @@ namespace OrienteeringToolWPF.Properties {
         public static string CompetitorRelay {
             get {
                 return ResourceManager.GetString("CompetitorRelay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aby móc rozpocząć lub kontynuować zawody należy połączyć się ze stacją.\nSpróbować ponownie?.
+        /// </summary>
+        public static string ConnectionNeeddedInfo {
+            get {
+                return ResourceManager.GetString("ConnectionNeeddedInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie połączono się ze stacją.
+        /// </summary>
+        public static string ConnectionNotConnected {
+            get {
+                return ResourceManager.GetString("ConnectionNotConnected", resourceCulture);
             }
         }
         
@@ -395,6 +431,15 @@ namespace OrienteeringToolWPF.Properties {
         public static string StartTimeFormat {
             get {
                 return ResourceManager.GetString("StartTimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czas rozpoczęcia jeszcze nie minął.\nRozpocząć mimo to?.
+        /// </summary>
+        public static string StartTimeNotPassedWarning {
+            get {
+                return ResourceManager.GetString("StartTimeNotPassedWarning", resourceCulture);
             }
         }
         

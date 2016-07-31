@@ -13,7 +13,7 @@ namespace OrienteeringToolWPF.Views.Lists
     /// <summary>
     /// Interaction logic for CompetitorsListView.xaml
     /// </summary>
-    public partial class ResultsAndPunchesListView : UserControl, Refreshable, ButtonsManageable
+    public partial class ResultsAndPunchesListView : UserControl, IRefreshable, IButtonsManageable
     {
         public long? Chip { get; set; }
         public Result Result { get; private set; }

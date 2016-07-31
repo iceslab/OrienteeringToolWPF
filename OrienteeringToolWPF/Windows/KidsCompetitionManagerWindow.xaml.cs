@@ -1,6 +1,7 @@
 ﻿using OrienteeringToolWPF.CompetitionManagers;
 using OrienteeringToolWPF.Interfaces;
 using OrienteeringToolWPF.Model;
+using OrienteeringToolWPF.Utils;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -41,41 +42,30 @@ namespace OrienteeringToolWPF.Windows
             // Competition finished - show information
             else if (tournament.HasFinished == true)
             {
-                MessageBox.Show(this,
-                    "Nie można rozpocząć zakończonych zawodów",
-                    "Zawody zostały zakończone",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
+                MessageUtils.ShowCannotStartFinishedInfo(this);
             }
             // Competition starting
             else
             {
-                MessageBoxResult result = MessageBoxResult.Yes;
+                var result = true;
 
                 // When current date is earlier than planned start date
                 if (DateTime.Now < tournament.StartTime)
                 {
                     // Prompt warning and allow override
-                    result = MessageBox.Show(this,
-                        "Czas rozpoczęcia jeszcze nie minął.\nRozpocząć mimo to?",
-                        "Ostrzeżenie",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Warning,
-                        MessageBoxResult.No);
+                    result = MessageUtils.ShowStartBeforeTimeWarning(this);
                 }
 
                 // Actual start of tournament
-                if (result == MessageBoxResult.Yes)
+                if (result == true)
                 {
                     // If not connected to station, ask for connection
-                    if(PromptForConnection())
+                    if (MessageUtils.PromptForConnection(this) == true)
                     {
                         // Save actual start of tournament
                         tournament.StartedAtTime = DateTime.Now;
                         var db = MainWindow.GetDatabase();
                         db.Update(tournament);
-                        //var dao = new TournamentDAO();
-                        //dao.update(tournament);
 
                         // Show window and register listener
                         Show();
@@ -101,39 +91,12 @@ namespace OrienteeringToolWPF.Windows
         protected override void Resume()
         {
             // If not connected to station, ask for connection
-            if (PromptForConnection())
+            if (MessageUtils.PromptForConnection(this) == true)
             {
                 // Show window and register listener
                 Show();
                 MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
             }
-        }
-
-        // Prompts user for connection to station if not connected
-        // returns true when connected, false when user refuses to connect
-        private bool PromptForConnection()
-        {
-            while (MainWindow.Handler.NotIsConnected)
-            {
-                var connectionW = new ConnectionWindow();
-                connectionW.Owner = Owner;
-                if (connectionW.ShowDialog() != true)
-                {
-                    var connectionResult = MessageBox.Show(Owner,
-                        "Aby móc rozpocząć zawody należy połączyć się ze stacją." +
-                        "\nSpróbować ponownie?",
-                        "Nie połączono się ze stacją.",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Information,
-                        MessageBoxResult.Yes);
-
-                    // User refuses to connect
-                    if (connectionResult == MessageBoxResult.No)
-                        return false;
-                }
-            }
-
-            return true;
         }
 
         // Listener for incoming chip dataframes

@@ -130,6 +130,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interfaces\IExpandable.cs" />
+    <Compile Include="Interfaces\ISelectable.cs" />
     <Compile Include="Properties\Resources.pl.Designer.cs">
       <DependentUpon>Resources.pl.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -256,8 +258,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Interfaces\ButtonsManageable.cs" />
-    <Compile Include="Interfaces\Refreshable.cs" />
+    <Compile Include="Interfaces\IButtonsManageable.cs" />
+    <Compile Include="Interfaces\IRefreshable.cs" />
     <Compile Include="Views\RelaysAndCompetitorsTreeView.xaml.cs">
       <DependentUpon>RelaysAndCompetitorsTreeView.xaml</DependentUpon>
     </Compile>

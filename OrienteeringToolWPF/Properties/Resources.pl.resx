@@ -123,6 +123,12 @@
   <data name="ChipNumberFormat" xml:space="preserve">
     <value>Numer chipa: {0}</value>
   </data>
+  <data name="CompetitionCannotStart" xml:space="preserve">
+    <value>Nie można rozpocząć zakończonych zawodów.</value>
+  </data>
+  <data name="CompetitionHasFinished" xml:space="preserve">
+    <value>Zawody zostały zakończone</value>
+  </data>
   <data name="CompetitorBirthDate" xml:space="preserve">
     <value>Data urodzenia</value>
   </data>
@@ -137,6 +143,12 @@
   </data>
   <data name="CompetitorRelay" xml:space="preserve">
     <value>Sztafeta</value>
+  </data>
+  <data name="ConnectionNeeddedInfo" xml:space="preserve">
+    <value>Aby móc rozpocząć lub kontynuować zawody należy połączyć się ze stacją.\nSpróbować ponownie?</value>
+  </data>
+  <data name="ConnectionNotConnected" xml:space="preserve">
+    <value>Nie połączono się ze stacją</value>
   </data>
   <data name="CreateKCDatabase" xml:space="preserve">
     <value>--
@@ -269,6 +281,9 @@ PRAGMA foreign_keys = on;</value>
   </data>
   <data name="StartTimeFormat" xml:space="preserve">
     <value>Czas startu: {0}</value>
+  </data>
+  <data name="StartTimeNotPassedWarning" xml:space="preserve">
+    <value>Czas rozpoczęcia jeszcze nie minął.\nRozpocząć mimo to?</value>
   </data>
   <data name="TournamentCourseType" xml:space="preserve">
     <value>Typ sztafety</value>

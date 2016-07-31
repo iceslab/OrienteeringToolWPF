@@ -13,7 +13,7 @@ namespace OrienteeringToolWPF.Views.Lists
     /// <summary>
     /// Interaction logic for RoutesListView.xaml
     /// </summary>
-    public partial class RoutesListView : UserControl, Refreshable, ButtonsManageable
+    public partial class RoutesListView : UserControl, IRefreshable, IButtonsManageable
     {
         public List<Route> RoutesList { get; private set; }
         public RoutesListView()
