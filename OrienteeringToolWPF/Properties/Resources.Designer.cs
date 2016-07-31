@@ -61,6 +61,15 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nie odnaleziono stacji.
+        /// </summary>
+        public static string CannotFindStation {
+            get {
+                return ResourceManager.GetString("CannotFindStation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Czas kontroli: {0}.
         /// </summary>
         public static string CheckTimeFormat {
@@ -157,6 +166,15 @@ namespace OrienteeringToolWPF.Properties {
         public static string ConnectionNotConnected {
             get {
                 return ResourceManager.GetString("ConnectionNotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naciśnij &quot;Wyszukaj&quot; aby znaleźć stację.
+        /// </summary>
+        public static string ConnectionWindowUsage {
+            get {
+                return ResourceManager.GetString("ConnectionWindowUsage", resourceCulture);
             }
         }
         
@@ -416,6 +434,15 @@ namespace OrienteeringToolWPF.Properties {
         public static string RouteStepOrder {
             get {
                 return ResourceManager.GetString("RouteStepOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wyszukiwanie....
+        /// </summary>
+        public static string Searching {
+            get {
+                return ResourceManager.GetString("Searching", resourceCulture);
             }
         }
         

@@ -14,15 +14,15 @@ namespace OrienteeringToolWPF.Windows
         public ConnectionWindow()
         {
             InitializeComponent();
-            probePorts();
+            ProbePorts();
         }
 
         private void probeButton_Click(object sender, RoutedEventArgs e)
         {
-            probePorts();
+            ProbePorts();
         }
 
-        private void probePorts()
+        private void ProbePorts()
         {
             probeButton.IsEnabled = false;
             connectButton.IsEnabled = false;
@@ -30,7 +30,7 @@ namespace OrienteeringToolWPF.Windows
             portname = null;
 
             portLBox.Items.Clear();
-            portLBox.Items.Add("Wyszukiwanie...");
+            portLBox.Items.Add(Properties.Resources.Searching);
             var portNames = SerialPort.GetPortNames();
             portLBox.Items.Clear();
             foreach (var port in portNames)
@@ -40,12 +40,14 @@ namespace OrienteeringToolWPF.Windows
 
             if(portNames.Length == 0)
             {
-                portLBox.Items.Add("Nie znaleziono stacji");
-                portLBox.Items.Add("Naciśnij \"Wyszukaj\" aby znaleźć stację");
+                portLBox.Items.Add(Properties.Resources.CannotFindStation);
+                portLBox.Items.Add(Properties.Resources.ConnectionWindowUsage);
             }
             else
             {
                 portLBox.IsEnabled = true;
+                portLBox.Focus();
+                portLBox.SelectedIndex = 0;
             }
 
             probeButton.IsEnabled = true;
@@ -64,8 +66,11 @@ namespace OrienteeringToolWPF.Windows
 
         private void portLBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            connectButton.IsEnabled = true;
-            portname = (string)portLBox.SelectedValue;
+            if (portLBox.SelectedItem != null)
+            {
+                connectButton.IsEnabled = true;
+                portname = (string)portLBox.SelectedValue;
+            }
         }
     }
 }
