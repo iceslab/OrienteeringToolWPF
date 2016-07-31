@@ -11,18 +11,19 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
     /// </summary>
     public partial class TournamentForm : Window, IForm
     {
-        private Tournament tournament;
+        public Tournament tournament { get; private set; }
+        private bool noSave;
 
-        public TournamentForm()
+        public TournamentForm(bool noSave = false)
         {
             InitializeComponent();
             tournament = new Tournament();
             StartTimeDP.DefaultValue = DateTime.Now;
+            this.noSave = noSave;
         }
 
-        public TournamentForm(Tournament t)
+        public TournamentForm(Tournament t, bool noSave = false) : this(noSave)
         {
-            InitializeComponent();
             tournament = t;
             ObjectToForm();
         }
@@ -32,14 +33,23 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             var errors = FormToObject();
             if (errors.HasErrors() == false)
             {
-                var db = MainWindow.GetDatabase();
-                db.Tournament.Upsert(tournament);
+                if (noSave == false)
+                    Save();
                 DialogResult = true;
                 Close();
             }
             else
             {
                 MessageUtils.ShowValidatorErrors(this, errors);
+            }
+        }
+
+        public void Save()
+        {
+            if (tournament != null)
+            {
+                var db = MainWindow.GetDatabase();
+                db.Tournament.Upsert(tournament);
             }
         }
 
