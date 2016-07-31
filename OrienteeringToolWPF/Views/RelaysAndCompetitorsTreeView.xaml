@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:OrienteeringToolWPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <TreeView Name="relaysAndCompetitorsTV">
+    <TreeView Name="relaysAndCompetitorsTV" SelectedItemChanged="relaysAndCompetitorsTV_SelectedItemChanged">
         <TreeView.ItemTemplate>
             <!-- Relay template -->
             <HierarchicalDataTemplate ItemsSource="{Binding Competitors}">

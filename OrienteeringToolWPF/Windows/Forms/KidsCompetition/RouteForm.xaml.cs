@@ -1,12 +1,13 @@
 ﻿using OrienteeringToolWPF.DAO.Implementation;
 using OrienteeringToolWPF.Model;
+using OrienteeringToolWPF.Utils;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 
 namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 {
-    public partial class RouteForm : Window
+    public partial class RouteForm : Window, IForm
     {
         private Route route;
         private List<RouteStep> routeStepsList;
@@ -43,7 +44,8 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 
         private void SaveB_Click(object sender, RoutedEventArgs e)
         {
-            if (FormToObject())
+            var errors = FormToObject();
+            if (errors.HasErrors() == false)
             {
                 var db = MainWindow.GetDatabase();
 
@@ -63,32 +65,12 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                     }
                     tx.Commit();
                 }
-                /*------------------------------*/
-                //var routeDao = new RouteDAO();
-                //var routeStepDao = new RouteStepDAO();
-
-                //if (route.Id == null)
-                //{
-                //    routeDao.insert(route);
-                //    route = routeDao.findAllByName(route.Name)[0];
-                //}
-                //else
-                //    routeDao.update(route);
-
-                //// Usuwanie zawartości tabeli
-                //routeStepDao.deleteByRouteId((long)route.Id);
-
-                //// Zapisywanie zmian w tabeli
-                //foreach (var rs in routeStepsList)
-                //    routeStepDao.insert(rs);
-                /*------------------------------*/
 
                 Close();
             }
             else
             {
-                MessageBox.Show(this, "Nieprawidłowe dane", "Błąd",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageUtils.ShowValidatorErrors(this, errors);
             }
         }
 
@@ -143,26 +125,27 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             }
         }
 
-        private bool FormToObject()
-        {
-            if (ValidateForm())
-            {
-                route.Name = NameTB.Text;
-                return true;
-            }
-            return false;
-        }
-
-        private void ObjectToForm()
+        public void ObjectToForm()
         {
             NameTB.Text = route.Name;
         }
 
-        private bool ValidateForm()
+        public ErrorList FormToObject()
         {
+            var errors = ValidateForm();
+            if (errors.HasErrors() == false)
+            {
+                route.Name = NameTB.Text;
+            }
+            return errors;
+        }
+
+        public ErrorList ValidateForm()
+        {
+            var errors = new ErrorList();
             if (string.IsNullOrWhiteSpace(NameTB.Text))
-                return false;
-            return true;
+                errors.Add(Properties.Resources.RouteName, Properties.Resources.NotANumberError);
+            return errors;
         }
 
         private void PrepareRouteStepsList()

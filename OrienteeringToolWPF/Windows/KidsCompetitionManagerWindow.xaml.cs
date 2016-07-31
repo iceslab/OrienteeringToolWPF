@@ -1,21 +1,32 @@
 ﻿using OrienteeringToolWPF.CompetitionManagers;
+using OrienteeringToolWPF.Interfaces;
 using OrienteeringToolWPF.Model;
 using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace OrienteeringToolWPF.Windows
 {
-    public partial class KidsCompetitionManagerWindow : CommonManager
+    public partial class KidsCompetitionManagerWindow : CommonManager, ICurrentView
     {
         public Tournament tournament { get; private set; }
+        private UserControl _currentView;
+        public UserControl CurrentView
+        {
+            get { return _currentView; }
+
+            set
+            {
+                _currentView = value;
+                OnPropertyChanged("CurrentView");
+            }
+        }
 
         public KidsCompetitionManagerWindow(Tournament tournament) : base()
         {
             InitializeComponent();
-            managerView.competitorsView.SetButtonsVisibility(Visibility.Collapsed);
-            managerView.relaysView.SetButtonsVisibility(Visibility.Collapsed);
-            managerView.routesView.SetButtonsVisibility(Visibility.Collapsed);
+            managerView.DataContext = this;
             this.tournament = tournament;
         }
 

@@ -48,7 +48,7 @@ namespace OrienteeringToolWPF.Views.Lists
 
         private void deleteB_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageUtils.ShowDeleteWarning(this) == MessageBoxResult.OK)
+            if (MessageUtils.ShowDeleteWarning(this) == true)
             {
                 var db = MainWindow.GetDatabase();
                 foreach (Route r in routesLV.SelectedItems)

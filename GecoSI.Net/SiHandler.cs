@@ -114,6 +114,7 @@ namespace GecoSI.Net
         {
             GecoSiLogger.Error(errorMessage);
             siListener.Notify(errorStatus, errorMessage);
+            Stop();
         }
 
         public virtual bool OnEcardDown(string siNumber)
@@ -145,7 +146,7 @@ namespace GecoSI.Net
             set
             {
                 _connected = value;
-                OnPropertyChanged("isConnected");
+                OnPropertyChanged("IsConnected");
                 OnPropertyChanged("NotIsConnected");
             }
         }
@@ -155,7 +156,7 @@ namespace GecoSI.Net
             set
             {
                 _connected = !value;
-                OnPropertyChanged("isConnected");
+                OnPropertyChanged("IsConnected");
                 OnPropertyChanged("NotIsConnected");
             }
         }

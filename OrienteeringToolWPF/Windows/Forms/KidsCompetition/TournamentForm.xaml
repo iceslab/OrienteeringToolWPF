@@ -35,7 +35,7 @@
             <Label x:Name="CourseTypeL" Content="Typ sztafety" Grid.Row="2" Grid.Column="0" Height="30" HorizontalAlignment="Right"/>
             <Label x:Name="DescriptionL" Content="Opis" Grid.Row="3" Grid.Column="0" Height="30" HorizontalAlignment="Right"/>
 
-            <xctk:DateTimePicker  x:Name="StartTimeTB" Grid.Row="0" Grid.Column="1" Height="25" Margin="5" DisplayDefaultValueOnEmptyText="True"/>
+            <xctk:DateTimePicker  x:Name="StartTimeDP" Grid.Row="0" Grid.Column="1" Height="25" Margin="5" DisplayDefaultValueOnEmptyText="True"/>
             <TextBox x:Name="NameTB" Grid.Row="1" Grid.Column="1" Height="25" Margin="5"/>
             <ComboBox x:Name="CourseTypeCB" Grid.Row="2" Grid.Column="1" Height="25" Margin="5" SelectedIndex="0">
                 <ComboBoxItem Content="Czas startu to czas odbity na chipie"/>

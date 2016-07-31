@@ -1,7 +1,9 @@
 ﻿using GecoSI.Net;
 using GecoSI.Net.Dataframe;
+using OrienteeringToolWPF.Utils;
 using System;
 using System.ComponentModel;
+using System.Windows;
 
 namespace OrienteeringToolWPF
 {
@@ -37,6 +39,7 @@ namespace OrienteeringToolWPF
         public void Notify(CommStatus errorStatus, String errorMessage)
         {
             Status = "Status: Error: " + errorStatus + " " + errorMessage;
+            MessageUtils.ShowSiHandlerError(errorStatus, errorMessage);
         }
 
         public bool OnEcardDown(string siNumber)

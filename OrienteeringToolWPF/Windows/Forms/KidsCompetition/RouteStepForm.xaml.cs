@@ -1,11 +1,12 @@
 ﻿using OrienteeringToolWPF.DAO.Implementation;
 using OrienteeringToolWPF.Model;
+using OrienteeringToolWPF.Utils;
 using System.Collections.Generic;
 using System.Windows;
 
 namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 {
-    public partial class RouteStepForm : Window
+    public partial class RouteStepForm : Window, IForm
     {
         public RouteStep routeStep { get; private set; }
         private bool noSave;
@@ -32,18 +33,13 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 
         private void SaveB_Click(object sender, RoutedEventArgs e)
         {
-            if (FormToObject())
+            var errors = FormToObject();
+            if (errors.HasErrors() == false)
             {
                 if(!noSave)
                 {
                     var db = MainWindow.GetDatabase();
                     db.RouteSteps.Upsert(routeStep);
-
-                    //var dao = new RouteStepDAO();
-                    //if (routeStep.Id == null)
-                    //    dao.insert(routeStep);
-                    //else
-                    //    dao.update(routeStep);
                 }
                 
                 DialogResult = true;
@@ -51,35 +47,35 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             }
             else
             {
-                MessageBox.Show(this, "Nieprawidłowe dane", "Błąd",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageUtils.ShowValidatorErrors(this, errors);
             }
         }
 
-        private bool FormToObject()
-        {
-            if (ValidateForm())
-            {
-                routeStep.Code = long.Parse(CodeTB.Text);
-                return true;
-            }
-            return false;
-        }
-
-        private void ObjectToForm()
+        public void ObjectToForm()
         {
             OrderCB.SelectedIndex = (int)(routeStep.Order - 1);
             CodeTB.Text = routeStep.Code.ToString();
         }
 
-        private bool ValidateForm()
+        public ErrorList FormToObject()
         {
+            var errors = ValidateForm();
+            if (errors.HasErrors() == false)
+            {
+                routeStep.Code = long.Parse(CodeTB.Text);
+            }
+            return errors;
+        }
+
+        public ErrorList ValidateForm()
+        {
+            var errors = new ErrorList();
             if (OrderCB.SelectedItem == null)
-                return false;
+                errors.Add(Properties.Resources.RouteStepOrder, Properties.Resources.InvalidOrderError);
             long n;
             if (!long.TryParse(CodeTB.Text, out n))
-                return false;
-            return true;
+                errors.Add(Properties.Resources.RouteStepCode, Properties.Resources.NotANumberError);
+            return errors;
         }
 
         private void PopulateOrderCB(long routeId, bool insertMode)

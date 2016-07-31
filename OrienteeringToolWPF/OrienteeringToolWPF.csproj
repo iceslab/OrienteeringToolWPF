@@ -130,7 +130,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ActualTime.cs" />
+    <Compile Include="Properties\Resources.pl.Designer.cs">
+      <DependentUpon>Resources.pl.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\Resources.en.Designer.cs">
+      <DependentUpon>Resources.en.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Utils\ActualTime.cs" />
     <Compile Include="CompetitionManagers\CommonManager.cs" />
     <Compile Include="DAO\CommonDAO.cs" />
     <Compile Include="DAO\Implementation\CompetitorDAO.cs" />
@@ -148,6 +158,7 @@
     <Compile Include="DAO\Base\BaseTournamentDAO.cs" />
     <Compile Include="DAO\Implementation\RelayDAO.cs" />
     <Compile Include="DAO\Implementation\TournamentDAO.cs" />
+    <Compile Include="Interfaces\ICurrentView.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Competitor.cs" />
     <Compile Include="Model\ProjectInfo.cs" />
@@ -158,7 +169,12 @@
     <Compile Include="Model\RouteStep.cs" />
     <Compile Include="Model\Tournament.cs" />
     <Compile Include="SiListener.cs" />
+    <Compile Include="Utils\LongConverter.cs" />
+    <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\MessageUtils.cs" />
+    <Compile Include="Views\Lists\ResultsListView.xaml.cs">
+      <DependentUpon>ResultsListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Lists\CompetitorsListView.xaml.cs">
       <DependentUpon>CompetitorsListView.xaml</DependentUpon>
     </Compile>
@@ -168,6 +184,10 @@
     <Compile Include="Views\KidsCompetitionView.xaml.cs">
       <DependentUpon>KidsCompetitionView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Lists\ResultsListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Lists\CompetitorsListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -199,6 +219,14 @@
     <Page Include="Windows\Forms\KidsCompetition\CompetitorForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Forms\KidsCompetition\ResultForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Forms\KidsCompetition\PunchForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\Forms\KidsCompetition\RouteStepForm.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -245,8 +273,16 @@
     <Compile Include="Windows\ConnectionWindow.xaml.cs">
       <DependentUpon>ConnectionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Forms\ErrorList.cs" />
+    <Compile Include="Windows\Forms\IForm.cs" />
     <Compile Include="Windows\Forms\KidsCompetition\CompetitorForm.xaml.cs">
       <DependentUpon>CompetitorForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Forms\KidsCompetition\ResultForm.xaml.cs">
+      <DependentUpon>ResultForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Forms\KidsCompetition\PunchForm.xaml.cs">
+      <DependentUpon>PunchForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Forms\KidsCompetition\RouteStepForm.xaml.cs">
       <DependentUpon>RouteStepForm.xaml</DependentUpon>
@@ -286,9 +322,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Properties\Resources.pl.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.pl.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.en.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="OrienteeringToolWPF_TemporaryKey.pfx" />
     <None Include="packages.config" />
@@ -327,6 +374,7 @@
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.99.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.99.0\build\net45\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

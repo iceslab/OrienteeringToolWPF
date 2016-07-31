@@ -22,7 +22,7 @@ namespace OrienteeringToolWPF.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace OrienteeringToolWPF.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OrienteeringToolWPF.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,75 @@ namespace OrienteeringToolWPF.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czas kontroli: {0}.
+        /// </summary>
+        public static string CheckTimeFormat {
+            get {
+                return ResourceManager.GetString("CheckTimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Numer chipa: {0}.
+        /// </summary>
+        public static string ChipNumberFormat {
+            get {
+                return ResourceManager.GetString("ChipNumberFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data urodzenia.
+        /// </summary>
+        public static string CompetitorBirthDate {
+            get {
+                return ResourceManager.GetString("CompetitorBirthDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chip.
+        /// </summary>
+        public static string CompetitorChip {
+            get {
+                return ResourceManager.GetString("CompetitorChip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klasa.
+        /// </summary>
+        public static string CompetitorClass {
+            get {
+                return ResourceManager.GetString("CompetitorClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imię i nazwisko.
+        /// </summary>
+        public static string CompetitorName {
+            get {
+                return ResourceManager.GetString("CompetitorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sztafeta.
+        /// </summary>
+        public static string CompetitorRelay {
+            get {
+                return ResourceManager.GetString("CompetitorRelay", resourceCulture);
             }
         }
         
@@ -77,18 +140,306 @@ namespace OrienteeringToolWPF.Properties {
         ///
         ///[ID] INTEGER  NO [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string CreateKCDatabase {
+        public static string CreateKCDatabase {
             get {
                 return ResourceManager.GetString("CreateKCDatabase", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uwaga!\nUsunięte zostaną także wszystkie powiązane dane..
+        /// </summary>
+        public static string DatabaseCascadeDeleteWarning {
+            get {
+                return ResourceManager.GetString("DatabaseCascadeDeleteWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Baza danych SQLite3|*.sqlite;*.db|Wszystkie pliki (*.*)|*.*.
         /// </summary>
-        internal static string DatabaseDialogFilters {
+        public static string DatabaseDialogFilters {
             get {
                 return ResourceManager.GetString("DatabaseDialogFilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uwaga!\nBaza danych istnieje, czy chcesz nadpisać?.
+        /// </summary>
+        public static string DatabaseOverwriteWarning {
+            get {
+                return ResourceManager.GetString("DatabaseOverwriteWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Błędy:.
+        /// </summary>
+        public static string Errors {
+            get {
+                return ResourceManager.GetString("Errors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czas mety: {0}.
+        /// </summary>
+        public static string FinishTimeFormat {
+            get {
+                return ResourceManager.GetString("FinishTimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wybrana klasa jest nieprawidłowa.
+        /// </summary>
+        public static string InvalidClassError {
+            get {
+                return ResourceManager.GetString("InvalidClassError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wybrany typ sztafety jest nieprawidłowy.
+        /// </summary>
+        public static string InvalidCourseTypeError {
+            get {
+                return ResourceManager.GetString("InvalidCourseTypeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wprowadzono nieprawidłowe dane.
+        /// </summary>
+        public static string InvalidDataTitle {
+            get {
+                return ResourceManager.GetString("InvalidDataTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Podana data jest nieprawidłowa.
+        /// </summary>
+        public static string InvalidDateError {
+            get {
+                return ResourceManager.GetString("InvalidDateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wybrana kolejność jest nieprawidłowa.
+        /// </summary>
+        public static string InvalidOrderError {
+            get {
+                return ResourceManager.GetString("InvalidOrderError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wybrana sztafeta jest nieprawidłowa.
+        /// </summary>
+        public static string InvalidRelayError {
+            get {
+                return ResourceManager.GetString("InvalidRelayError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brak.
+        /// </summary>
+        public static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wartość nie jest liczbą.
+        /// </summary>
+        public static string NotANumberError {
+            get {
+                return ResourceManager.GetString("NotANumberError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pole jest puste lub zawiera tylko białe znaki.
+        /// </summary>
+        public static string NullOrEmptyError {
+            get {
+                return ResourceManager.GetString("NullOrEmptyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oryginalna wiadomość:.
+        /// </summary>
+        public static string OriginalMessage {
+            get {
+                return ResourceManager.GetString("OriginalMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chip.
+        /// </summary>
+        public static string PunchChip {
+            get {
+                return ResourceManager.GetString("PunchChip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kod.
+        /// </summary>
+        public static string PunchCode {
+            get {
+                return ResourceManager.GetString("PunchCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czas podbicia.
+        /// </summary>
+        public static string PunchTimestamp {
+            get {
+                return ResourceManager.GetString("PunchTimestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nazwa.
+        /// </summary>
+        public static string RelayName {
+            get {
+                return ResourceManager.GetString("RelayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czas kontroli.
+        /// </summary>
+        public static string ResultCheckTime {
+            get {
+                return ResourceManager.GetString("ResultCheckTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chip.
+        /// </summary>
+        public static string ResultChip {
+            get {
+                return ResourceManager.GetString("ResultChip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czas mety.
+        /// </summary>
+        public static string ResultFinishTime {
+            get {
+                return ResourceManager.GetString("ResultFinishTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czas startu.
+        /// </summary>
+        public static string ResultStartTime {
+            get {
+                return ResourceManager.GetString("ResultStartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nazwa.
+        /// </summary>
+        public static string RouteName {
+            get {
+                return ResourceManager.GetString("RouteName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kod.
+        /// </summary>
+        public static string RouteStepCode {
+            get {
+                return ResourceManager.GetString("RouteStepCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kolejność.
+        /// </summary>
+        public static string RouteStepOrder {
+            get {
+                return ResourceManager.GetString("RouteStepOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Błąd stacji SPORTident.
+        /// </summary>
+        public static string SiHandlerError {
+            get {
+                return ResourceManager.GetString("SiHandlerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czas startu: {0}.
+        /// </summary>
+        public static string StartTimeFormat {
+            get {
+                return ResourceManager.GetString("StartTimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Typ sztafety.
+        /// </summary>
+        public static string TournamentCourseType {
+            get {
+                return ResourceManager.GetString("TournamentCourseType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nazwa.
+        /// </summary>
+        public static string TournamentName {
+            get {
+                return ResourceManager.GetString("TournamentName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czas rozpoczęcia.
+        /// </summary>
+        public static string TournamentStartTime {
+            get {
+                return ResourceManager.GetString("TournamentStartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wartość już istnieje.
+        /// </summary>
+        public static string ValueAlreadyExistsError {
+            get {
+                return ResourceManager.GetString("ValueAlreadyExistsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ostrzeżenie.
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
     }

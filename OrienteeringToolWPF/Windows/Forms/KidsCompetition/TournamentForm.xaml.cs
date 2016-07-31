@@ -8,7 +8,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
     /// <summary>
     /// Interaction logic for KCTournamentWindow.xaml
     /// </summary>
-    public partial class TournamentForm : Window
+    public partial class TournamentForm : Window, IForm
     {
         private Tournament tournament;
 
@@ -16,7 +16,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         {
             InitializeComponent();
             tournament = new Tournament();
-            StartTimeTB.DefaultValue = DateTime.Now;
+            StartTimeDP.DefaultValue = DateTime.Now;
         }
 
         public TournamentForm(Tournament t)
@@ -28,16 +28,11 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 
         private void SaveB_Click(object sender, RoutedEventArgs e)
         {
-            if (FormToObject())
+            var errors = FormToObject();
+            if (errors.HasErrors() == false)
             {
                 var db = MainWindow.GetDatabase();
                 db.Tournament.Upsert(tournament);
-                //TournamentDAO dao = new TournamentDAO();
-                //if (tournament.Id == null)
-                //    dao.insert(tournament);
-                //else
-                //    dao.update(tournament);
-
                 DialogResult = true;
                 Close();
             }
@@ -48,42 +43,44 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             }
         }
 
-        private bool FormToObject()
+        public void ObjectToForm()
         {
-            if (ValidateForm())
-            {
-                tournament.StartTime = (DateTime)StartTimeTB.Value;
-                tournament.Name = NameTB.Text;
-                tournament.CourseType = (CourseEnum)CourseTypeCB.SelectedIndex;
-                tournament.Description = DescriptionTB.Text;
-                return true;
-            }
-            return false;
-        }
-
-        private void ObjectToForm()
-        {
-            StartTimeTB.Value = tournament.StartTime;
+            StartTimeDP.Value = tournament.StartTime;
             NameTB.Text = tournament.Name;
             CourseTypeCB.SelectedIndex = (int)tournament.CourseType;
             DescriptionTB.Text = tournament.Description;
         }
 
-        private bool ValidateForm()
+        public ErrorList FormToObject()
         {
-            if (StartTimeTB.Value == null)
-                return false;
+            var errors = ValidateForm();
+            if (errors.HasErrors() == false)
+            {
+                tournament.StartTime = (DateTime)StartTimeDP.Value;
+                tournament.Name = NameTB.Text;
+                tournament.CourseType = (CourseEnum)CourseTypeCB.SelectedIndex;
+                tournament.Description = DescriptionTB.Text;
+            }
+            return errors;
+        }
+
+        public ErrorList ValidateForm()
+        {
+            var errors = new ErrorList();
+            if (StartTimeDP.Value == null)
+                errors.Add(Properties.Resources.TournamentStartTime, Properties.Resources.InvalidDateError);
             if (string.IsNullOrWhiteSpace(NameTB.Text))
-                return false;
+                errors.Add(Properties.Resources.TournamentName, Properties.Resources.TournamentName);
             switch ((CourseEnum)CourseTypeCB.SelectedIndex)
             {
                 case CourseEnum.START_ON_CHIP:
                 case CourseEnum.START_CALCULATED:
                     break;
                 default:
-                    return false;
+                    errors.Add(Properties.Resources.TournamentCourseType, Properties.Resources.InvalidCourseTypeError);
+                    break;
             }
-            return true;
+            return errors;
         }
 
     }

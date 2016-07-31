@@ -1,5 +1,5 @@
-﻿using OrienteeringToolWPF.DAO.Implementation;
-using OrienteeringToolWPF.Model;
+﻿using OrienteeringToolWPF.Model;
+using OrienteeringToolWPF.Utils;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -10,7 +10,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
     /// <summary>
     /// Interaction logic for KCCompetitorsForm.xaml
     /// </summary>
-    public partial class CompetitorForm : Window
+    public partial class CompetitorForm : Window, IForm
     {
         private Competitor competitor;
         private List<Relay> relaysList;
@@ -45,22 +45,24 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 
         private void SaveB_Click(object sender, RoutedEventArgs e)
         {
-            if (FormToObject())
+            var errors = FormToObject();
+            if (errors.HasErrors() == false)
             {
                 var db = MainWindow.GetDatabase();
                 db.Competitors.Upsert(competitor);
+
                 Close();
             }
             else
             {
-                MessageBox.Show(this, "Nieprawidłowe dane", "Błąd",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageUtils.ShowValidatorErrors(this, errors);
             }
         }
 
         private void SaveAndNextB_Click(object sender, RoutedEventArgs e)
         {
-            if (FormToObject())
+            var errors = FormToObject();
+            if (errors.HasErrors() == false)
             {
                 var db = MainWindow.GetDatabase();
                 db.Competitors.Upsert(competitor);
@@ -77,27 +79,11 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             }
             else
             {
-                MessageBox.Show(this, "Nieprawidłowe dane", "Błąd",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageUtils.ShowValidatorErrors(this, errors);
             }
         }
 
-        private bool FormToObject()
-        {
-            if (ValidateForm())
-            {
-                competitor.Name = NameTB.Text;
-                competitor.Chip = long.Parse(ChipTB.Text);
-                competitor.RelayId = (long)((Relay)RelayIdCB.SelectedItem).Id;
-                competitor.Class = long.Parse((string)((ComboBoxItem)ClassCB.SelectedItem).Content);
-                competitor.Gender = (bool)MaleRB.IsChecked ? GenderEnum.MALE : GenderEnum.FEMALE;
-                competitor.BirthDate = (DateTime)BirthDateDP.SelectedDate;
-                return true;
-            }
-            return false;
-        }
-
-        private void ObjectToForm()
+        public void ObjectToForm()
         {
             PopulateRelayCB();
 
@@ -105,11 +91,11 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             ChipTB.Text = competitor.Chip.ToString();
 
             RelayIdCB.SelectedItem = null;
-            foreach(var el in RelayIdCB.Items)
+            foreach (var el in RelayIdCB.Items)
             {
-                if(el is Relay)
+                if (el is Relay)
                 {
-                    var r = (Relay) el;
+                    var r = (Relay)el;
                     if (r.Id == competitor.RelayId)
                     {
                         RelayIdCB.SelectedItem = r;
@@ -127,7 +113,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                     break;
                 }
             }
-            
+
             if (competitor.Gender == GenderEnum.MALE)
                 MaleRB.IsChecked = true;
             else
@@ -135,20 +121,42 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             BirthDateDP.SelectedDate = competitor.BirthDate;
         }
 
-        private bool ValidateForm()
+        public ErrorList FormToObject()
         {
+            var errors = ValidateForm();
+            if (errors.HasErrors() == false)
+            {
+                competitor.Name = NameTB.Text;
+                competitor.Chip = long.Parse(ChipTB.Text);
+                competitor.RelayId = (long)((Relay)RelayIdCB.SelectedItem).Id;
+                competitor.Class = long.Parse((string)((ComboBoxItem)ClassCB.SelectedItem).Content);
+                competitor.Gender = (bool)MaleRB.IsChecked ? GenderEnum.MALE : GenderEnum.FEMALE;
+                competitor.BirthDate = (DateTime)BirthDateDP.SelectedDate;
+            }
+            return errors;
+        }
+
+        public ErrorList ValidateForm()
+        {
+            var errors = new ErrorList();
             if (string.IsNullOrWhiteSpace(NameTB.Text))
-                return false;
+                errors.Add(Properties.Resources.CompetitorName, Properties.Resources.NullOrEmptyError);
             long n;
             if (!long.TryParse(ChipTB.Text, out n))
-                return false;
+                errors.Add(Properties.Resources.CompetitorChip, Properties.Resources.NotANumberError);
+            else
+            {
+                if (MainWindow.GetDatabase().Competitors.FindAllByChip(n).Exists())
+                    errors.Add(Properties.Resources.CompetitorChip, Properties.Resources.ValueAlreadyExistsError);
+            }
+            
             if (RelayIdCB.SelectedIndex < 0)
-                return false;
+                errors.Add(Properties.Resources.CompetitorRelay, Properties.Resources.InvalidRelayError);
             if (ClassCB.SelectedIndex < 0)
-                return false;
+                errors.Add(Properties.Resources.CompetitorClass, Properties.Resources.InvalidClassError);
             if (BirthDateDP.SelectedDate == null)
-                return false;
-            return true;
+                errors.Add(Properties.Resources.CompetitorBirthDate, Properties.Resources.InvalidDateError);
+            return errors;
         }
 
         private void PopulateRelayCB()
@@ -172,9 +180,9 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 
         private void RelayIdCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(RelayIdCB.SelectedIndex >= 0)
+            if (RelayIdCB.SelectedIndex >= 0)
             {
-                if(RelayIdCB.SelectedIndex == (RelayIdCB.Items.Count - 1))
+                if (RelayIdCB.SelectedIndex == (RelayIdCB.Items.Count - 1))
                 {
                     var window = new RelayForm();
                     window.Owner = this;
@@ -183,7 +191,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                     var db = MainWindow.GetDatabase();
                     List<Relay> newRelays = db.Relays.All();
 
-                    if(newRelays.Count > relaysList.Count)
+                    if (newRelays.Count > relaysList.Count)
                     {
                         int i = 0;
                         for (; i < relaysList.Count; ++i)
@@ -209,7 +217,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                     }
                 }
             }
-            
+
 
         }
     }

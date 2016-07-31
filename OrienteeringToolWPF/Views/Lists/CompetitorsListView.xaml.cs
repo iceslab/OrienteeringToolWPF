@@ -15,9 +15,14 @@ namespace OrienteeringToolWPF.Views.Lists
     /// </summary>
     public partial class CompetitorsListView : UserControl, Refreshable, ButtonsManageable
     {
+        public long? RelayId { get; set; }
         public List<Competitor> CompetitorsList { get; private set; }
-        public CompetitorsListView()
+
+        public CompetitorsListView() : this(null) { }
+
+        public CompetitorsListView(long? RelayId)
         {
+            this.RelayId = RelayId;
             InitializeComponent();
             ManageButtons(null);
             Refresh();
@@ -26,7 +31,10 @@ namespace OrienteeringToolWPF.Views.Lists
         public void Refresh()
         {
             var db = MainWindow.GetDatabase();
-            CompetitorsList = db.Competitors.All();
+            if (RelayId != null)
+                CompetitorsList = db.Competitors.FindAllByRelayId(RelayId);
+            else
+                CompetitorsList = db.Competitors.All();
             competitorsLV.ItemsSource = CompetitorsList;
         }
 
@@ -48,7 +56,7 @@ namespace OrienteeringToolWPF.Views.Lists
 
         private void deleteB_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageUtils.ShowDeleteWarning(this) == MessageBoxResult.OK)
+            if (MessageUtils.ShowDeleteWarning(this) == true)
             {
                 var db = MainWindow.GetDatabase();
                 foreach (Competitor c in competitorsLV.SelectedItems)

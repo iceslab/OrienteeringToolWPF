@@ -1,6 +1,8 @@
 ﻿using GecoSI.Net;
 using Microsoft.Win32;
+using OrienteeringToolWPF.Interfaces;
 using OrienteeringToolWPF.Model;
+using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Views;
 using OrienteeringToolWPF.Windows.Forms.KidsCompetition;
 using Simple.Data;
@@ -24,7 +26,7 @@ namespace OrienteeringToolWPF.Windows
         NONE, MYSQL, SQLITE3
     }
 
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window, INotifyPropertyChanged, ICurrentView
     {
         #region MainWindow fields
         public static SiHandler Handler { get; private set; }
@@ -125,14 +127,14 @@ namespace OrienteeringToolWPF.Windows
         private void CreateKCDatabase()
         {
             // Default answer
-            var result = MessageBoxResult.Yes;
+            var result = true;
 
             // Checks if database exists
             if(File.Exists(DatabasePath))
-                result =  ShowOverwriteWarning();
+                result =  MessageUtils.ShowOverwriteWarning(this);
 
             // If database does not exist or user wants to overwrite
-            if(result == MessageBoxResult.Yes)
+            if(result == true)
             {
                 // Create database file
                 SQLiteConnection.CreateFile(DatabasePath);
@@ -194,7 +196,6 @@ namespace OrienteeringToolWPF.Windows
             ofd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
             ofd.Filter = Properties.Resources.DatabaseDialogFilters;
             ofd.FilterIndex = 1;
-
             if (ofd.ShowDialog() == true)
             {
                 DatabasePath = ofd.FileName;
@@ -234,15 +235,5 @@ namespace OrienteeringToolWPF.Windows
             }
         }
         #endregion
-
-        private MessageBoxResult ShowOverwriteWarning()
-        {
-            return MessageBox.Show(
-                Window.GetWindow(this),
-                "Uwaga!\nBaza danych istnieje, czy chcesz nadpisać?",
-                "Ostrzeżenie",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning);
-        }
     }
 }

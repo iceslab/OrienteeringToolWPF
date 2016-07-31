@@ -11,14 +11,19 @@ using System.Windows.Controls;
 namespace OrienteeringToolWPF.Views.Lists
 {
     /// <summary>
-    /// Interaction logic for RelaysListView.xaml
+    /// Interaction logic for CompetitorsListView.xaml
     /// </summary>
-    public partial class RelaysListView : UserControl, Refreshable, ButtonsManageable
+    public partial class ResultsAndPunchesListView : UserControl, Refreshable, ButtonsManageable
     {
-        public List<Relay> RelaysList { get; private set; }
+        public long? Chip { get; set; }
+        public Result Result { get; private set; }
+        public List<Punch> PunchesList { get; private set; }
 
-        public RelaysListView()
+        public ResultsAndPunchesListView() : this(null) { }
+
+        public ResultsAndPunchesListView(long? Chip)
         {
+            this.Chip = Chip;
             InitializeComponent();
             ManageButtons(null);
             Refresh();
@@ -27,13 +32,24 @@ namespace OrienteeringToolWPF.Views.Lists
         public void Refresh()
         {
             var db = MainWindow.GetDatabase();
-            RelaysList = db.Relays.All();
-            relaysLV.ItemsSource = RelaysList;
+            if (Chip != null)
+            {
+                Result = db.Results.FindAllByChip(Chip).FirstOrDefault() ?? new Result();
+                PunchesList = db.Punches.FindAllByChip(Chip) ?? new List<Punch>();
+            }
+            else
+            {
+                Result = new Result();
+                PunchesList = new List<Punch>();
+            }
+
+            labelsWP.DataContext = Result;
+            punchesLV.ItemsSource = PunchesList;
         }
 
         private void addB_Click(object sender, RoutedEventArgs e)
         {
-            Window window = new RelayForm();
+            Window window = new PunchForm();
             window.Owner = Window.GetWindow(this);
             window.ShowDialog();
             Refresh();
@@ -41,7 +57,7 @@ namespace OrienteeringToolWPF.Views.Lists
 
         private void editB_Click(object sender, RoutedEventArgs e)
         {
-            Window window = new RelayForm((Relay)relaysLV.SelectedItem);
+            Window window = new PunchForm((Punch)punchesLV.SelectedItem);
             window.Owner = Window.GetWindow(this);
             window.ShowDialog();
             Refresh();
@@ -52,8 +68,8 @@ namespace OrienteeringToolWPF.Views.Lists
             if (MessageUtils.ShowDeleteWarning(this) == true)
             {
                 var db = MainWindow.GetDatabase();
-                foreach (Relay r in relaysLV.SelectedItems)
-                    db.Relays.DeleteById(r.Id);
+                foreach (Punch p in punchesLV.SelectedItems)
+                    db.Punches.DeleteById(p.Id);
                 Refresh();
             }
         }
@@ -72,12 +88,20 @@ namespace OrienteeringToolWPF.Views.Lists
             }
         }
 
-        private void relaysLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void resultsLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.Source is ListView)
                 ManageButtons((ListView)e.Source);
             else
                 Console.WriteLine("Not ListView: " + e.Source);
+        }
+
+        private void punchesLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //if (e.Source is ListView)
+            //    ManageButtons((ListView)e.Source);
+            //else
+            //    Console.WriteLine("Not ListView: " + e.Source);
         }
 
         public void SetButtonsVisibility(Visibility all)
