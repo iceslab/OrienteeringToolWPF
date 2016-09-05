@@ -77,14 +77,14 @@
                     <GridViewColumn>
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="Klasa" Margin="2" />
+                                <TextBlock Text="Kategoria" Margin="2" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
                                     <TextBlock Margin="2"
-    											Text="{Binding Class}" />
+    											Text="{Binding Category}" />
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

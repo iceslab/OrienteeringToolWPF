@@ -138,11 +138,11 @@
   <data name="CompetitorBirthDate" xml:space="preserve">
     <value>Date of birth</value>
   </data>
+  <data name="CompetitorCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
   <data name="CompetitorChip" xml:space="preserve">
     <value>Chip</value>
-  </data>
-  <data name="CompetitorClass" xml:space="preserve">
-    <value>Class</value>
   </data>
   <data name="CompetitorName" xml:space="preserve">
     <value>Name and surname</value>
@@ -177,8 +177,8 @@ Database exists, do you want to overwrite?</value>
   <data name="FinishTimeFormat" xml:space="preserve">
     <value>Finish time: {0:H:mm:ss}</value>
   </data>
-  <data name="InvalidClassError" xml:space="preserve">
-    <value>Selected class is invalid</value>
+  <data name="InvalidCategoryError" xml:space="preserve">
+    <value>Selected category is invalid</value>
   </data>
   <data name="InvalidCourseTypeError" xml:space="preserve">
     <value>Selected course type is invalid</value>

@@ -124,20 +124,20 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kategoria.
+        /// </summary>
+        public static string CompetitorCategory {
+            get {
+                return ResourceManager.GetString("CompetitorCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chip.
         /// </summary>
         public static string CompetitorChip {
             get {
                 return ResourceManager.GetString("CompetitorChip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Klasa.
-        /// </summary>
-        public static string CompetitorClass {
-            get {
-                return ResourceManager.GetString("CompetitorClass", resourceCulture);
             }
         }
         
@@ -258,11 +258,11 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wybrana klasa jest nieprawidłowa.
+        ///   Looks up a localized string similar to Wybrana kategoria jest nieprawidłowa.
         /// </summary>
-        public static string InvalidClassError {
+        public static string InvalidCategoryError {
             get {
-                return ResourceManager.GetString("InvalidClassError", resourceCulture);
+                return ResourceManager.GetString("InvalidCategoryError", resourceCulture);
             }
         }
         

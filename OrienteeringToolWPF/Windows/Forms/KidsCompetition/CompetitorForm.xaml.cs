@@ -14,6 +14,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
     {
         private Competitor competitor;
         private List<Relay> relaysList;
+        private List<Category> categoriesList;
 
         private void Listener_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -86,6 +87,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         public void ObjectToForm()
         {
             PopulateRelayCB();
+            PopulateCategoryCB();
 
             NameTB.Text = competitor.Name;
             ChipTB.Text = competitor.Chip.ToString();
@@ -104,13 +106,17 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 }
             }
 
-            CategoryCB.SelectedIndex = -1;
-            foreach (ComboBoxItem cbi in CategoryCB.Items)
+            CategoryCB.SelectedItem = null;
+            foreach (var el in CategoryCB.Items)
             {
-                if (long.Parse((string)cbi.Content) == competitor.Category)
+                if (el is Category)
                 {
-                    CategoryCB.SelectedItem = cbi;
-                    break;
+                    var c = (Category)el;
+                    if (c.Id == competitor.Category)
+                    {
+                        CategoryCB.SelectedItem = c;
+                        break;
+                    }
                 }
             }
 
@@ -129,7 +135,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 competitor.Name = NameTB.Text;
                 competitor.Chip = long.Parse(ChipTB.Text);
                 competitor.RelayId = (long)((Relay)RelayIdCB.SelectedItem).Id;
-                competitor.Category = long.Parse((string)((ComboBoxItem)CategoryCB.SelectedItem).Content);
+                competitor.Category = (long)((Category)CategoryCB.SelectedItem).Id;
                 competitor.Gender = (bool)MaleRB.IsChecked ? GenderEnum.MALE : GenderEnum.FEMALE;
                 competitor.BirthDate = (DateTime)BirthDateDP.SelectedDate;
             }
@@ -146,19 +152,29 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 errors.Add(Properties.Resources.CompetitorChip, Properties.Resources.NotANumberError);
             else
             {
-                if (MainWindow.GetDatabase().Competitors.FindAllByChip(n).Exists())
+                var count = MainWindow.GetDatabase().Competitors.GetCountByChip(n);
+                if (count > 1)
+                {
                     errors.Add(Properties.Resources.CompetitorChip, Properties.Resources.ValueAlreadyExistsError);
+                }
+                else if (count == 1)
+                {
+                    Competitor c = MainWindow.GetDatabase().Competitors.FindByChip(n);
+                    if (c.Id != competitor?.Id)
+                        errors.Add(Properties.Resources.CompetitorChip, Properties.Resources.ValueAlreadyExistsError);
+                }
             }
-            
+
             if (RelayIdCB.SelectedIndex < 0)
                 errors.Add(Properties.Resources.CompetitorRelay, Properties.Resources.InvalidRelayError);
             if (CategoryCB.SelectedIndex < 0)
-                errors.Add(Properties.Resources.CompetitorClass, Properties.Resources.InvalidClassError);
+                errors.Add(Properties.Resources.CompetitorCategory, Properties.Resources.InvalidCategoryError);
             if (BirthDateDP.SelectedDate == null)
                 errors.Add(Properties.Resources.CompetitorBirthDate, Properties.Resources.InvalidDateError);
             return errors;
         }
 
+        #region RelayCB methods
         private void PopulateRelayCB()
         {
             var db = MainWindow.GetDatabase();
@@ -225,8 +241,77 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                     }
                 }
             }
-
-
         }
+        #endregion
+        #region CategoryCB methods
+        private void PopulateCategoryCB()
+        {
+            var db = MainWindow.GetDatabase();
+            categoriesList = db.Categories.All();
+
+            CategoryCB.Items.Clear();
+
+            foreach (var category in categoriesList)
+            {
+                CategoryCB.Items.Add(category);
+            }
+            CategoryCB.Items.Add("<Dodaj...>");
+        }
+
+        private void CategoryCB_DropDownOpened(object sender, EventArgs e)
+        {
+            PopulateCategoryCB();
+        }
+
+        private void CategoryCB_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            // When selected index is valid
+            if (CategoryCB.SelectedIndex >= 0)
+            {
+                // When selected index is last possible it means that add option was chosen
+                if (CategoryCB.SelectedIndex == (CategoryCB.Items.Count - 1))
+                {
+                    // Create and show proper form
+                    var window = new CategoryForm();
+                    window.Owner = this;
+                    window.ShowDialog();
+
+                    // Get current data
+                    var db = MainWindow.GetDatabase();
+                    List<Category> newCategories = db.Categories.All();
+
+                    // Check if data was inserted
+                    if (newCategories.Count > categoriesList.Count)
+                    {
+                        int i = 0;
+                        for (; i < categoriesList.Count; ++i)
+                        {
+                            // Find not matching object
+                            if (!newCategories[i].Equals(categoriesList[i]))
+                                break;
+                        }
+
+                        // Refresh view and select new item
+                        PopulateCategoryCB();
+                        CategoryCB.SelectedIndex = i;
+                    }
+                    else
+                        CategoryCB.SelectedIndex = -1;
+                }
+                else
+                {
+                    // Finds selected item in list and assigns item's id to proper field
+                    foreach (var category in categoriesList)
+                    {
+                        if (category.Name == ((Category)CategoryCB.SelectedItem).Name)
+                        {
+                            competitor.Category = (long)category.Id;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
     }
 }

@@ -138,11 +138,11 @@
   <data name="CompetitorBirthDate" xml:space="preserve">
     <value>Data urodzenia</value>
   </data>
+  <data name="CompetitorCategory" xml:space="preserve">
+    <value>Kategoria</value>
+  </data>
   <data name="CompetitorChip" xml:space="preserve">
     <value>Chip</value>
-  </data>
-  <data name="CompetitorClass" xml:space="preserve">
-    <value>Klasa</value>
   </data>
   <data name="CompetitorName" xml:space="preserve">
     <value>Imię i nazwisko</value>
@@ -233,8 +233,8 @@ Baza danych istnieje, czy chcesz nadpisać?</value>
   <data name="FinishTimeFormat" xml:space="preserve">
     <value>Czas mety: {0:H:mm:ss}</value>
   </data>
-  <data name="InvalidClassError" xml:space="preserve">
-    <value>Wybrana klasa jest nieprawidłowa</value>
+  <data name="InvalidCategoryError" xml:space="preserve">
+    <value>Wybrana kategoria jest nieprawidłowa</value>
   </data>
   <data name="InvalidCourseTypeError" xml:space="preserve">
     <value>Wybrany typ sztafety jest nieprawidłowy</value>

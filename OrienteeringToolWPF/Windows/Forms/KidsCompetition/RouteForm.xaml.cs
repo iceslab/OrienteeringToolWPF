@@ -131,6 +131,19 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             PopulateCategoryCB();
             NameTB.Text = route.Name;
 
+            CategoryCB.SelectedItem = null;
+            foreach (var el in CategoryCB.Items)
+            {
+                if (el is Category)
+                {
+                    var c = (Category)el;
+                    if (c.Id == route.Category)
+                    {
+                        CategoryCB.SelectedItem = c;
+                        break;
+                    }
+                }
+            }
         }
 
         public ErrorList FormToObject()
@@ -139,6 +152,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             if (errors.HasErrors() == false)
             {
                 route.Name = NameTB.Text;
+                route.Category = (long)((Category)CategoryCB.SelectedItem).Id;
             }
             return errors;
         }
@@ -148,6 +162,8 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             var errors = new ErrorList();
             if (string.IsNullOrWhiteSpace(NameTB.Text))
                 errors.Add(Properties.Resources.RouteName, Properties.Resources.NotANumberError);
+            if (CategoryCB.SelectedIndex < 0)
+                errors.Add(Properties.Resources.CompetitorCategory, Properties.Resources.InvalidCategoryError);
             return errors;
         }
 
@@ -166,6 +182,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 routeStepsList[i].Order = i + 1;
         }
 
+        #region CategoryCB methods
         private void PopulateCategoryCB()
         {
             var db = MainWindow.GetDatabase();
@@ -234,5 +251,6 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 }
             }
         }
+        #endregion
     }
 }
