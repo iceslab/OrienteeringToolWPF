@@ -43,6 +43,7 @@ namespace OrienteeringToolWPF.Views.Lists
                 PunchesList = new List<Punch>();
             }
 
+            // TODO: Get Route associated with Competitor and his Category for proper validation
             labelsWP.DataContext = Result;
             punchesLV.ItemsSource = PunchesList;
         }
@@ -94,6 +95,7 @@ namespace OrienteeringToolWPF.Views.Lists
                 ManageButtons((ListView)e.Source);
             else
                 Console.WriteLine("Not ListView: " + e.Source);
+            e.Handled = true;
         }
 
         private void punchesLV_SelectionChanged(object sender, SelectionChangedEventArgs e)

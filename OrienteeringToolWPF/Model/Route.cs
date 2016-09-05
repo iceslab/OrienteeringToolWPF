@@ -15,30 +15,37 @@ namespace OrienteeringToolWPF.Model
     {
         public long? Id { get; set; }
         public string Name { get; set; }
+        public long Category { get; set; }
 
+        #region Object overrides
         public override string ToString()
         {
             return Name;
         }
 
+        // Equality method (returns true when all fields matches)
         public override bool Equals(object obj)
         {
             if (obj is Route)
             {
                 Route r = (Route)obj;
-                if (Id == r.Id)
-                {
-                    if (Name.Equals(r.Name))
-                        return true;
-                }
+                if (Id != r.Id)
+                    return false;
+                if (!Name.Equals(r.Name))
+                    return false;
+                if (Category != r.Category)
+                    return false;
+                return true;
             }
 
             return false;
         }
 
+        // Generates hashcode from Name and Id if present
         public override int GetHashCode()
         {
-            return Name.GetHashCode() + Id.GetHashCode();
+            return Name.GetHashCode() + Id.GetHashCode() + Category.GetHashCode();
         }
+        #endregion
     }
 }

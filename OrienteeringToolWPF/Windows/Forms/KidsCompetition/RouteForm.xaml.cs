@@ -11,6 +11,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
     {
         private Route route;
         private List<RouteStep> routeStepsList;
+        private List<Category> categoriesList;
 
         public RouteForm()
         {
@@ -127,7 +128,9 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 
         public void ObjectToForm()
         {
+            PopulateCategoryCB();
             NameTB.Text = route.Name;
+
         }
 
         public ErrorList FormToObject()
@@ -161,6 +164,66 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         {
             for (int i = 0; i < routeStepsList.Count; ++i)
                 routeStepsList[i].Order = i + 1;
+        }
+
+        private void PopulateCategoryCB()
+        {
+            var db = MainWindow.GetDatabase();
+            categoriesList = db.Categories.All();
+
+            CategoryCB.Items.Clear();
+
+            foreach (var category in categoriesList)
+            {
+                CategoryCB.Items.Add(category);
+            }
+            CategoryCB.Items.Add("<Dodaj...>");
+        }
+
+        private void CategoryCB_DropDownOpened(object sender, EventArgs e)
+        {
+            PopulateCategoryCB();
+        }
+
+        private void CategoryCB_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (CategoryCB.SelectedIndex >= 0)
+            {
+                if (CategoryCB.SelectedIndex == (CategoryCB.Items.Count - 1))
+                {
+                    var window = new CategoryForm();
+                    window.Owner = this;
+                    window.ShowDialog();
+
+                    var db = MainWindow.GetDatabase();
+                    List<Category> newCategories = db.Categories.All();
+
+                    if (newCategories.Count > categoriesList.Count)
+                    {
+                        int i = 0;
+                        for (; i < categoriesList.Count; ++i)
+                        {
+                            if (!newCategories[i].Equals(categoriesList[i]))
+                                break;
+                        }
+                        PopulateCategoryCB();
+                        CategoryCB.SelectedIndex = i;
+                    }
+                    else
+                        CategoryCB.SelectedIndex = -1;
+                }
+                else
+                {
+                    foreach (var category in categoriesList)
+                    {
+                        if (category.Name == ((Category)CategoryCB.SelectedItem).Name)
+                        {
+                            route.Category = (long)category.Id;
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

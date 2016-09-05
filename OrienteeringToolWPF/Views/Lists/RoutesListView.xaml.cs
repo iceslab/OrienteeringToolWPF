@@ -77,6 +77,7 @@ namespace OrienteeringToolWPF.Views.Lists
                 ManageButtons((ListView)e.Source);
             else
                 Console.WriteLine("Not ListView: " + e.Source);
+            e.Handled = true;
         }
 
         public void SetButtonsVisibility(Visibility all)

@@ -33,14 +33,14 @@
             <Label x:Name="NameL" Content="Imię i nazwisko" Grid.Row="0" Grid.Column="0" Height="30" HorizontalAlignment="Right"/>
             <Label x:Name="ChipL" Content="Nr chipa" Grid.Row="1" Grid.Column="0" Height="30" HorizontalAlignment="Right"/>
             <Label x:Name="RelayIdL" Content="Sztafeta" Grid.Row="2" Grid.Column="0" Height="30" HorizontalAlignment="Right"/>
-            <Label x:Name="ClassL" Content="Klasa" Grid.Row="3" Grid.Column="0" Height="30" HorizontalAlignment="Right"/>
+            <Label x:Name="CategoryL" Content="Klasa" Grid.Row="3" Grid.Column="0" Height="30" HorizontalAlignment="Right"/>
             <Label x:Name="GenderL" Content="Płeć" Grid.Row="4" Grid.Column="0" Height="30" HorizontalAlignment="Right"/>
             <Label x:Name="BirthDateL" Content="Data urodzenia" Grid.Row="5" Grid.Column="0" Height="30" HorizontalAlignment="Right"/>
 
             <TextBox x:Name="NameTB" Grid.Row="0" Grid.Column="1" Margin="5"/>
             <TextBox x:Name="ChipTB" Grid.Row="1" Grid.Column="1" Margin="5"/>
             <ComboBox x:Name="RelayIdCB" Grid.Row="2" Grid.Column="1" Height="25" Margin="5" DropDownOpened="RelayIdCB_DropDownOpened" SelectionChanged="RelayIdCB_SelectionChanged"/>
-            <ComboBox x:Name="ClassCB" Grid.Row="3" Grid.Column="1" Height="25" Margin="5" SelectedIndex="0">
+            <ComboBox x:Name="CategoryCB" Grid.Row="3" Grid.Column="1" Height="25" Margin="5" SelectedIndex="0">
                 <ComboBoxItem Content="1"/>
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="3"/>

@@ -32,6 +32,7 @@ namespace OrienteeringToolWPF.Model
             this.RouteId = RouteId;
         }
 
+        // Parses array of SiPunch to list of RouteSteps
         public static List<RouteStep> Parse(SiPunch[] siPunches, long RouteId = 0)
         {
             if (siPunches != null)
@@ -46,12 +47,15 @@ namespace OrienteeringToolWPF.Model
                 return new List<RouteStep>();
         }
 
+        // Sets the same provided RouteId for all RouteStep objects in list
         public static void SetRouteIdNumber(ref List<RouteStep> rs, long RouteId)
         {
             foreach (var r in rs)
                 r.RouteId = RouteId;
         }
 
+        #region Object overrides
+        // Equality method (returns true when all fields matches)
         public override bool Equals(object other)
         {
             if (other == null)
@@ -73,6 +77,7 @@ namespace OrienteeringToolWPF.Model
             return true;
         }
 
+        // Generates hashcode from Order, Code, RouteId and Id if present
         public override int GetHashCode()
         {
             var hash = Order ^ Code ^ RouteId;
@@ -80,25 +85,31 @@ namespace OrienteeringToolWPF.Model
                 hash ^= (long)Id;
             return (int)hash;
         }
-
+        #endregion
+        #region Operators
+        // Lesser than operator (compares only Order field)
         public static bool operator <(RouteStep lhs, RouteStep rhs)
         {
-            return lhs.Order < rhs.Order;
+            return lhs?.Order < rhs?.Order;
         }
 
+        // Greater than operator (compares only Order field)
         public static bool operator >(RouteStep lhs, RouteStep rhs)
         {
-            return lhs.Order > rhs.Order;
+            return lhs?.Order > rhs?.Order;
         }
 
+        // Equal operator (compares only Order field)
         public static bool operator ==(RouteStep lhs, RouteStep rhs)
         {
-            return lhs.Order == rhs.Order;
+            return lhs?.Order == rhs?.Order;
         }
 
+        // Not equal operator (compares only Order field)
         public static bool operator !=(RouteStep lhs, RouteStep rhs)
         {
-            return lhs.Order != rhs.Order;
+            return lhs?.Order != rhs?.Order;
         }
+        #endregion
     }
 }

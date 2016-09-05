@@ -32,6 +32,9 @@
             <TabItem Header="Sztafety" x:Name="relaysTab">
                 <lists:RelaysListView x:Name="relaysView"/>
             </TabItem>
+            <TabItem Header="Kategorie" x:Name="categoriesTab">
+                <lists:CategoriesListView x:Name="categoriesView"/>
+            </TabItem>
             <TabItem Header="Trasy" x:Name="routesTab">
                 <lists:RoutesListView x:Name="routesView"/>
             </TabItem>

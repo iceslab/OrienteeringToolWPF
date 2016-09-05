@@ -62,7 +62,7 @@ namespace OrienteeringToolWPF.DAO.Implementation
             command.Parameters.AddWithValue("@Name", obj.Name);
             command.Parameters.AddWithValue("@Chip", obj.Chip);
             command.Parameters.AddWithValue("@RelayId", obj.RelayId);
-            command.Parameters.AddWithValue("@Class", obj.Class);
+            command.Parameters.AddWithValue("@Class", obj.Category);
             command.Parameters.AddWithValue("@Gender", obj.Gender);
             command.Parameters.AddWithValue("@BirthDate", obj.BirthDate);
 
@@ -82,7 +82,7 @@ namespace OrienteeringToolWPF.DAO.Implementation
             command.Parameters.AddWithValue("@Name", obj.Name);
             command.Parameters.AddWithValue("@Chip", obj.Chip);
             command.Parameters.AddWithValue("@RelayId", obj.RelayId);
-            command.Parameters.AddWithValue("@Class", obj.Class);
+            command.Parameters.AddWithValue("@Class", obj.Category);
             command.Parameters.AddWithValue("@Gender", obj.Gender);
             command.Parameters.AddWithValue("@BirthDate", obj.BirthDate);
 
@@ -102,7 +102,7 @@ namespace OrienteeringToolWPF.DAO.Implementation
             command.Parameters.AddWithValue("@Name", obj.Name);
             command.Parameters.AddWithValue("@Chip", obj.Chip);
             command.Parameters.AddWithValue("@RelayId", obj.RelayId);
-            command.Parameters.AddWithValue("@Class", obj.Class);
+            command.Parameters.AddWithValue("@Class", obj.Category);
             command.Parameters.AddWithValue("@Gender", obj.Gender);
             command.Parameters.AddWithValue("@BirthDate", obj.BirthDate);
 
@@ -159,7 +159,7 @@ namespace OrienteeringToolWPF.DAO.Implementation
                     c.Name = (string)dr.ItemArray[1];
                     c.Chip = (long)dr.ItemArray[2];
                     c.RelayId = (long)dr.ItemArray[3];
-                    c.Class = (long)dr.ItemArray[4];
+                    c.Category = (long)dr.ItemArray[4];
                     c.Gender = (GenderEnum)dr.ItemArray[5];
                     c.BirthDate = (DateTime)dr.ItemArray[6];
 

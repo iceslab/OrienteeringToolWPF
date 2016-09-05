@@ -72,7 +72,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 NameTB.Text = "";
                 ChipTB.Text = "";
                 RelayIdCB.SelectedIndex = -1;
-                ClassCB.SelectedIndex = 0;
+                CategoryCB.SelectedIndex = 0;
                 MaleRB.IsChecked = true;
                 BirthDateDP.SelectedDate =
                     new DateTime(DateTime.Now.Year - 8, 1, 1);
@@ -104,12 +104,12 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 }
             }
 
-            ClassCB.SelectedIndex = -1;
-            foreach (ComboBoxItem cbi in ClassCB.Items)
+            CategoryCB.SelectedIndex = -1;
+            foreach (ComboBoxItem cbi in CategoryCB.Items)
             {
-                if (long.Parse((string)cbi.Content) == competitor.Class)
+                if (long.Parse((string)cbi.Content) == competitor.Category)
                 {
-                    ClassCB.SelectedItem = cbi;
+                    CategoryCB.SelectedItem = cbi;
                     break;
                 }
             }
@@ -129,7 +129,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 competitor.Name = NameTB.Text;
                 competitor.Chip = long.Parse(ChipTB.Text);
                 competitor.RelayId = (long)((Relay)RelayIdCB.SelectedItem).Id;
-                competitor.Class = long.Parse((string)((ComboBoxItem)ClassCB.SelectedItem).Content);
+                competitor.Category = long.Parse((string)((ComboBoxItem)CategoryCB.SelectedItem).Content);
                 competitor.Gender = (bool)MaleRB.IsChecked ? GenderEnum.MALE : GenderEnum.FEMALE;
                 competitor.BirthDate = (DateTime)BirthDateDP.SelectedDate;
             }
@@ -152,7 +152,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             
             if (RelayIdCB.SelectedIndex < 0)
                 errors.Add(Properties.Resources.CompetitorRelay, Properties.Resources.InvalidRelayError);
-            if (ClassCB.SelectedIndex < 0)
+            if (CategoryCB.SelectedIndex < 0)
                 errors.Add(Properties.Resources.CompetitorClass, Properties.Resources.InvalidClassError);
             if (BirthDateDP.SelectedDate == null)
                 errors.Add(Properties.Resources.CompetitorBirthDate, Properties.Resources.InvalidDateError);

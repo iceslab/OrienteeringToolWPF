@@ -18,6 +18,7 @@ namespace OrienteeringToolWPF.Views
         {
             var lv = (tabControl.SelectedItem as TabItem)?.Content as IRefreshable;
             lv?.Refresh();
+            e.Handled = true;
         }
 
     }

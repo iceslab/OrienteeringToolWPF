@@ -120,6 +120,9 @@
   <data name="CannotFindStation" xml:space="preserve">
     <value>Could not find station</value>
   </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>Category</value>
+  </data>
   <data name="CheckTimeFormat" xml:space="preserve">
     <value>Check time: {0:H:mm:ss}</value>
   </data>

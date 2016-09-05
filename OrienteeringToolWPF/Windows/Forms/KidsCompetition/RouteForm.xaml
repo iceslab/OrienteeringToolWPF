@@ -19,6 +19,7 @@
         <Grid Grid.Row="0" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
@@ -27,6 +28,9 @@
 
             <Label x:Name="NameL" Content="Nazwa trasy" Grid.Row="0" Grid.Column="0" Height="30" HorizontalAlignment="Right"/>
             <TextBox x:Name="NameTB" Grid.Row="0" Grid.Column="1" Height="25" Margin="5"/>
+            
+            <Label x:Name="CategoryL" Content="Kategoria" Grid.Row="1" Grid.Column="0" Height="30" HorizontalAlignment="Right"/>
+            <ComboBox x:Name="CategoryCB" Grid.Row="1" Grid.Column="1" Height="25" Margin="5" DropDownOpened="CategoryCB_DropDownOpened" SelectionChanged="CategoryCB_SelectionChanged"/>
             
         </Grid>
         <ListView x:Name="routeStepsLV" Grid.Row="1" Margin="5" SelectionChanged="routeStepsLV_SelectionChanged">

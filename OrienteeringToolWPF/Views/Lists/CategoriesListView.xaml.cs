@@ -11,13 +11,13 @@ using System.Windows.Controls;
 namespace OrienteeringToolWPF.Views.Lists
 {
     /// <summary>
-    /// Interaction logic for RelaysListView.xaml
+    /// Interaction logic for CategoriesListView.xaml
     /// </summary>
-    public partial class RelaysListView : UserControl, IRefreshable, IButtonsManageable
+    public partial class CategoriesListView : UserControl, IRefreshable, IButtonsManageable
     {
-        public List<Relay> RelaysList { get; private set; }
+        public List<Category> CategoriesList { get; private set; }
 
-        public RelaysListView()
+        public CategoriesListView()
         {
             InitializeComponent();
             ManageButtons(null);
@@ -27,13 +27,13 @@ namespace OrienteeringToolWPF.Views.Lists
         public void Refresh()
         {
             var db = MainWindow.GetDatabase();
-            RelaysList = db.Relays.All();
-            relaysLV.ItemsSource = RelaysList;
+            CategoriesList = db.Categories.All();
+            categoriesLV.ItemsSource = CategoriesList;
         }
 
         private void addB_Click(object sender, RoutedEventArgs e)
         {
-            Window window = new RelayForm();
+            Window window = new CategoryForm();
             window.Owner = Window.GetWindow(this);
             window.ShowDialog();
             Refresh();
@@ -41,7 +41,7 @@ namespace OrienteeringToolWPF.Views.Lists
 
         private void editB_Click(object sender, RoutedEventArgs e)
         {
-            Window window = new RelayForm((Relay)relaysLV.SelectedItem);
+            Window window = new CategoryForm((Category)categoriesLV.SelectedItem);
             window.Owner = Window.GetWindow(this);
             window.ShowDialog();
             Refresh();
@@ -52,8 +52,8 @@ namespace OrienteeringToolWPF.Views.Lists
             if (MessageUtils.ShowDeleteWarning(this) == true)
             {
                 var db = MainWindow.GetDatabase();
-                foreach (Relay r in relaysLV.SelectedItems)
-                    db.Relays.DeleteById(r.Id);
+                foreach (Category c in categoriesLV.SelectedItems)
+                    db.Categories.DeleteById(c.Id);
                 Refresh();
             }
         }
@@ -72,7 +72,7 @@ namespace OrienteeringToolWPF.Views.Lists
             }
         }
 
-        private void relaysLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void categoriesLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.Source is ListView)
                 ManageButtons((ListView)e.Source);

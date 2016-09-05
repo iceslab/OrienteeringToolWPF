@@ -130,8 +130,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Enumerations\Order.cs" />
+    <Compile Include="Enumerations\Correctness.cs" />
     <Compile Include="Interfaces\IExpandable.cs" />
     <Compile Include="Interfaces\ISelectable.cs" />
+    <Compile Include="Model\Category.cs" />
     <Compile Include="Properties\Resources.pl.Designer.cs">
       <DependentUpon>Resources.pl.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -171,10 +174,14 @@
     <Compile Include="Model\RouteStep.cs" />
     <Compile Include="Model\Tournament.cs" />
     <Compile Include="SiListener.cs" />
+    <Compile Include="Utils\CorrectnessConverter.cs" />
     <Compile Include="Utils\LongConverter.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\MessageUtils.cs" />
     <Compile Include="Utils\TreeViewExtension.cs" />
+    <Compile Include="Views\Lists\CategoriesListView.xaml.cs">
+      <DependentUpon>CategoriesListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Lists\ResultsListView.xaml.cs">
       <DependentUpon>ResultsListView.xaml</DependentUpon>
     </Compile>
@@ -187,6 +194,10 @@
     <Compile Include="Views\KidsCompetitionView.xaml.cs">
       <DependentUpon>KidsCompetitionView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Lists\CategoriesListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Lists\ResultsListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -222,6 +233,10 @@
     <Page Include="Windows\Forms\KidsCompetition\CompetitorForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Forms\KidsCompetition\CategoryForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\Forms\KidsCompetition\ResultForm.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -280,6 +295,9 @@
     <Compile Include="Windows\Forms\IForm.cs" />
     <Compile Include="Windows\Forms\KidsCompetition\CompetitorForm.xaml.cs">
       <DependentUpon>CompetitorForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Forms\KidsCompetition\CategoryForm.xaml.cs">
+      <DependentUpon>CategoryForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Forms\KidsCompetition\ResultForm.xaml.cs">
       <DependentUpon>ResultForm.xaml</DependentUpon>

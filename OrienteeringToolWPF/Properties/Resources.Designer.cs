@@ -70,6 +70,15 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kategoria.
+        /// </summary>
+        public static string CategoryName {
+            get {
+                return ResourceManager.GetString("CategoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Czas kontroli: {0:H:mm:ss}.
         /// </summary>
         public static string CheckTimeFormat {
