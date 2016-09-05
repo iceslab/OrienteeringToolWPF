@@ -187,25 +187,33 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 
         private void CategoryCB_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
+            // When selected index is valid
             if (CategoryCB.SelectedIndex >= 0)
             {
+                // When selected index is last possible it means that add option was chosen
                 if (CategoryCB.SelectedIndex == (CategoryCB.Items.Count - 1))
                 {
+                    // Create and show proper form
                     var window = new CategoryForm();
                     window.Owner = this;
                     window.ShowDialog();
 
+                    // Get current data
                     var db = MainWindow.GetDatabase();
                     List<Category> newCategories = db.Categories.All();
 
+                    // Check if data was inserted
                     if (newCategories.Count > categoriesList.Count)
                     {
                         int i = 0;
                         for (; i < categoriesList.Count; ++i)
                         {
+                            // Find not matching object
                             if (!newCategories[i].Equals(categoriesList[i]))
                                 break;
                         }
+                        
+                        // Refresh view and select new item
                         PopulateCategoryCB();
                         CategoryCB.SelectedIndex = i;
                     }
@@ -214,6 +222,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 }
                 else
                 {
+                    // Finds selected item in list and assigns item's id to proper field
                     foreach (var category in categoriesList)
                     {
                         if (category.Name == ((Category)CategoryCB.SelectedItem).Name)

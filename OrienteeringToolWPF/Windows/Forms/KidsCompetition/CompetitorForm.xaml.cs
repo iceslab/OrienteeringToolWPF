@@ -182,23 +182,30 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         {
             if (RelayIdCB.SelectedIndex >= 0)
             {
+                // When selected index is last possible it means that add option was chosen
                 if (RelayIdCB.SelectedIndex == (RelayIdCB.Items.Count - 1))
                 {
+                    // Create and show proper form
                     var window = new RelayForm();
                     window.Owner = this;
                     window.ShowDialog();
 
+                    // Get current data
                     var db = MainWindow.GetDatabase();
                     List<Relay> newRelays = db.Relays.All();
 
+                    // Check if data was inserted
                     if (newRelays.Count > relaysList.Count)
                     {
                         int i = 0;
                         for (; i < relaysList.Count; ++i)
                         {
+                            // Find not matching object
                             if (!newRelays[i].Equals(relaysList[i]))
                                 break;
                         }
+
+                        // Refresh view and select new item
                         PopulateRelayCB();
                         RelayIdCB.SelectedIndex = i;
                     }
@@ -207,6 +214,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 }
                 else
                 {
+                    // Finds selected item in list and assigns item's id to proper field
                     foreach (var relay in relaysList)
                     {
                         if (relay.Name == ((Relay)RelayIdCB.SelectedItem).Name)
