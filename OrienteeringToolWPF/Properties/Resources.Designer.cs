@@ -70,7 +70,7 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Czas kontroli: {0}.
+        ///   Looks up a localized string similar to Czas kontroli: {0:H:mm:ss}.
         /// </summary>
         public static string CheckTimeFormat {
             get {
@@ -240,7 +240,7 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Czas mety: {0}.
+        ///   Looks up a localized string similar to Czas mety: {0:H:mm:ss}.
         /// </summary>
         public static string FinishTimeFormat {
             get {
@@ -456,7 +456,7 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Czas startu: {0}.
+        ///   Looks up a localized string similar to Czas startu: {0:H:mm:ss}.
         /// </summary>
         public static string StartTimeFormat {
             get {
@@ -471,6 +471,15 @@ namespace OrienteeringToolWPF.Properties {
         public static string StartTimeNotPassedWarning {
             get {
                 return ResourceManager.GetString("StartTimeNotPassedWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:H:mm:ss}.
+        /// </summary>
+        public static string TimestampFormat {
+            get {
+                return ResourceManager.GetString("TimestampFormat", resourceCulture);
             }
         }
         

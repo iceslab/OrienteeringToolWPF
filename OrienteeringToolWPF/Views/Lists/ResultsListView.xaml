@@ -10,7 +10,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <utils:LongConverter x:Key="longConverter"/>
-        <utils:DateTimeConverter x:Key="dateTimeConverter"/>
+        <utils:TimestampConverter x:Key="timestampConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -28,21 +28,21 @@
             </Label>
             <Label x:Name="StartTimeL" Margin="2" Grid.Row="0" Height="25" Width="Auto">
                 <Label.Content>
-                    <Binding Converter="{StaticResource dateTimeConverter}" 
+                    <Binding Converter="{StaticResource timestampConverter}" 
                              ConverterParameter="{x:Static prop:Resources.StartTimeFormat}" 
                              Path="StartTime"/>
                 </Label.Content>
             </Label>
             <Label x:Name="CheckTimeL" Margin="2" Grid.Row="0" Height="25" Width="Auto">
                 <Label.Content>
-                    <Binding Converter="{StaticResource dateTimeConverter}" 
+                    <Binding Converter="{StaticResource timestampConverter}" 
                              ConverterParameter="{x:Static prop:Resources.CheckTimeFormat}" 
                              Path="CheckTime"/>
                 </Label.Content>
             </Label>
             <Label x:Name="FinishTimeL" Margin="2" Grid.Row="0" Height="25" Width="Auto">
                 <Label.Content>
-                    <Binding Converter="{StaticResource dateTimeConverter}" 
+                    <Binding Converter="{StaticResource timestampConverter}" 
                              ConverterParameter="{x:Static prop:Resources.FinishTimeFormat}" 
                              Path="FinishTime"/>
                 </Label.Content>
@@ -115,8 +115,13 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Margin="2"
-    											Text="{Binding Timestamp}" />
+                                    <TextBlock Margin="2">
+                                        <TextBlock.Text>
+                                            <Binding Converter="{StaticResource timestampConverter}" 
+                                                 ConverterParameter="{x:Static prop:Resources.TimestampFormat}" 
+                                                 Path="Timestamp"/>
+                                        </TextBlock.Text>
+                                    </TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

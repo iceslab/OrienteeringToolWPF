@@ -1,23 +1,14 @@
 ﻿using GecoSI.Net;
 using Microsoft.Win32;
 using OrienteeringToolWPF.Interfaces;
-using OrienteeringToolWPF.Model;
-using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Views;
 using OrienteeringToolWPF.Windows.Forms.KidsCompetition;
 using Simple.Data;
 using System;
 using System.ComponentModel;
 using System.Data.SQLite;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Markup;
-using System.Windows.Threading;
 
 namespace OrienteeringToolWPF.Windows
 {

@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CannotFindStation" xml:space="preserve">
+    <value>Nie odnaleziono stacji</value>
+  </data>
   <data name="CheckTimeFormat" xml:space="preserve">
-    <value>Czas kontroli: {0}</value>
+    <value>Czas kontroli: {0:H:mm:ss}</value>
   </data>
   <data name="ChipNumberFormat" xml:space="preserve">
     <value>Numer chipa: {0}</value>
@@ -151,6 +154,9 @@ Spróbować ponownie?</value>
   <data name="ConnectionNotConnected" xml:space="preserve">
     <value>Nie połączono się ze stacją</value>
   </data>
+  <data name="ConnectionWindowUsage" xml:space="preserve">
+    <value>Naciśnij "Wyszukaj" aby znaleźć stację</value>
+  </data>
   <data name="DatabaseCascadeDeleteWarning" xml:space="preserve">
     <value>Uwaga!
 Usunięte zostaną także wszystkie powiązane dane.</value>
@@ -166,7 +172,7 @@ Baza danych istnieje, czy chcesz nadpisać?</value>
     <value>Błędy:</value>
   </data>
   <data name="FinishTimeFormat" xml:space="preserve">
-    <value>Czas mety: {0}</value>
+    <value>Czas mety: {0:H:mm:ss}</value>
   </data>
   <data name="InvalidClassError" xml:space="preserve">
     <value>Wybrana klasa jest nieprawidłowa</value>
@@ -235,11 +241,14 @@ Baza danych istnieje, czy chcesz nadpisać?</value>
     <value>Błąd stacji SPORTident</value>
   </data>
   <data name="StartTimeFormat" xml:space="preserve">
-    <value>Czas startu: {0}</value>
+    <value>Czas startu: {0:H:mm:ss}</value>
   </data>
   <data name="StartTimeNotPassedWarning" xml:space="preserve">
     <value>Czas rozpoczęcia jeszcze nie minął.
 Rozpocząć mimo to?</value>
+  </data>
+  <data name="TimestampFormat" xml:space="preserve">
+    <value>{0:H:mm:ss}</value>
   </data>
   <data name="TournamentCourseType" xml:space="preserve">
     <value>Typ sztafety</value>

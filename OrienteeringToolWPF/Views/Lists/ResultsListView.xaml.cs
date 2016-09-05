@@ -34,7 +34,7 @@ namespace OrienteeringToolWPF.Views.Lists
             var db = MainWindow.GetDatabase();
             if (Chip != null)
             {
-                Result = db.Results.FindAllByChip(Chip).FirstOrDefault() ?? new Result();
+                Result = db.Results.FindAllByChip(Chip).FirstOrDefault() ?? new Result { Chip = (long)Chip };
                 PunchesList = db.Punches.FindAllByChip(Chip) ?? new List<Punch>();
             }
             else

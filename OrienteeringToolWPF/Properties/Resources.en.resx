@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CannotFindStation" xml:space="preserve">
+    <value>Could not find station</value>
+  </data>
   <data name="CheckTimeFormat" xml:space="preserve">
-    <value>Check time: {0}</value>
+    <value>Check time: {0:H:mm:ss}</value>
   </data>
   <data name="ChipNumberFormat" xml:space="preserve">
     <value>Chip number: {0}</value>
@@ -151,6 +154,9 @@ Try again?</value>
   <data name="ConnectionNotConnected" xml:space="preserve">
     <value>Not connected to station</value>
   </data>
+  <data name="ConnectionWindowUsage" xml:space="preserve">
+    <value>Click "Search" to find station</value>
+  </data>
   <data name="DatabaseCascadeDeleteWarning" xml:space="preserve">
     <value>Caution!
 All constrained data will be deleted.</value>
@@ -166,7 +172,7 @@ Database exists, do you want to overwrite?</value>
     <value>Errors:</value>
   </data>
   <data name="FinishTimeFormat" xml:space="preserve">
-    <value>Finish time: {0}</value>
+    <value>Finish time: {0:H:mm:ss}</value>
   </data>
   <data name="InvalidClassError" xml:space="preserve">
     <value>Selected class is invalid</value>
@@ -235,11 +241,14 @@ Database exists, do you want to overwrite?</value>
     <value>SPORTident station error</value>
   </data>
   <data name="StartTimeFormat" xml:space="preserve">
-    <value>Start time: {0}</value>
+    <value>Start time: {0:H:mm:ss}</value>
   </data>
   <data name="StartTimeNotPassedWarning" xml:space="preserve">
     <value>Start time has not passed.
 Start anyway?</value>
+  </data>
+  <data name="TimestampFormat" xml:space="preserve">
+    <value>{0:H:mm:ss}</value>
   </data>
   <data name="TournamentCourseType" xml:space="preserve">
     <value>Course type</value>

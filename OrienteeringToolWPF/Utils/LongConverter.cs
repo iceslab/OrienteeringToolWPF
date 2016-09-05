@@ -17,6 +17,9 @@ namespace OrienteeringToolWPF.Utils
             if (!(parameter is string))
                 throw new ArgumentException("Parameter must be string");
 
+            if ((long)value <= 0)
+                value = Properties.Resources.None;
+
             return string.Format((string)parameter, value);
         }
 

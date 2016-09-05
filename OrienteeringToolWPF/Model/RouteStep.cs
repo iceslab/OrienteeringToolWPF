@@ -20,12 +20,14 @@ namespace OrienteeringToolWPF.Model
         public RouteStep() : base()
         {
             Id = null;
+            Order = 0;
             Code = 0;
             RouteId = 0;
         }
 
         public RouteStep(SiPunch sp, long Order, long RouteId = 0) : this()
         {
+            this.Order = Order;
             Code = sp.Code;
             this.RouteId = RouteId;
         }

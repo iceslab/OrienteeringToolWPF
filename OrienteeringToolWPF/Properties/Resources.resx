@@ -121,7 +121,7 @@
     <value>Nie odnaleziono stacji</value>
   </data>
   <data name="CheckTimeFormat" xml:space="preserve">
-    <value>Czas kontroli: {0}</value>
+    <value>Czas kontroli: {0:H:mm:ss}</value>
   </data>
   <data name="ChipNumberFormat" xml:space="preserve">
     <value>Numer chipa: {0}</value>
@@ -228,7 +228,7 @@ Baza danych istnieje, czy chcesz nadpisać?</value>
     <value>Błędy:</value>
   </data>
   <data name="FinishTimeFormat" xml:space="preserve">
-    <value>Czas mety: {0}</value>
+    <value>Czas mety: {0:H:mm:ss}</value>
   </data>
   <data name="InvalidClassError" xml:space="preserve">
     <value>Wybrana klasa jest nieprawidłowa</value>
@@ -300,11 +300,14 @@ Baza danych istnieje, czy chcesz nadpisać?</value>
     <value>Błąd stacji SPORTident</value>
   </data>
   <data name="StartTimeFormat" xml:space="preserve">
-    <value>Czas startu: {0}</value>
+    <value>Czas startu: {0:H:mm:ss}</value>
   </data>
   <data name="StartTimeNotPassedWarning" xml:space="preserve">
     <value>Czas rozpoczęcia jeszcze nie minął.
 Rozpocząć mimo to?</value>
+  </data>
+  <data name="TimestampFormat" xml:space="preserve">
+    <value>{0:H:mm:ss}</value>
   </data>
   <data name="TournamentCourseType" xml:space="preserve">
     <value>Typ sztafety</value>

@@ -1,9 +1,9 @@
 ﻿//  
 //  Copyright (c) 2013-2014 Simon Denier & Yannis Guedel
 //  
+#define SI_NOT_AVAILABLE
 using System;
 using System.Collections.Concurrent;
-using System.IO;
 using System.IO.Ports;
 using System.Threading;
 using GecoSI.Net.Adapter.LogFie;
@@ -138,10 +138,18 @@ namespace GecoSI.Net
             }
         }
 
+        #region IsConnected and NotIsConnected properties
         private bool _connected;
         public bool IsConnected
         {
-            get { return _connected; }
+            get
+            {
+#if SI_NOT_AVAILABLE
+                return true;
+#else
+                return _connected;
+#endif
+            }
 
             set
             {
@@ -152,7 +160,15 @@ namespace GecoSI.Net
         }
         public bool NotIsConnected
         {
-            get { return !_connected; }
+            get
+            {
+#if SI_NOT_AVAILABLE
+                return false;
+#else
+             return !_connected; 
+#endif
+            }
+
             set
             {
                 _connected = !value;
@@ -166,5 +182,6 @@ namespace GecoSI.Net
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
     }
 }
