@@ -50,17 +50,13 @@
                 </Label.Content>
             </Label>
         </WrapPanel>
-        <!--<Label x:Name="resultsL" Margin="2" Grid.Row="0" Height="25" Width="Auto">
-            <Label.Content>
-                <MultiBinding Converter="{StaticResource dateTimePickerConverter}" StringFormat=" Numer chipa: {0} Czas startu: {1} Czas kontroli: {2} Czas mety: {3}">
-                    <Binding Path="Chip"/>
-                    <Binding Path="StartTime"/>
-                    <Binding Path="CheckTime"/>
-                    <Binding Path="FinishTime"/>
-                </MultiBinding>
-            </Label.Content>
-        </Label>-->
         <ListView x:Name="punchesLV" DockPanel.Dock="Right" Grid.Row="1" SelectionChanged="punchesLV_SelectionChanged" Width="Auto">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <!-- TODO: Possibility to add Setter to Background property -->
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
                     <GridViewColumn Width="Auto">
@@ -102,13 +98,13 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Margin="2"
-    											Text="{Binding Code}" >
-                                        <TextBlock.Background>
-                                            <Binding Converter="{StaticResource correctnessConverter}" 
+                                    <Grid.Background>
+                                        <Binding Converter="{StaticResource correctnessConverter}" 
                                                  ConverterParameter="{x:Static enum:Order.UNORDERED}" 
                                                  Path="Correctness"/>
-                                        </TextBlock.Background>
+                                    </Grid.Background>
+                                    <TextBlock Margin="2"
+    											Text="{Binding Code}" >
                                     </TextBlock>
                                 </Grid>
                             </DataTemplate>
