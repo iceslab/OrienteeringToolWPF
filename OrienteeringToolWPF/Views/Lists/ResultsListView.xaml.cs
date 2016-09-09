@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace OrienteeringToolWPF.Views.Lists
 {
@@ -15,9 +16,10 @@ namespace OrienteeringToolWPF.Views.Lists
     /// </summary>
     public partial class ResultsAndPunchesListView : UserControl, IRefreshable, IButtonsManageable
     {
-        public long? Chip { get; set; }
-        public Result Result { get; private set; }
-        public List<Punch> PunchesList { get; private set; }
+        private long? Chip;
+        private Result Result;
+        private List<Punch> PunchesList;
+        private List<RouteStep> RouteStepList;
 
         public ResultsAndPunchesListView() : this(null) { }
 
@@ -35,7 +37,21 @@ namespace OrienteeringToolWPF.Views.Lists
             if (Chip != null)
             {
                 Result = db.Results.FindAllByChip(Chip).FirstOrDefault() ?? new Result { Chip = (long)Chip };
-                PunchesList = db.Punches.FindAllByChip(Chip) ?? new List<Punch>();
+                PunchesList = db.Punches.FindAllByChip(Chip).OrderBy(db.Punches.Timestamp) ?? new List<Punch>();
+
+                // TODO: Get Route associated with Competitor and his Category for proper validation
+                dynamic routesAlias, competitorAlias;
+                RouteStepList = db.RouteSteps
+                                .All()
+                                .Join(db.Routes, out routesAlias)
+                                .On(db.RouteSteps.RouteId == db.Routes.Id)
+                                .Join(db.Competitors, out competitorAlias)
+                                .On(db.Routes.Category == db.Competitors.Category)
+                                .With(routesAlias)
+                                .With(competitorAlias)
+                                .Where(db.Competitors.Chip == Chip)
+                                .OrderBy(db.RouteSteps.Order);
+                Punch.CheckCorrectnessOrdered(ref PunchesList, RouteStepList);
             }
             else
             {
@@ -43,7 +59,6 @@ namespace OrienteeringToolWPF.Views.Lists
                 PunchesList = new List<Punch>();
             }
 
-            // TODO: Get Route associated with Competitor and his Category for proper validation
             labelsWP.DataContext = Result;
             punchesLV.ItemsSource = PunchesList;
         }
@@ -91,19 +106,20 @@ namespace OrienteeringToolWPF.Views.Lists
 
         private void resultsLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //if (e.Source is ListView)
+            //    ManageButtons((ListView)e.Source);
+            //else
+            //    Console.WriteLine("Not ListView: " + e.Source);
+            //e.Handled = true;
+        }
+
+        private void punchesLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
             if (e.Source is ListView)
                 ManageButtons((ListView)e.Source);
             else
                 Console.WriteLine("Not ListView: " + e.Source);
             e.Handled = true;
-        }
-
-        private void punchesLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //if (e.Source is ListView)
-            //    ManageButtons((ListView)e.Source);
-            //else
-            //    Console.WriteLine("Not ListView: " + e.Source);
         }
 
         public void SetButtonsVisibility(Visibility all)

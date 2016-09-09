@@ -6,11 +6,13 @@
              xmlns:local="clr-namespace:OrienteeringToolWPF.Views"
              xmlns:utils="clr-namespace:OrienteeringToolWPF.Utils"
              xmlns:prop="clr-namespace:OrienteeringToolWPF.Properties"
+             xmlns:enum="clr-namespace:OrienteeringToolWPF.Enumerations"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <utils:LongConverter x:Key="longConverter"/>
         <utils:TimestampConverter x:Key="timestampConverter"/>
+        <utils:CorrectnessConverter x:Key="correctnessConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -101,7 +103,13 @@
                             <DataTemplate>
                                 <Grid>
                                     <TextBlock Margin="2"
-    											Text="{Binding Code}" />
+    											Text="{Binding Code}" >
+                                        <TextBlock.Background>
+                                            <Binding Converter="{StaticResource correctnessConverter}" 
+                                                 ConverterParameter="{x:Static enum:Order.UNORDERED}" 
+                                                 Path="Correctness"/>
+                                        </TextBlock.Background>
+                                    </TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

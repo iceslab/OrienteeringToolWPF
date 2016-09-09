@@ -53,20 +53,45 @@ namespace OrienteeringToolWPF.Model
                 p.Chip = Chip;
         }
 
+        // Checks correctness of Punch list according to RouteStep list
+        // Method assumes that Punches are sorted by Timestamp and RouteSteps by Order fields
         public static void CheckCorrectnessOrdered(ref List<Punch> punches, List<RouteStep> routeSteps)
         {
+            // Associative array of RouteStep code occurences
+            var routeStepsAssociative = RouteStep.GetCodeOccurenceCount(routeSteps);
+
+            // Normal for only because of using index comparision
             for (var i = 0; i < punches.Count; i++)
             {
-                var punchesCode = punches[i].Code;
                 // If Code matches in both lists set to CORRECT
-                if (routeSteps.Count < i && punches[i].Code == routeSteps[i].Code)
+                if (i < routeSteps.Count && punches[i].Code == routeSteps[i].Code)
+                {
                     punches[i].Correctness = Correctness.CORRECT;
-                // If element exists (was collected in wrong order) set to PRESENT
-                else if (routeSteps.Exists(element => element.Code == punchesCode))
-                    punches[i].Correctness = Correctness.PRESENT;
-                // In other cases Punch is invalid
+                    routeStepsAssociative[punches[i].Code]--;
+                }
                 else
+                {
+                    // On other cases than mentioned below Punch is invalid
                     punches[i].Correctness = Correctness.INVALID;
+                }
+            }
+
+            foreach(var punch in punches)
+            {
+                if(punch.Correctness == Correctness.INVALID)
+                {
+                    long value;
+                    // If element exists on route
+                    if (routeStepsAssociative.TryGetValue(punch.Code, out value) == true)
+                    {
+                        // If element exists and was collected proper number of times
+                        if (value > 0)
+                        {
+                            routeStepsAssociative[punch.Code]--;
+                            punch.Correctness = Correctness.PRESENT;
+                        }
+                    }
+                }
             }
         }
 

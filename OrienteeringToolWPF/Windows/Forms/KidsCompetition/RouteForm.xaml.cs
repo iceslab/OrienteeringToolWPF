@@ -17,16 +17,15 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         {
             InitializeComponent();
             route = new Route();
+            routeStepsList = new List<RouteStep>();
             MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
         }
 
-        public RouteForm(Route r)
+        public RouteForm(Route r) : this()
         {
-            InitializeComponent();
             route = r;
             ObjectToForm();
             PrepareRouteStepsList();
-            MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
         }
 
         private void Listener_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -171,7 +170,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         {
             var db = MainWindow.GetDatabase();
             if (route.Id != null)
-                routeStepsList = db.RouteSteps.FindAllByRouteId(route.Id);
+                routeStepsList = db.RouteSteps.FindAllByRouteId(route.Id) ?? new List<RouteStep>();
 
             routeStepsLV.ItemsSource = routeStepsList;
         }

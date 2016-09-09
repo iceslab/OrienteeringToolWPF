@@ -54,6 +54,21 @@ namespace OrienteeringToolWPF.Model
                 r.RouteId = RouteId;
         }
 
+        public static Dictionary<long, long> GetCodeOccurenceCount(List<RouteStep> rs)
+        {
+            var dict = new Dictionary<long, long>();
+
+            foreach(var e in rs)
+            {
+                if (dict.ContainsKey(e.Code))
+                    dict[e.Code]++;
+                else
+                    dict.Add(e.Code, 1);
+            }
+
+            return dict;
+        }
+
         #region Object overrides
         // Equality method (returns true when all fields matches)
         public override bool Equals(object other)

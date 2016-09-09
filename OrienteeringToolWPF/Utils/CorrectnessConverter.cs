@@ -2,6 +2,7 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace OrienteeringToolWPF.Utils
 {
@@ -18,10 +19,20 @@ namespace OrienteeringToolWPF.Utils
             if (!(parameter is Order))
                 throw new ArgumentException("Parameter must be Order enum");
 
-            if ((long)value <= 0)
-                value = Properties.Resources.None;
-
-            return string.Format((string)parameter, value);
+            switch ((Correctness)value)
+            {
+                case Correctness.PRESENT:
+                    // Only because ther is no fallthrough is something besides break is in case
+                    //if ((Order)parameter == Order.UNORDERED)
+                    //    goto case Correctness.CORRECT;
+                    return Brushes.Yellow;
+                case Correctness.CORRECT:
+                    return Brushes.Green;
+                case Correctness.INVALID:
+                    return Brushes.Red;
+                default:
+                    return Brushes.Transparent;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
