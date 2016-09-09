@@ -27,9 +27,9 @@ namespace OrienteeringToolWPF.Utils
                     //    goto case Correctness.CORRECT;
                     return Brushes.Yellow;
                 case Correctness.CORRECT:
-                    return Brushes.Green;
+                    return Brushes.LightGreen;
                 case Correctness.INVALID:
-                    return Brushes.Red;
+                    return new SolidColorBrush(Color.FromRgb(255, 63, 63));
                 default:
                     return Brushes.Transparent;
             }
