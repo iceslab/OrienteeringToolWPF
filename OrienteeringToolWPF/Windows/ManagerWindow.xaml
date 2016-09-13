@@ -1,4 +1,4 @@
-﻿<src:CommonManager x:Class="OrienteeringToolWPF.Windows.KidsCompetitionManagerWindow"
+﻿<src:CommonManager x:Class="OrienteeringToolWPF.Windows.ManagerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,6 +10,6 @@
         Title="KidsCompetitionManagerWindow" Height="500" Width="700"
         WindowStartupLocation="CenterOwner">
     <Grid>
-        <views:KidsCompetitionManagerView x:Name="managerView"/>
+        <views:ManagerView x:Name="managerView"/>
     </Grid>
 </src:CommonManager>

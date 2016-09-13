@@ -41,7 +41,7 @@ namespace OrienteeringToolWPF.Views
         {
             if(MessageUtils.PromptForConnection(this) == true)
             {
-                var kcWindow = new KidsCompetitionManagerWindow(tournament);
+                var kcWindow = new ManagerWindow(tournament);
                 kcWindow.Owner = Window.GetWindow(this);
                 kcWindow.Start();
             }

@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 namespace OrienteeringToolWPF.Windows
 {
-    public partial class KidsCompetitionManagerWindow : CommonManager, ICurrentView
+    public partial class ManagerWindow : CommonManager, ICurrentView
     {
         public Tournament tournament { get; private set; }
         private UserControl _currentView;
@@ -24,7 +24,7 @@ namespace OrienteeringToolWPF.Windows
             }
         }
 
-        public KidsCompetitionManagerWindow(Tournament tournament) : base()
+        public ManagerWindow(Tournament tournament) : base()
         {
             InitializeComponent();
             managerView.DataContext = this;

@@ -7,9 +7,9 @@ namespace OrienteeringToolWPF.Views
     /// Interaction logic for KidsCompetition.xaml
     /// </summary>
 
-    public partial class KidsCompetitionView : UserControl
+    public partial class MainView : UserControl
     {
-        public KidsCompetitionView()
+        public MainView()
         {
             InitializeComponent();
         }

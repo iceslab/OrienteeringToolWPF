@@ -10,9 +10,9 @@ namespace OrienteeringToolWPF.Views
     /// Interaction logic for KidsCompetition.xaml
     /// </summary>
 
-    public partial class KidsCompetitionManagerView : UserControl
+    public partial class ManagerView : UserControl
     {
-        public KidsCompetitionManagerView()
+        public ManagerView()
         {
             InitializeComponent();
             MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;

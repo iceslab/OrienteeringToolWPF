@@ -189,11 +189,11 @@
     <Compile Include="Views\Lists\CompetitorsListView.xaml.cs">
       <DependentUpon>CompetitorsListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\KidsCompetitionManagerView.xaml.cs">
-      <DependentUpon>KidsCompetitionManagerView.xaml</DependentUpon>
+    <Compile Include="Views\ManagerView.xaml.cs">
+      <DependentUpon>ManagerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\KidsCompetitionView.xaml.cs">
-      <DependentUpon>KidsCompetitionView.xaml</DependentUpon>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\Lists\CategoriesListView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -207,7 +207,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\KidsCompetitionManagerView.xaml">
+    <Page Include="Views\ManagerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -263,7 +263,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\KidsCompetitionManagerWindow.xaml">
+    <Page Include="Windows\ManagerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -318,14 +318,14 @@
     <Compile Include="Windows\Forms\KidsCompetition\TournamentForm.xaml.cs">
       <DependentUpon>TournamentForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\KidsCompetitionManagerWindow.xaml.cs">
-      <DependentUpon>KidsCompetitionManagerWindow.xaml</DependentUpon>
+    <Compile Include="Windows\ManagerWindow.xaml.cs">
+      <DependentUpon>ManagerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\KidsCompetitionView.xaml">
+    <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

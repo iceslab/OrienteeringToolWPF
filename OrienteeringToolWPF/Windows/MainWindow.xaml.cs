@@ -168,7 +168,7 @@ namespace OrienteeringToolWPF.Windows
             {
                 DatabasePath = ofd.FileName;
                 DatabaseType = DatabaseTypeEnum.SQLITE3;
-                CurrentView = new KidsCompetitionView();
+                CurrentView = new MainView();
             }
         }
 
@@ -192,7 +192,7 @@ namespace OrienteeringToolWPF.Windows
                     DatabaseType = DatabaseTypeEnum.SQLITE3;
                     CreateKCDatabase();
                     window.Save();
-                    CurrentView = new KidsCompetitionView();
+                    CurrentView = new MainView();
                 }
             }
         }
