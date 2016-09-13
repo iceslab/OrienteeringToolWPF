@@ -1,8 +1,11 @@
-﻿using OrienteeringToolWPF.DAO.Implementation;
-using OrienteeringToolWPF.Model;
+﻿using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 
 namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
@@ -10,35 +13,36 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
     public partial class RouteForm : Window, IForm
     {
         private Route route;
-        private List<RouteStep> routeStepsList;
+        private ObservableCollection<RouteStep> routeStepsList;
         private List<Category> categoriesList;
 
         public RouteForm()
         {
             InitializeComponent();
             route = new Route();
-            routeStepsList = new List<RouteStep>();
+            routeStepsList = new ObservableCollection<RouteStep>();
+            routeStepsLV.ItemsSource = routeStepsList;
             MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
         }
 
         public RouteForm(Route r) : this()
         {
+            Debug.Assert(r != null, "Route object passed to form is null");
             route = r;
             ObjectToForm();
             PrepareRouteStepsList();
         }
 
-        private void Listener_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void Listener_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "DataFrame")
             {
-                routeStepsList = RouteStep.Parse(MainWindow.Listener.DataFrame.Punches, (long)route.Id);
-                Dispatcher.Invoke(
-                    new Action(
-                        delegate ()
-                        {
-                            routeStepsLV.ItemsSource = routeStepsList;
-                        }));
+                var list = RouteStep.Parse(MainWindow.Listener.DataFrame.Punches, (long)route.Id);
+                routeStepsList.Clear();
+                foreach (var rs in list)
+                {
+                    routeStepsList.Add(rs);
+                }
             }
         }
 
@@ -61,6 +65,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                     // Insert new route steps
                     foreach (var rs in routeStepsList)
                     {
+                        rs.RouteId = (long)route.Id;
                         inserted = tx.RouteSteps.Insert(rs);
                     }
                     tx.Commit();
@@ -76,27 +81,28 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 
         private void addStepB_Click(object sender, RoutedEventArgs e)
         {
-            var window = new RouteStepForm(route, true);
+            var window = new RouteStepForm(route, routeStepsList.Count, true);
             window.Owner = this;
             if (window.ShowDialog() == true)
             {
+                routeStepsList.Insert(Convert.ToInt32(window.routeStep.Order - 1), window.routeStep);
                 RefreshOrder();
-                routeStepsList.Add(window.routeStep);
-                routeStepsLV.Items.Refresh();
             }
         }
 
         private void editStepB_Click(object sender, RoutedEventArgs e)
         {
+            // TODO: When editing SelectedItem does not deselect
             var rs = (RouteStep)routeStepsLV.SelectedItem;
             if (rs != null)
             {
-                var window = new RouteStepForm(rs, true);
+                var window = new RouteStepForm(rs, routeStepsList.Count, true);
                 window.Owner = this;
                 if (window.ShowDialog() == true)
                 {
+                    routeStepsList.Remove(rs);
+                    routeStepsList.Insert(Convert.ToInt32(window.routeStep.Order - 1), window.routeStep);
                     RefreshOrder();
-                    routeStepsLV.Items.Refresh();
                 }
             }
         }
@@ -104,11 +110,14 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         private void deleteStepB_Click(object sender, RoutedEventArgs e)
         {
             var si = routeStepsLV.SelectedItems;
+            var sidx = new List<RouteStep>();
+
             foreach (RouteStep rs in si)
+                sidx.Add(rs);
+            foreach (RouteStep rs in sidx)
                 routeStepsList.Remove(rs);
 
             RefreshOrder();
-            routeStepsLV.Items.Refresh();
         }
 
         private void routeStepsLV_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -169,16 +178,23 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         private void PrepareRouteStepsList()
         {
             var db = MainWindow.GetDatabase();
-            if (route.Id != null)
-                routeStepsList = db.RouteSteps.FindAllByRouteId(route.Id) ?? new List<RouteStep>();
-
-            routeStepsLV.ItemsSource = routeStepsList;
+            List<RouteStep> list = db.RouteSteps.FindAllByRouteId(route.Id);
+            routeStepsList.Clear();
+            foreach (var rs in list)
+            {
+                routeStepsList.Add(rs);
+            }
         }
 
         private void RefreshOrder()
         {
             for (int i = 0; i < routeStepsList.Count; ++i)
                 routeStepsList[i].Order = i + 1;
+            Dispatcher.Invoke(
+                delegate 
+                {
+                    routeStepsLV.UnselectAll();
+                });
         }
 
         #region CategoryCB methods
@@ -228,7 +244,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                             if (!newCategories[i].Equals(categoriesList[i]))
                                 break;
                         }
-                        
+
                         // Refresh view and select new item
                         PopulateCategoryCB();
                         CategoryCB.SelectedIndex = i;

@@ -39,7 +39,7 @@
                     <GridViewColumn Width="Auto">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate >
-                                <TextBlock Text="Id" Margin="2" />
+                                <TextBlock Text="Lp." Margin="2" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>

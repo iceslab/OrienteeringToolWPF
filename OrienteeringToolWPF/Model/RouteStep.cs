@@ -33,7 +33,7 @@ namespace OrienteeringToolWPF.Model
         }
 
         // Parses array of SiPunch to list of RouteSteps
-        public static List<RouteStep> Parse(SiPunch[] siPunches, long RouteId = 0)
+        public static IList<RouteStep> Parse(SiPunch[] siPunches, long RouteId = 0)
         {
             if (siPunches != null)
             {
@@ -54,7 +54,7 @@ namespace OrienteeringToolWPF.Model
                 r.RouteId = RouteId;
         }
 
-        public static Dictionary<long, long> GetCodeOccurenceCount(List<RouteStep> rs)
+        public static Dictionary<long, long> GetCodeOccurenceCount(IList<RouteStep> rs)
         {
             var dict = new Dictionary<long, long>();
 
