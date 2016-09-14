@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace OrienteeringToolWPF.Interfaces
 {
-    interface ICurrentView
+    public interface ICurrentView : INotifyPropertyChanged
     {
         UserControl CurrentView { get; set; }
     }

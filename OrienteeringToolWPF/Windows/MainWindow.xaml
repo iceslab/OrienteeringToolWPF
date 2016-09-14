@@ -7,7 +7,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
         x:Name="mainWindow" x:Class="OrienteeringToolWPF.Windows.MainWindow"
-        Title="MainWindow" Height="400" Width="550" Closing="mainWindow_Closing" 
+        Title="Main Window" Height="400" Width="550" Closing="mainWindow_Closing" 
         MinHeight="400" MinWidth="550"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
     <Grid>
@@ -33,7 +33,9 @@
             <StatusBar x:Name="statusBar" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
                 <Label x:Name="label" Width="244" Content="{Binding Status}" Padding="5,0,0,0" Height="16"/>
             </StatusBar>
-            <ContentControl DataContext="local:MainWindow" x:Name="contentControl" Content="{Binding CurrentView}" />
+            <ContentControl DataContext="{Binding ElementName=mainWindow, Mode=OneWay}" 
+                            x:Name="mainWindowCC" 
+                            Content="{Binding CurrentView}" />
         </DockPanel>
     </Grid>
 </Window>

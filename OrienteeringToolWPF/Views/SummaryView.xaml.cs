@@ -1,53 +1,18 @@
-﻿using OrienteeringToolWPF.Interfaces;
-using OrienteeringToolWPF.Model;
+﻿using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Windows;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Controls;
-using System;
 
 namespace OrienteeringToolWPF.Views
 {
-    /// <summary>
-    /// Interaction logic for KidsCompetition.xaml
-    /// </summary>
 
-    public partial class ManagerView : UserControl, ICurrentView
+    public partial class SummaryView : UserControl
     {
-        #region ICurrentView implementation
-        private UserControl _currentView;
-        public UserControl CurrentView
-        {
-            get { return _currentView; }
-
-            set
-            {
-                _currentView = value;
-                OnPropertyChanged("CurrentView");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-
-        public ManagerView()
+        public SummaryView()
         {
             InitializeComponent();
-            //managerViewCC.DataContext = this;
-            relaysTV.PropertyChanged += RelaysTV_PropertyChanged;
             MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
-        }
-
-        private void RelaysTV_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "CurrentView")
-            {
-                CurrentView = relaysTV.CurrentView;
-            }
         }
 
         private void Listener_PropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -1,18 +1,20 @@
 ﻿using OrienteeringToolWPF.Interfaces;
 using OrienteeringToolWPF.Model;
+using OrienteeringToolWPF.Views.Lists;
 using OrienteeringToolWPF.Windows;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Controls;
+using OrienteeringToolWPF.Utils;
 using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
+using System.ComponentModel;
 
 namespace OrienteeringToolWPF.Views
 {
     /// <summary>
-    /// Interaction logic for KidsCompetition.xaml
+    /// Interaction logic for RelaysAndCompetitorsTreeView.xaml
     /// </summary>
-
-    public partial class ManagerView : UserControl, ICurrentView
+    public partial class RelaysAndCompetitorsView : UserControl, IRefreshable, ICurrentView
     {
         #region ICurrentView implementation
         private UserControl _currentView;
@@ -34,20 +36,13 @@ namespace OrienteeringToolWPF.Views
         }
         #endregion
 
-        public ManagerView()
+        public List<Relay> RelayList { get; private set; }
+        
+        public RelaysAndCompetitorsView()
         {
             InitializeComponent();
-            //managerViewCC.DataContext = this;
-            relaysTV.PropertyChanged += RelaysTV_PropertyChanged;
             MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
-        }
-
-        private void RelaysTV_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "CurrentView")
-            {
-                CurrentView = relaysTV.CurrentView;
-            }
+            Refresh();
         }
 
         private void Listener_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -56,7 +51,7 @@ namespace OrienteeringToolWPF.Views
             {
                 var result = new Result(MainWindow.Listener.DataFrame);
                 Competitor competitor = null;
-                foreach (var relay in relaysTV.RelayList)
+                foreach (var relay in RelayList)
                 {
                     competitor = ((List<Competitor>)relay.Competitors).Find(y
                         => y.Chip == result.Chip);
@@ -80,9 +75,58 @@ namespace OrienteeringToolWPF.Views
                         }
                         tx.Commit();
                     }
-                    relaysTV.SelectCompetitor(competitor);
+                    SelectCompetitor(competitor);
                 }
             }
+        }
+
+        public void Refresh()
+        {
+            var db = MainWindow.GetDatabase();
+            dynamic alias;
+            RelayList = db.Relays
+                            .All()
+                            .LeftJoin(db.Competitors, out alias)
+                            .On(db.Competitors.RelayId == db.Relays.Id)
+                            .With(alias);
+            relaysAndCompetitorsTV.ItemsSource = RelayList;
+        }
+
+        private void relaysAndCompetitorsTV_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            SetNewView(e.NewValue);
+            Console.WriteLine(sender);
+        }
+
+        private void SetNewView(object NewValue)
+        {
+            try
+            {
+                if (NewValue is Competitor)
+                {
+                    var c = (Competitor)NewValue;
+                    var uc = new ResultsAndPunchesListView(c.Chip);
+                    uc.SetButtonsVisibility(Visibility.Collapsed);
+                    CurrentView = uc;
+                }
+                else if (NewValue is Relay)
+                {
+                    var r = (Relay)NewValue;
+                    var uc = new CompetitorsListView(r.Id);
+                    uc.SetButtonsVisibility(Visibility.Collapsed);
+                    CurrentView = uc;
+                }
+            }
+            catch (InvalidCastException) { }
+        }
+
+        public void SelectCompetitor(Competitor competitor)
+        {
+            Dispatcher.Invoke(new Action(() => 
+            {
+                relaysAndCompetitorsTV.Focus();
+                relaysAndCompetitorsTV.SetSelectedItem(competitor);
+            }));
         }
     }
 }

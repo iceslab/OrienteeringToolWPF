@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="OrienteeringToolWPF.Views.RelaysAndCompetitorsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OrienteeringToolWPF.Views"
+             xmlns:model="clr-namespace:OrienteeringToolWPF.Model"
+             mc:Ignorable="d" x:Name="relaysAndCompetitorsView"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TreeView Name="relaysAndCompetitorsTV" 
+                  Grid.Column="0" 
+                  HorizontalAlignment="Left" 
+                  Margin="5" 
+                  MinWidth="200"
+                  SelectedItemChanged="relaysAndCompetitorsTV_SelectedItemChanged">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="True"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeView.ItemTemplate>
+                <!-- Relay template -->
+                <HierarchicalDataTemplate ItemsSource="{Binding Competitors}">
+                    <TextBlock Text="{Binding Name}"/>
+                    <!-- Competitor template -->
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat=" {0} - ({1})">
+                                        <Binding Path="Name"/>
+                                        <Binding Path="Chip"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                    <!-- End of Competitor template -->
+                </HierarchicalDataTemplate>
+                <!-- End of Relay template -->
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <ContentControl 
+            DataContext="{Binding ElementName=relaysAndCompetitorsView, Mode=OneWay}" 
+            x:Name="detailsCC" 
+            Grid.Column="1" 
+            Content="{Binding CurrentView}" 
+            MinWidth="100"
+            Margin="5"/>
+    </Grid>
+</UserControl>

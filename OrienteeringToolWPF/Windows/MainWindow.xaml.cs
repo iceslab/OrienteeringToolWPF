@@ -57,7 +57,7 @@ namespace OrienteeringToolWPF.Windows
             // Needed for bindings
             menuBar.DataContext = Handler;
             label.DataContext = Listener;
-            contentControl.DataContext = this;
+            //mainWindowCC.DataContext = this;
 
             Listener.Notify(CommStatus.Off);
         }

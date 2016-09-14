@@ -2,6 +2,7 @@
 using OrienteeringToolWPF.Interfaces;
 using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Utils;
+using OrienteeringToolWPF.Views;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -9,7 +10,7 @@ using System.Windows.Controls;
 
 namespace OrienteeringToolWPF.Windows
 {
-    public partial class ManagerWindow : CommonManager, ICurrentView
+    public partial class ManagerWindow : Window, INotifyPropertyChanged, ICurrentView
     {
         public Tournament tournament { get; private set; }
         private UserControl _currentView;
@@ -24,15 +25,21 @@ namespace OrienteeringToolWPF.Windows
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public ManagerWindow(Tournament tournament) : base()
         {
             InitializeComponent();
-            managerView.DataContext = this;
+            //managerWindowCC.DataContext = this;
             this.tournament = tournament;
         }
 
         // Starts or resumes competition
-        public override void Start()
+        public void Start()
         {
             // Competition in progress - resume
             if (tournament.IsRunning == true)
@@ -43,6 +50,8 @@ namespace OrienteeringToolWPF.Windows
             else if (tournament.HasFinished == true)
             {
                 MessageUtils.ShowCannotStartFinishedInfo(this);
+                // Set current view to Summary
+                CurrentView = new SummaryView();
             }
             // Competition starting
             else
@@ -67,16 +76,17 @@ namespace OrienteeringToolWPF.Windows
                         var db = MainWindow.GetDatabase();
                         db.Tournament.Update(tournament);
 
-                        // Show window and register listener
+                        // Set current view to Manager
+                        CurrentView = new RelaysAndCompetitorsView();
+                        // Show window
                         Show();
-                        MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
                     }
                 }
             }
         }
 
         // Finish competition
-        public override void Finish()
+        public void Finish()
         {
             // Save competition finish time
             tournament.FinishedAtTime = DateTime.Now;
@@ -88,24 +98,21 @@ namespace OrienteeringToolWPF.Windows
         }
 
         // Resume competition
-        protected override void Resume()
+        protected void Resume()
         {
             // If not connected to station, ask for connection
             if (MessageUtils.PromptForConnection(this) == true)
             {
-                // Show window and register listener
+                // Set current view to Manager
+                CurrentView = new RelaysAndCompetitorsView();
+                // Show window
                 Show();
-                MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
             }
         }
 
-        // Listener for incoming chip dataframes
-        private void Listener_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void finishB_Click(object sender, RoutedEventArgs e)
         {
-            if (e.PropertyName == "DataFrame")
-            {
-
-            }
+            Finish();
         }
     }
 }
