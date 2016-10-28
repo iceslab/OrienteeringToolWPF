@@ -81,7 +81,6 @@
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.TeamFoundation.Controls, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Simple.Data, Version=0.18.3.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Simple.Data.Core.0.18.3.1\lib\net40\Simple.Data.dll</HintPath>
       <Private>True</Private>
@@ -180,11 +179,14 @@
     <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\MessageUtils.cs" />
     <Compile Include="Utils\TreeViewExtension.cs" />
+    <Compile Include="Views\ClassificationView.xaml.cs">
+      <DependentUpon>ClassificationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Lists\CategoriesListView.xaml.cs">
       <DependentUpon>CategoriesListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Lists\ResultsListView.xaml.cs">
-      <DependentUpon>ResultsListView.xaml</DependentUpon>
+    <Compile Include="Views\Lists\ResultsAndPunchesListView.xaml.cs">
+      <DependentUpon>ResultsAndPunchesListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Lists\CompetitorsListView.xaml.cs">
       <DependentUpon>CompetitorsListView.xaml</DependentUpon>
@@ -198,11 +200,15 @@
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ClassificationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Lists\CategoriesListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Lists\ResultsListView.xaml">
+    <Page Include="Views\Lists\ResultsAndPunchesListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -376,7 +382,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GecoSI.Net\GecoSI.Net.csproj">

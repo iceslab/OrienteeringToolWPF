@@ -27,6 +27,24 @@ namespace OrienteeringToolWPF.Model
         public GenderEnum Gender { get; set; }
         public DateTime BirthDate { get; set; }
 
+        // For join queries
+        public IList<Punch> Punches { get; set; }
+        public IList<Result> Results { private get; set; }
+        public Result Result
+        {
+            get { return Results?[0]; }
+            set
+            {
+                if (Results == null)
+                    Results = new List<Result>();
+
+                if (Results.Count > 0)
+                    Results[0] = value;
+                else
+                    Results.Add(value);
+            }
+        }
+
         #region ISelectable implementation
         private bool _isSelected;
         public bool IsSelected

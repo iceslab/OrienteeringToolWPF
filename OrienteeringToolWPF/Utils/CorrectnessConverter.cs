@@ -22,9 +22,9 @@ namespace OrienteeringToolWPF.Utils
             switch ((Correctness)value)
             {
                 case Correctness.PRESENT:
-                    // Only because ther is no fallthrough is something besides break is in case
-                    //if ((Order)parameter == Order.UNORDERED)
-                    //    goto case Correctness.CORRECT;
+                    // Only because there is no fallthrough is something besides break is in case
+                    if ((Order)parameter == Order.UNORDERED)
+                        goto case Correctness.CORRECT;
                     return Brushes.Yellow;
                 case Correctness.CORRECT:
                     return Brushes.LightGreen;

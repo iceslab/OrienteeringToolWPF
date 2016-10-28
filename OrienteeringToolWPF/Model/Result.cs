@@ -16,6 +16,13 @@ namespace OrienteeringToolWPF.Model
         public long StartTime { get; set; }
         public long CheckTime { get; set; }
         public long FinishTime { get; set; }
+        public long RunningTime
+        {
+            get
+            {
+                return FinishTime - StartTime;
+            }
+        }
 
         public Result()
         {

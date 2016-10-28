@@ -12,6 +12,8 @@ namespace OrienteeringToolWPF.Model
     {
         public long? Id { get; set; }
         public string Name { get; set; }
+
+        // For join queries
         public IList<Competitor> Competitors { get; set; }
 
         public override string ToString()

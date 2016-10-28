@@ -31,6 +31,16 @@ namespace OrienteeringToolWPF.Views.Lists
             relaysLV.ItemsSource = RelaysList;
         }
 
+        private void relaysLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.Source is ListView)
+                ManageButtons((ListView)e.Source);
+            else
+                Console.WriteLine("Not ListView: " + e.Source);
+            e.Handled = true;
+        }
+
+        #region Buttons
         private void addB_Click(object sender, RoutedEventArgs e)
         {
             Window window = new RelayForm();
@@ -72,15 +82,6 @@ namespace OrienteeringToolWPF.Views.Lists
             }
         }
 
-        private void relaysLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.Source is ListView)
-                ManageButtons((ListView)e.Source);
-            else
-                Console.WriteLine("Not ListView: " + e.Source);
-            e.Handled = true;
-        }
-
         public void SetButtonsVisibility(Visibility all)
         {
             addB.Visibility = all;
@@ -94,5 +95,6 @@ namespace OrienteeringToolWPF.Views.Lists
             editB.Visibility = edit;
             deleteB.Visibility = delete;
         }
+        #endregion
     }
 }

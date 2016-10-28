@@ -12,7 +12,7 @@ using System.Windows.Media;
 namespace OrienteeringToolWPF.Views.Lists
 {
     /// <summary>
-    /// Interaction logic for CompetitorsListView.xaml
+    /// Interaction logic for ResultsAndPunchesListView.xaml
     /// </summary>
     public partial class ResultsAndPunchesListView : UserControl, IRefreshable, IButtonsManageable
     {
@@ -39,7 +39,7 @@ namespace OrienteeringToolWPF.Views.Lists
                 Result = db.Results.FindAllByChip(Chip).FirstOrDefault() ?? new Result { Chip = (long)Chip };
                 PunchesList = db.Punches.FindAllByChip(Chip).OrderBy(db.Punches.Timestamp) ?? new List<Punch>();
 
-                // TODO: Get Route associated with Competitor and his Category for proper validation
+                // Gets Route associated with Competitor and his Category for proper validation
                 dynamic routesAlias, competitorAlias;
                 RouteStepList = db.RouteSteps
                                 .All()

@@ -49,9 +49,8 @@ namespace OrienteeringToolWPF.Windows
             // Competition finished - show information
             else if (tournament.HasFinished == true)
             {
-                MessageUtils.ShowCannotStartFinishedInfo(this);
-                // Set current view to Summary
-                CurrentView = new SummaryView();
+                //MessageUtils.ShowCannotStartFinishedInfo(this);
+                ShowSummary();
             }
             // Competition starting
             else
@@ -108,6 +107,14 @@ namespace OrienteeringToolWPF.Windows
                 // Show window
                 Show();
             }
+        }
+
+        private void ShowSummary()
+        {
+            // Set current view to Summary
+            CurrentView = new SummaryView();
+            finishB.Visibility = Visibility.Collapsed;
+            Show();
         }
 
         private void finishB_Click(object sender, RoutedEventArgs e)

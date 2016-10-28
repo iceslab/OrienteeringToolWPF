@@ -13,25 +13,13 @@
     <UserControl.DataContext>
         <model:Tournament/>
     </UserControl.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <local:RelaysAndCompetitorsView 
-            x:Name="relaysTV" 
-            Grid.Column="0" 
-            HorizontalAlignment="Left" 
-            Margin="5" 
-            MinWidth="200"/>
-        <ContentControl 
-            x:Name="contentControl" 
-            Grid.Column="1" 
-            Content="{Binding CurrentView}" 
-            MinWidth="100"
-            Margin="5"/>
-    </Grid>
+    <TabControl x:Name="summaryViewTC" Grid.Row="0" Grid.Column="0"
+                    Margin="5">
+        <TabItem Header="Sztafety i zawodnicy" Name="relaysAndCompetitorsTV" >
+            <local:RelaysAndCompetitorsView/>
+        </TabItem>
+        <TabItem Header="Klasyfikacja">
+            <local:ClassificationView/>
+        </TabItem>
+    </TabControl>
 </UserControl>

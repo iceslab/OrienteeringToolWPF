@@ -14,6 +14,7 @@ namespace OrienteeringToolWPF.Model
         public long Code { get; set; }
         public long Timestamp { get; set; }
         public Correctness Correctness { get; set; }
+        public long DeltaStart { get; set; }
 
         public Punch() : base()
         {
@@ -22,6 +23,7 @@ namespace OrienteeringToolWPF.Model
             Code = 0;
             Timestamp = 0;
             Correctness = Correctness.NOT_CHECKED;
+            DeltaStart = 0;
         }
 
         public Punch(SiPunch sp, long Chip = 0) : this()
@@ -57,6 +59,11 @@ namespace OrienteeringToolWPF.Model
         // Method assumes that Punches are sorted by Timestamp and RouteSteps by Order fields
         public static void CheckCorrectnessOrdered(ref List<Punch> punches, List<RouteStep> routeSteps)
         {
+            if (punches == null)
+                throw new System.ArgumentNullException(nameof(punches), "List refers to null");
+            if (routeSteps == null)
+                throw new System.ArgumentNullException(nameof(routeSteps), "List refers to null");
+
             // Associative array of RouteStep code occurences
             var routeStepsAssociative = RouteStep.GetCodeOccurenceCount(routeSteps);
 
@@ -93,6 +100,25 @@ namespace OrienteeringToolWPF.Model
                     }
                 }
             }
+        }
+
+        // Counts number of punches of wanted type(s)
+        public static uint GetNoOfCorrectPunches(List<Punch> punches, List<Correctness> correctness)
+        {
+            uint count = 0;
+            foreach(var p in punches)
+            {
+                foreach(var c in correctness)
+                {
+                    if (p.Correctness == c)
+                    {
+                        count++;
+                        break;
+                    }
+                }
+            }
+
+            return count;
         }
 
         #region Object overrides
