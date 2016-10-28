@@ -97,7 +97,11 @@ namespace OrienteeringToolWPF.Windows
                     return GetDatabaseMysql();
                 case DatabaseTypeEnum.NONE:
                 default:
-                    throw new InvalidEnumArgumentException("Argument does not provide valid database type: " + DatabaseType.ToString());
+                    throw new InvalidEnumArgumentException(
+                        "Variable "
+                        + "\"" + nameof(DatabaseType) + "\""
+                        + " does not provide valid database type. Provided type: " 
+                        + DatabaseType.ToString());
             }
         }
         #endregion

@@ -239,6 +239,15 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to +{mm:ss}.
+        /// </summary>
+        public static string DeltaTimeFormat {
+            get {
+                return ResourceManager.GetString("DeltaTimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Błędy:.
         /// </summary>
         public static string Errors {

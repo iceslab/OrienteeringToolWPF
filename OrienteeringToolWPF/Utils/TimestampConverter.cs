@@ -6,15 +6,14 @@ namespace OrienteeringToolWPF.Utils
 {
     class TimestampConverter : IValueConverter
     {
-        // TODO: Parameter must contain relative start time (or something else must be done to get correct time)
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
-                throw new ArgumentNullException("Argument must not be null");
+                throw new ArgumentNullException(nameof(value), "Argument must not be null");
             if (parameter == null)
-                throw new ArgumentNullException("Paramter must not be null");
+                throw new ArgumentNullException(nameof(parameter), "Paramter must not be null");
             if (!(parameter is string))
-                throw new ArgumentException("Parameter must be string");
+                throw new ArgumentException(nameof(parameter), "Parameter must be string");
 
             if (value is long && (long)value > 0)
             {

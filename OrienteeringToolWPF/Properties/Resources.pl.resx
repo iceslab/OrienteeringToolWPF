@@ -171,6 +171,9 @@ Usunięte zostaną także wszystkie powiązane dane.</value>
     <value>Uwaga!
 Baza danych istnieje, czy chcesz nadpisać?</value>
   </data>
+  <data name="DeltaTimeFormat" xml:space="preserve">
+    <value>+{mm:ss}</value>
+  </data>
   <data name="Errors" xml:space="preserve">
     <value>Błędy:</value>
   </data>

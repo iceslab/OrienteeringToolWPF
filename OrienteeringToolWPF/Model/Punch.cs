@@ -1,6 +1,7 @@
 ﻿using GecoSI.Net.Dataframe;
 using OrienteeringToolWPF.Enumerations;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 /// <summary>
 /// Models punch - data from chip describing acquired checkpoints
@@ -33,6 +34,12 @@ namespace OrienteeringToolWPF.Model
             Timestamp = sp.Timestamp;
         }
 
+        public void CalculateDeltaStart(long StartTime)
+        {
+            DeltaStart = Timestamp - StartTime;
+        }
+
+        #region Static methods
         // Parses array of SiPunch to list of Punch objects
         public static List<Punch> Parse(SiPunch[] siPunches, long Chip = 0)
         {
@@ -83,9 +90,9 @@ namespace OrienteeringToolWPF.Model
                 }
             }
 
-            foreach(var punch in punches)
+            foreach (var punch in punches)
             {
-                if(punch.Correctness == Correctness.INVALID)
+                if (punch.Correctness == Correctness.INVALID)
                 {
                     long value;
                     // If element exists on route
@@ -106,9 +113,9 @@ namespace OrienteeringToolWPF.Model
         public static uint GetNoOfCorrectPunches(List<Punch> punches, List<Correctness> correctness)
         {
             uint count = 0;
-            foreach(var p in punches)
+            foreach (var p in punches)
             {
-                foreach(var c in correctness)
+                foreach (var c in correctness)
                 {
                     if (p.Correctness == c)
                     {
@@ -121,6 +128,15 @@ namespace OrienteeringToolWPF.Model
             return count;
         }
 
+        public static void CalculateDeltaStart(ref List<Punch> punches, long StartTime)
+        {
+            if (punches == null)
+                throw new System.ArgumentNullException(nameof(punches), "List refers to null");
+
+            foreach (var punch in punches)
+                punch.CalculateDeltaStart(StartTime);
+        }
+        #endregion
         #region Object overrides
         // Equality method (returns true when all fields matches)
         public override bool Equals(object other)

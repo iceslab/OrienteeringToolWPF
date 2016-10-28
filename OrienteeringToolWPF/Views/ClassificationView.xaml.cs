@@ -65,6 +65,7 @@ namespace OrienteeringToolWPF.Views
                     {
                         Punch.CheckCorrectnessOrdered(ref punchesList, routeStepsList);
                     }
+                    // Ignoring exception for now, later show warning that not all competitors has results
                     catch (ArgumentNullException) { };
 
                     competitor.Punches = punchesList;

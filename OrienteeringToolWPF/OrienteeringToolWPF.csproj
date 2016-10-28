@@ -176,7 +176,7 @@
     <Compile Include="SiListener.cs" />
     <Compile Include="Utils\CorrectnessConverter.cs" />
     <Compile Include="Utils\LongConverter.cs" />
-    <Compile Include="Utils\DateTimeConverter.cs" />
+    <Compile Include="Utils\TimestampConverter.cs" />
     <Compile Include="Utils\MessageUtils.cs" />
     <Compile Include="Utils\TreeViewExtension.cs" />
     <Compile Include="Views\ClassificationView.xaml.cs">

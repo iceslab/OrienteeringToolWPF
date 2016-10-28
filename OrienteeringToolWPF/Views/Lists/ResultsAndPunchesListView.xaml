@@ -130,6 +130,26 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn Width="Auto">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="DeltaStart" Margin="2" />
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Margin="2">
+                                        <TextBlock.Text>
+                                            <Binding Converter="{StaticResource timestampConverter}" 
+                                                 ConverterParameter="{x:Static prop:Resources.DeltaTimeFormat}" 
+                                                 Path="DeltaStart"/>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

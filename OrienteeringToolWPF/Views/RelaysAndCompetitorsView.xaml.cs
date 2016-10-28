@@ -16,26 +16,6 @@ namespace OrienteeringToolWPF.Views
     /// </summary>
     public partial class RelaysAndCompetitorsView : UserControl, IRefreshable, ICurrentView
     {
-        #region ICurrentView implementation
-        private UserControl _currentView;
-        public UserControl CurrentView
-        {
-            get { return _currentView; }
-
-            set
-            {
-                _currentView = value;
-                OnPropertyChanged("CurrentView");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-
         public List<Relay> RelayList { get; private set; }
         
         public RelaysAndCompetitorsView()
@@ -80,24 +60,14 @@ namespace OrienteeringToolWPF.Views
             }
         }
 
-        public void Refresh()
-        {
-            var db = MainWindow.GetDatabase();
-            dynamic alias;
-            RelayList = db.Relays
-                            .All()
-                            .LeftJoin(db.Competitors, out alias)
-                            .On(db.Competitors.RelayId == db.Relays.Id)
-                            .With(alias);
-            relaysAndCompetitorsTV.ItemsSource = RelayList;
-        }
-
+        // Handler for SelectedItemChanged event
         private void relaysAndCompetitorsTV_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             SetNewView(e.NewValue);
             Console.WriteLine(sender);
         }
 
+        // Sets new view on the right side by type of NewValue
         private void SetNewView(object NewValue)
         {
             try
@@ -120,6 +90,7 @@ namespace OrienteeringToolWPF.Views
             catch (InvalidCastException) { }
         }
 
+        // Selects and focuses on desired competitor in tree view
         public void SelectCompetitor(Competitor competitor)
         {
             Dispatcher.Invoke(new Action(() => 
@@ -128,5 +99,39 @@ namespace OrienteeringToolWPF.Views
                 relaysAndCompetitorsTV.SetSelectedItem(competitor);
             }));
         }
+
+        #region ICurrentView implementation
+        private UserControl _currentView;
+        public UserControl CurrentView
+        {
+            get { return _currentView; }
+
+            set
+            {
+                _currentView = value;
+                OnPropertyChanged("CurrentView");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+        #region IRefreshable implementation
+        // Refreshes data
+        public void Refresh()
+        {
+            var db = MainWindow.GetDatabase();
+            dynamic alias;
+            RelayList = db.Relays
+                            .All()
+                            .LeftJoin(db.Competitors, out alias)
+                            .On(db.Competitors.RelayId == db.Relays.Id)
+                            .With(alias);
+            relaysAndCompetitorsTV.ItemsSource = RelayList;
+        }
+        #endregion
     }
 }
