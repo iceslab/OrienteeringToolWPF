@@ -1,5 +1,6 @@
 ﻿using GecoSI.Net.Dataframe;
 using OrienteeringToolWPF.Enumerations;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -8,7 +9,7 @@ using System.Diagnostics;
 /// </summary>
 namespace OrienteeringToolWPF.Model
 {
-    public class Punch : BaseModel
+    public class Punch : BaseModel, IComparable
     {
         public long? Id { get; set; }
         public long Chip { get; set; }
@@ -16,6 +17,7 @@ namespace OrienteeringToolWPF.Model
         public long Timestamp { get; set; }
         public Correctness Correctness { get; set; }
         public long DeltaStart { get; set; }
+        public long DeltaPrevious { get; set; }
 
         public Punch() : base()
         {
@@ -37,6 +39,11 @@ namespace OrienteeringToolWPF.Model
         public void CalculateDeltaStart(long StartTime)
         {
             DeltaStart = Timestamp - StartTime;
+        }
+
+        public void CalculateDeltaPrevious(long previous)
+        {
+            DeltaPrevious = Timestamp - previous;
         }
 
         #region Static methods
@@ -109,8 +116,14 @@ namespace OrienteeringToolWPF.Model
             }
         }
 
-        // Counts number of punches of wanted type(s)
-        public static uint GetNoOfCorrectPunches(List<Punch> punches, List<Correctness> correctness)
+        // Counts number of punches of wanted type
+        public static uint GetNoOfCorrectnessPunches(IList<Punch> punches, Correctness correctness)
+        {
+            return GetNoOfCorrectnessPunches(punches, new List<Correctness> { correctness });
+        }
+
+        // Counts number of punches of wanted types
+        public static uint GetNoOfCorrectnessPunches(IList<Punch> punches, IList<Correctness> correctness)
         {
             uint count = 0;
             foreach (var p in punches)
@@ -131,10 +144,22 @@ namespace OrienteeringToolWPF.Model
         public static void CalculateDeltaStart(ref List<Punch> punches, long StartTime)
         {
             if (punches == null)
-                throw new System.ArgumentNullException(nameof(punches), "List refers to null");
+                return;//throw new System.ArgumentNullException(nameof(punches), "List refers to null");
 
             foreach (var punch in punches)
                 punch.CalculateDeltaStart(StartTime);
+        }
+
+        public static void CalculateDeltaPrevious(ref List<Punch> punches)
+        {
+            if (punches == null)
+                return;// throw new System.ArgumentNullException(nameof(punches), "List refers to null");
+
+            for(int i = 1; i < punches.Count; i++)
+            {
+                punches[i].CalculateDeltaPrevious(punches[i - 1].Timestamp);
+            }
+                
         }
         #endregion
         #region Object overrides
@@ -192,6 +217,12 @@ namespace OrienteeringToolWPF.Model
         public static bool operator !=(Punch lhs, Punch rhs)
         {
             return lhs?.Timestamp != rhs?.Timestamp;
+        }
+        #endregion
+        #region IComparable implementation
+        public int CompareTo(object obj)
+        {
+            return Timestamp.CompareTo(((Punch)obj).Timestamp);
         }
         #endregion
     }

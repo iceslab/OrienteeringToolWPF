@@ -172,7 +172,7 @@ All constrained data will be deleted.</value>
 Database exists, do you want to overwrite?</value>
   </data>
   <data name="DeltaTimeFormat" xml:space="preserve">
-    <value>+{mm:ss}</value>
+    <value>+{0:mm:ss}</value>
   </data>
   <data name="Errors" xml:space="preserve">
     <value>Errors:</value>

@@ -239,7 +239,7 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +{mm:ss}.
+        ///   Looks up a localized string similar to +{0:mm:ss}.
         /// </summary>
         public static string DeltaTimeFormat {
             get {

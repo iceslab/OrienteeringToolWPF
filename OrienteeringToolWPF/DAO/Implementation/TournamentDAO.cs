@@ -1,4 +1,5 @@
 ﻿using OrienteeringToolWPF.DAO.Base;
+using OrienteeringToolWPF.Enumerations;
 using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Windows;
 using System;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrienteeringToolWPF.Enumerations;
+using System;
 using System.ComponentModel;
 
 /// <summary>
@@ -6,15 +7,6 @@ using System.ComponentModel;
 /// </summary>
 namespace OrienteeringToolWPF.Model
 {
-    public enum CourseEnum : long
-    {
-        [Description("Czas startu to czas odbity na chipie")]
-        START_ON_CHIP = 0L,
-        [Description("Czas startu to czas mety poprzednika")]
-        START_CALCULATED = 1L
-
-    }
-
     public class Tournament : BaseModel, INotifyPropertyChanged
     {
         public long? Id { get; set; }

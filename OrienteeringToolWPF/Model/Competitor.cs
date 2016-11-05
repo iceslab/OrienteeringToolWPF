@@ -1,4 +1,5 @@
-﻿using OrienteeringToolWPF.Interfaces;
+﻿using OrienteeringToolWPF.Enumerations;
+using OrienteeringToolWPF.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,6 +31,7 @@ namespace OrienteeringToolWPF.Model
         // For join queries
         public IList<Punch> Punches { get; set; }
         public IList<Result> Results { private get; set; }
+
         public Result Result
         {
             get { return Results?[0]; }
@@ -42,6 +44,83 @@ namespace OrienteeringToolWPF.Model
                     Results[0] = value;
                 else
                     Results.Add(value);
+            }
+        }
+
+        #region Lazy calculated, readonly properties
+        private uint? _NotCheckedPunches;
+        public uint? NotCheckedPunches
+        {
+            get
+            {
+                if (_NotCheckedPunches == null && Punches != null)
+                {
+                    _NotCheckedPunches = Punch.GetNoOfCorrectnessPunches(
+                        Punches,
+                        Correctness.NOT_CHECKED);
+                }
+                return _NotCheckedPunches;
+            }
+        }
+        private uint? _CorrectPunches;
+        public uint? CorrectPunches
+        {
+            get
+            {
+                if (_CorrectPunches == null && Punches != null)
+                {
+                    _CorrectPunches = Punch.GetNoOfCorrectnessPunches(
+                        Punches,
+                        Correctness.CORRECT);
+                }
+                return _CorrectPunches;
+            }
+        }
+        private uint? _PresentPunches;
+        public uint? PresentPunches
+        {
+            get
+            {
+                if (_PresentPunches == null && Punches != null)
+                {
+                    _PresentPunches = Punch.GetNoOfCorrectnessPunches(
+                        Punches,
+                        Correctness.PRESENT);
+                }
+                return _PresentPunches;
+            }
+        }
+        private uint? _InvalidPunches;
+        public uint? InvalidPunches
+        {
+            get
+            {
+                if (_InvalidPunches == null && Punches != null)
+                {
+                    _InvalidPunches = Punch.GetNoOfCorrectnessPunches(
+                        Punches,
+                        Correctness.INVALID);
+                }
+                return _InvalidPunches;
+            }
+        }
+
+        #endregion
+
+        public Competitor() : base()
+        {
+            PropertyChanged += Competitor_PropertyChanged;
+        }
+
+        private void Competitor_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Punches))
+            {
+                // Invalidate calculated values
+                _NotCheckedPunches = null;
+                _CorrectPunches = null;
+                _PresentPunches = null;
+                _InvalidPunches = null;
             }
         }
 

@@ -5,6 +5,7 @@ using OrienteeringToolWPF.Windows;
 using OrienteeringToolWPF.Windows.Forms.KidsCompetition;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,6 +18,11 @@ namespace OrienteeringToolWPF.Views.Lists
     {
         public long? RelayId { get; set; }
         public List<Competitor> CompetitorsList { get; private set; }
+        public bool RefreshEnabled { get; set; } = true;
+        public ListView View
+        {
+            get { return competitorsLV; }
+        }
 
         public CompetitorsListView() : this(null) { }
 
@@ -30,14 +36,18 @@ namespace OrienteeringToolWPF.Views.Lists
 
         public void Refresh()
         {
-            var db = MainWindow.GetDatabase();
-            if (RelayId != null)
-                CompetitorsList = db.Competitors.FindAllByRelayId(RelayId);
-            else
-                CompetitorsList = db.Competitors.All();
-            competitorsLV.ItemsSource = CompetitorsList;
+            if (RefreshEnabled)
+            {
+                var db = MainWindow.GetDatabase();
+                if (RelayId != null)
+                    CompetitorsList = db.Competitors.FindAllByRelayId(RelayId);
+                else
+                    CompetitorsList = db.Competitors.All();
+                competitorsLV.ItemsSource = CompetitorsList;
+            }
         }
 
+        #region Buttons
         private void addB_Click(object sender, RoutedEventArgs e)
         {
             Window window = new CompetitorForm();
@@ -78,16 +88,8 @@ namespace OrienteeringToolWPF.Views.Lists
                 deleteB.IsEnabled = false;
             }
         }
-
-        private void competitorsLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.Source is ListView)
-                ManageButtons((ListView)e.Source);
-            else
-                Console.WriteLine("Not ListView: " + e.Source);
-            e.Handled = true;
-        }
-
+        #endregion
+        #region IButtonsManageable implementation
         public void SetButtonsVisibility(Visibility all)
         {
             addB.Visibility = all;
@@ -100,6 +102,21 @@ namespace OrienteeringToolWPF.Views.Lists
             addB.Visibility = add;
             editB.Visibility = edit;
             deleteB.Visibility = delete;
+        }
+        #endregion
+        public void SetSource(List<Competitor> competitors)
+        {
+            CompetitorsList = competitors;
+            competitorsLV.ItemsSource = CompetitorsList;
+        }
+
+        private void competitorsLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.Source is ListView)
+                ManageButtons((ListView)e.Source);
+            else
+                Console.WriteLine("Not ListView: " + e.Source);
+            //e.Handled = true;
         }
     }
 }

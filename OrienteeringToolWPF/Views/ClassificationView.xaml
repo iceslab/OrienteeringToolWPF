@@ -9,13 +9,17 @@
              d:DesignHeight="300" d:DesignWidth="500">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition MinWidth="85"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition MinWidth="85"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition MinWidth="85"/>
         </Grid.ColumnDefinitions>
-        <lists:RelaysListView Grid.Column="0" Margin="5" x:Name="relaysLV"/>
-        <lists:CompetitorsListView Grid.Column="1" Margin="5" x:Name="competitorsLV"/>
-        <lists:ResultsAndPunchesListView Grid.Column="2" Margin="5" x:Name="resultsAndPunchesLV"/>
+        <lists:RelaysListView Grid.Column="0" Margin="5,5,0,5" x:Name="relaysLV"/>
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
+        <lists:CompetitorsListView Grid.Column="2" Margin="0,5,0,5" x:Name="competitorsLV"/>
+        <GridSplitter Grid.Column="3" Width="5" HorizontalAlignment="Stretch"/>
+        <lists:ResultsAndPunchesListView Grid.Column="4" Margin="0,5,5,5" x:Name="resultsAndPunchesLV"/>
         <!--<ListView Grid.Column="0" x:Name="relaysLV" Margin="5">
             <ListView.View>
                 <GridView AllowsColumnReorder="True">

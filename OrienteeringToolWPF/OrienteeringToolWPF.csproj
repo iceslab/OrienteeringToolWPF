@@ -130,6 +130,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Enumerations\CourseEnum.cs" />
     <Compile Include="Enumerations\Order.cs" />
     <Compile Include="Enumerations\Correctness.cs" />
     <Compile Include="Interfaces\IExpandable.cs" />

@@ -16,6 +16,40 @@ namespace OrienteeringToolWPF.Model
         // For join queries
         public IList<Competitor> Competitors { get; set; }
 
+        public Relay() : base()
+        {
+            PropertyChanged += Relay_PropertyChanged;
+        }
+
+        private void Relay_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+
+            if (e.PropertyName == nameof(Competitors))
+            {
+                // Invalidate calculated values
+                _OverallRunningTime = null;
+            }
+        }
+
+        #region Lazy calculated, readonly properties
+        private long? _OverallRunningTime;
+        public long? OverallRunningTime
+        {
+            get
+            {
+                if (_OverallRunningTime == null && Competitors != null)
+                {
+                    _OverallRunningTime = 0;
+                    foreach(var c in Competitors)
+                    {
+                        _OverallRunningTime += c.Result?.RunningTime;
+                    }
+                }
+                return _OverallRunningTime;
+            }
+        }
+        #endregion
+        #region Object overrides
         public override string ToString()
         {
             return Name;
@@ -40,7 +74,7 @@ namespace OrienteeringToolWPF.Model
         {
             return Name.GetHashCode() + Id.GetHashCode();
         }
-
+        #endregion
         #region ISelectable implementation
         private bool _isSelected;
         public bool IsSelected

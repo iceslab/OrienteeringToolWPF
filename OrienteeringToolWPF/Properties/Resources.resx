@@ -224,7 +224,7 @@ Usunięte zostaną także wszystkie powiązane dane.</value>
 Baza danych istnieje, czy chcesz nadpisać?</value>
   </data>
   <data name="DeltaTimeFormat" xml:space="preserve">
-    <value>+{mm:ss}</value>
+    <value>+{0:mm:ss}</value>
   </data>
   <data name="Errors" xml:space="preserve">
     <value>Błędy:</value>

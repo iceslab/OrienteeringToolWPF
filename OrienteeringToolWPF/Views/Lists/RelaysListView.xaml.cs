@@ -15,7 +15,12 @@ namespace OrienteeringToolWPF.Views.Lists
     /// </summary>
     public partial class RelaysListView : UserControl, IRefreshable, IButtonsManageable
     {
-        public List<Relay> RelaysList { get; private set; }
+        public List<Relay> RelaysList { get; set; }
+        public bool RefreshEnabled { get; set; } = true;
+        public ListView View
+        {
+            get { return relaysLV; }
+        }
 
         public RelaysListView()
         {
@@ -26,9 +31,12 @@ namespace OrienteeringToolWPF.Views.Lists
 
         public void Refresh()
         {
-            var db = MainWindow.GetDatabase();
-            RelaysList = db.Relays.All();
-            relaysLV.ItemsSource = RelaysList;
+            if (RefreshEnabled)
+            {
+                var db = MainWindow.GetDatabase();
+                RelaysList = db.Relays.All();
+                relaysLV.ItemsSource = RelaysList;
+            }
         }
 
         private void relaysLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -37,7 +45,13 @@ namespace OrienteeringToolWPF.Views.Lists
                 ManageButtons((ListView)e.Source);
             else
                 Console.WriteLine("Not ListView: " + e.Source);
-            e.Handled = true;
+            //e.Handled = true;
+        }
+
+        public void SetSource(List<Relay> relays)
+        {
+            RelaysList = relays;
+            relaysLV.ItemsSource = RelaysList;
         }
 
         #region Buttons
