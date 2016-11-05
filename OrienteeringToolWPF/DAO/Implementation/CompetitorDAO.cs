@@ -1,4 +1,5 @@
 ﻿using OrienteeringToolWPF.DAO.Base;
+using OrienteeringToolWPF.Enumerations;
 using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Windows;
 using System;
@@ -160,7 +161,7 @@ namespace OrienteeringToolWPF.DAO.Implementation
                     c.Chip = (long)dr.ItemArray[2];
                     c.RelayId = (long)dr.ItemArray[3];
                     c.Category = (long)dr.ItemArray[4];
-                    c.Gender = (GenderEnum)dr.ItemArray[5];
+                    c.Gender = (Gender)dr.ItemArray[5];
                     c.BirthDate = (DateTime)dr.ItemArray[6];
 
                     competitors.Add(c);

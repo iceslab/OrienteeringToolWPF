@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BirthDateFormat" xml:space="preserve">
+    <value>{0:d-M-yyyy}</value>
+  </data>
   <data name="CannotFindStation" xml:space="preserve">
     <value>Nie odnaleziono stacji</value>
   </data>
@@ -172,7 +175,7 @@ Usunięte zostaną także wszystkie powiązane dane.</value>
 Baza danych istnieje, czy chcesz nadpisać?</value>
   </data>
   <data name="DeltaTimeFormat" xml:space="preserve">
-    <value>+{0:mm:ss}</value>
+    <value>{0:##0}:{1:00}</value>
   </data>
   <data name="Errors" xml:space="preserve">
     <value>Błędy:</value>
@@ -200,6 +203,9 @@ Baza danych istnieje, czy chcesz nadpisać?</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>Brak</value>
+  </data>
+  <data name="NormalTimeFormat" xml:space="preserve">
+    <value>{0:H:mm:ss}</value>
   </data>
   <data name="NotANumberError" xml:space="preserve">
     <value>Wartość nie jest liczbą</value>
@@ -256,14 +262,26 @@ Rozpocząć mimo to?</value>
   <data name="TimestampFormat" xml:space="preserve">
     <value>{0:H:mm:ss}</value>
   </data>
+  <data name="TournamentClassification" xml:space="preserve">
+    <value>Klasyfikacja</value>
+  </data>
+  <data name="TournamentContinue" xml:space="preserve">
+    <value>Kontynuuj</value>
+  </data>
   <data name="TournamentCourseType" xml:space="preserve">
     <value>Typ sztafety</value>
   </data>
   <data name="TournamentName" xml:space="preserve">
     <value>Nazwa</value>
   </data>
+  <data name="TournamentStart" xml:space="preserve">
+    <value>Rozpocznij</value>
+  </data>
   <data name="TournamentStartTime" xml:space="preserve">
     <value>Czas rozpoczęcia</value>
+  </data>
+  <data name="TournamentStartTimeFormat" xml:space="preserve">
+    <value>{0:dd-M-yyyy H:mm:ss}</value>
   </data>
   <data name="ValueAlreadyExistsError" xml:space="preserve">
     <value>Wartość już istnieje</value>

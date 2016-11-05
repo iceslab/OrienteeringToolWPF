@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace OrienteeringToolWPF.Utils
 {
-    class TimestampConverter : IValueConverter
+    class DeltaTimeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -13,19 +13,22 @@ namespace OrienteeringToolWPF.Utils
             if (!(parameter is string))
                 throw new ArgumentException(nameof(parameter), "Parameter must be string");
 
-            if (value is long && (long)value > 0)
+            if (value is long)
             {
-                var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-                value = dtDateTime.AddMilliseconds((long)value);
-                //DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime();
-                //value = epoch.AddSeconds(System.Convert.ToDouble((long)value));
+                if ((long)value >= 0)
+                    parameter = "+" + parameter;
+                else if ((long)value < 0)
+                    parameter = "-" + parameter;
+
+                var seconds = (long)value / 1000;
+                var minutes = seconds / 60;
+                seconds -= minutes * 60;
+                return string.Format((string)parameter, minutes, seconds);
             }
             else
             {
-                value = Properties.Resources.None;
+                return Properties.Resources.None;
             }
-
-            return string.Format((string)parameter, value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

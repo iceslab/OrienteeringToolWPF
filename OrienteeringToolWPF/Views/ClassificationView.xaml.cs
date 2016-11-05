@@ -88,6 +88,7 @@ namespace OrienteeringToolWPF.Views
         private void RefreshSetSource()
         {
             relaysLV.SetSource(RelayList);
+            bestCompetitorsLV.RelaysList = RelayList;
 
             var r = (Relay)relaysLV.View.SelectedItem;
             competitorsLV.SetSource((List<Competitor>)r?.Competitors);
@@ -142,60 +143,14 @@ namespace OrienteeringToolWPF.Views
             CheckCorrectness();
             foreach (var relay in RelayList)
             {
-                ((List<Competitor>)relay.Competitors).Sort(delegate (Competitor left, Competitor right)
-                {
-                    int retVal = 0;
-                    // Can be changed to InvalidPunches?
-                    var leftPunches = left.PresentPunches + left.CorrectPunches;
-                    var rightPunches = right.PresentPunches + right.CorrectPunches;
-
-                    // When right of competitor made more mistakes
-                    if (leftPunches > rightPunches)
-                    {
-                        retVal = 1;
-                    }
-                    // When right of competitor made more mistakes
-                    else if (leftPunches < rightPunches)
-                    {
-                        retVal = -1;
-                    }
-                    // When competitors made the same amount of mistakes (this means none too)
-                    else
-                    {
-                        var leftTime = left.Result.RunningTime;
-                        var rightTime = right.Result.RunningTime;
-                        // When left one ran longer
-                        if (leftTime > rightTime)
-                            retVal = -1;
-                        // When right one ran longer
-                        else if (leftTime < rightTime)
-                            retVal = 1;
-                        // When both ran the same time
-                        else
-                            retVal = 0;
-                    }
-
-                    return retVal;
-                });
+                ((List<Competitor>)relay.Competitors).Sort();
             }
         }
 
         // Classifies relays
         private void ClassifyRelays()
         {
-            RelayList.Sort(delegate (Relay left, Relay right)
-            {
-                var retVal = 0;
-
-                if (left.OverallRunningTime < right.OverallRunningTime)
-                    retVal = 1;
-                else if (left.OverallRunningTime > right.OverallRunningTime)
-                    retVal = -1;
-                else
-                    retVal = 0;
-
-                return retVal;
-            });
+            RelayList.Sort();
         }
         #endregion
     }

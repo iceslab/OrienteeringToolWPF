@@ -130,11 +130,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Enumerations\CourseEnum.cs" />
+    <Compile Include="Enumerations\Course.cs" />
+    <Compile Include="Enumerations\DatabaseType.cs" />
+    <Compile Include="Enumerations\Gender.cs" />
     <Compile Include="Enumerations\Order.cs" />
     <Compile Include="Enumerations\Correctness.cs" />
-    <Compile Include="Interfaces\IExpandable.cs" />
-    <Compile Include="Interfaces\ISelectable.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Properties\Resources.pl.Designer.cs">
       <DependentUpon>Resources.pl.resx</DependentUpon>
@@ -177,6 +177,8 @@
     <Compile Include="SiListener.cs" />
     <Compile Include="Utils\CorrectnessConverter.cs" />
     <Compile Include="Utils\LongConverter.cs" />
+    <Compile Include="Utils\DateTimeConverter.cs" />
+    <Compile Include="Utils\DeltaTimeConverter.cs" />
     <Compile Include="Utils\TimestampConverter.cs" />
     <Compile Include="Utils\MessageUtils.cs" />
     <Compile Include="Utils\TreeViewExtension.cs" />
@@ -185,6 +187,9 @@
     </Compile>
     <Compile Include="Views\Lists\CategoriesListView.xaml.cs">
       <DependentUpon>CategoriesListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Lists\BestCompetitorsListView.xaml.cs">
+      <DependentUpon>BestCompetitorsListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Lists\ResultsAndPunchesListView.xaml.cs">
       <DependentUpon>ResultsAndPunchesListView.xaml</DependentUpon>
@@ -206,6 +211,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Lists\CategoriesListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Lists\BestCompetitorsListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

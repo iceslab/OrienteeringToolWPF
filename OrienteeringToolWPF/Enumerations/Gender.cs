@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrienteeringToolWPF.Interfaces
+namespace OrienteeringToolWPF.Enumerations
 {
-    interface ISelectable
+    public enum Gender : long
     {
-        bool IsSelected { get; set; }
+        MALE = 0L,
+        FEMALE = 1L
     }
 }

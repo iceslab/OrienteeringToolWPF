@@ -63,7 +63,7 @@ namespace OrienteeringToolWPF.Model
             }
         }
         public string Name { get; set; }
-        public CourseEnum CourseType { get; set; }
+        public Course CourseType { get; set; }
         public string Description { get; set; }
 
         protected bool _isRunning;
@@ -115,7 +115,7 @@ namespace OrienteeringToolWPF.Model
             _startedAtTime = null;
             _finishedAtTime = null;
             Name = "";
-            CourseType = CourseEnum.START_ON_CHIP;
+            CourseType = Course.START_ON_CHIP;
             Description = null;
             _isRunning = false;
             _hasStarted = false;

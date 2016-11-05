@@ -1,39 +1,25 @@
-﻿<UserControl x:Class="OrienteeringToolWPF.Views.ClassificationView"
+﻿<UserControl x:Class="OrienteeringToolWPF.Views.Lists.BestCompetitorsListView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrienteeringToolWPF.Views"
-             xmlns:lists="clr-namespace:OrienteeringToolWPF.Views.Lists"
+             xmlns:utils="clr-namespace:OrienteeringToolWPF.Utils"
+             xmlns:prop="clr-namespace:OrienteeringToolWPF.Properties"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="500">
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <utils:DateTimeConverter x:Key="birthDateConverter"/>
+    </UserControl.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="85"/>
-            <ColumnDefinition Width="5"/>
-            <ColumnDefinition MinWidth="85"/>
-            <ColumnDefinition Width="5"/>
-            <ColumnDefinition MinWidth="85"/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition MinHeight="150"/>
-                <RowDefinition Height="5"/>
-                <RowDefinition MinHeight="100"/>
-            </Grid.RowDefinitions>
-            <lists:RelaysListView Grid.Row="0" Margin="5,5,0,0" x:Name="relaysLV"/>
-            <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinWidth="85"/>
-            <lists:BestCompetitorsListView Grid.Row="2" Margin="5,0,0,5" x:Name="bestCompetitorsLV"/>
-        </Grid>
-
-        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
-        <lists:CompetitorsListView Grid.Column="2" Margin="0,5,0,5" x:Name="competitorsLV"/>
-        <GridSplitter Grid.Column="3" Width="5" HorizontalAlignment="Stretch"/>
-        <lists:ResultsAndPunchesListView Grid.Column="4" Margin="0,5,5,5" x:Name="resultsAndPunchesLV"/>
-        <!--<ListView Grid.Column="0" x:Name="relaysLV" Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListView x:Name="competitorsLV" DockPanel.Dock="Right" Grid.Row="0">
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
-                    <GridViewColumn>
+                    <GridViewColumn x:Name="IdGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate >
                                 <TextBlock Text="Id" Margin="2" />
@@ -48,43 +34,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="Nazwa" Margin="2" />
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <TextBlock Margin="2"
-    											Text="{Binding Name}" />
-                                </Grid>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <ListView Grid.Column="1" x:Name="competitorsLV" Margin="5">
-            <ListView.View>
-                <GridView AllowsColumnReorder="True">
-                    <GridViewColumn>
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate >
-                                <TextBlock Text="Id" Margin="2" />
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <TextBlock Margin="2"
-    											Text="{Binding Id}" />
-                                </Grid>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn x:Name="NameGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Imię i nazwisko" Margin="2" />
@@ -99,7 +49,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn x:Name="ChipGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Nr chipa" Margin="2" />
@@ -114,7 +64,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn x:Name="RelayGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Sztafeta" Margin="2" />
@@ -129,7 +79,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn x:Name="CategoryGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Kategoria" Margin="2" />
@@ -144,7 +94,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn x:Name="GenderGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Płeć" Margin="2" />
@@ -159,7 +109,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn x:Name="BirthDateGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Data urodzenia" Margin="2" />
@@ -168,8 +118,103 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
+                                    <TextBlock Margin="2">
+                                        <TextBlock.Text>
+                                            <Binding Converter="{StaticResource birthDateConverter}" 
+                                                ConverterParameter="{x:Static prop:Resources.BirthDateFormat}" 
+                                                Path="BirthDate"/>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="InvalidPunchesGVC">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Błędne podbicia" Margin="2" />
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
                                     <TextBlock Margin="2"
-    											Text="{Binding BirthDate}" />
+    											Text="{Binding InvalidPunches}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="CorrectPunchesGVC">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Prawidłowe podbicia" Margin="2" />
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Margin="2"
+    											Text="{Binding CorrectPunches}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="PresentPunchesGVC">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Podbicia ze złą kolejnością" Margin="2" />
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Margin="2"
+    											Text="{Binding PresentPunches}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="NotPresentPunchesGVC">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Brakujące podbicia" Margin="2" />
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Margin="2"
+    											Text="{Binding NotPresentPunches}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="GoodCollectionsGVC">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Prawidłowe zebrania" Margin="2" />
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Margin="2"
+    											Text="{Binding GoodCollections}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="WrongCollectionsGVC">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Złe zebrania" Margin="2" />
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Margin="2"
+    											Text="{Binding WrongCollections}" />
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -177,8 +222,5 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView Grid.Column="3" x:Name="punchesLV" Margin="5">
-            
-        </ListView>-->
     </Grid>
 </UserControl>

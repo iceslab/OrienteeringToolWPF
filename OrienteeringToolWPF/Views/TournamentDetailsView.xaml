@@ -6,8 +6,12 @@
              xmlns:local="clr-namespace:OrienteeringToolWPF.Views"
              xmlns:utils="clr-namespace:OrienteeringToolWPF.Utils"
              xmlns:root="clr-namespace:OrienteeringToolWPF"
+             xmlns:prop="clr-namespace:OrienteeringToolWPF.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <utils:DateTimeConverter x:Key="dateTimeConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -33,7 +37,13 @@
             <Label Content="Opis" Grid.Row="3" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
             <Label Content="Czas" Grid.Row="4" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
 
-            <Label Content="{Binding StartTime}" Grid.Row="0" Grid.Column="1" Margin="2"/>
+            <Label  Grid.Row="0" Grid.Column="1" Margin="2">
+                <Label.Content>
+                    <Binding Converter="{StaticResource dateTimeConverter}" 
+                             ConverterParameter="{x:Static prop:Resources.TournamentStartTimeFormat}" 
+                             Path="StartTime"/>
+                </Label.Content>
+            </Label>
             <Label Content="{Binding Name}" Grid.Row="1" Grid.Column="1" Margin="2"/>
             <Label Content="{Binding CourseType}" Grid.Row="2" Grid.Column="1" Margin="2"/>
             <Label Content="{Binding Description}" Grid.Row="3" Grid.Column="1" Margin="2"/>

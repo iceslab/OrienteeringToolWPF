@@ -1,31 +1,23 @@
 ﻿using OrienteeringToolWPF.Enumerations;
 using OrienteeringToolWPF.Interfaces;
+using OrienteeringToolWPF.Windows;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /// <summary>
 /// Models competitor
 /// </summary>
 namespace OrienteeringToolWPF.Model
 {
-    public enum GenderEnum : long
-    {
-        MALE = 0L,
-        FEMALE = 1L
-    }
-
-    public class Competitor : BaseModel, ISelectable, INotifyPropertyChanged
+    public class Competitor : BaseModel, INotifyPropertyChanged, IComparable<Competitor>
     {
         public long? Id { get; set; }
         public string Name { get; set; }
         public long Chip { get; set; }
         public long RelayId { get; set; }
         public long Category { get; set; }
-        public GenderEnum Gender { get; set; }
+        public Gender Gender { get; set; }
         public DateTime BirthDate { get; set; }
 
         // For join queries
@@ -47,6 +39,27 @@ namespace OrienteeringToolWPF.Model
             }
         }
 
+        #region In time calculated, readonly properties
+        public uint GoodCollections
+        {
+            get
+            {
+                uint retVal = 0;
+                retVal += CorrectPunches ?? default(uint);
+                retVal += PresentPunches ?? default(uint);
+                return retVal;
+            }
+        }
+        public uint WrongCollections {
+            get
+            {
+                uint retVal = 0;
+                retVal += InvalidPunches ?? default(uint);
+                retVal += NotPresentPunches ?? default(uint);
+                return retVal;
+            }
+        }
+        #endregion
         #region Lazy calculated, readonly properties
         private uint? _NotCheckedPunches;
         public uint? NotCheckedPunches
@@ -104,7 +117,30 @@ namespace OrienteeringToolWPF.Model
                 return _InvalidPunches;
             }
         }
+        private uint? _NotPresentPunches;
+        public uint? NotPresentPunches
+        {
+            get
+            {
+                if (_NotPresentPunches == null)
+                {
+                    var db = MainWindow.GetDatabase();
+                    dynamic routesAlias, routeStepsAlias;
+                    var RouteSteps = (List<RouteStep>)db.Categories
+                        .FindAllById(Category)
+                        .Join(db.Routes, out routesAlias)
+                        .On(db.Categories.Id == db.Routes.Category)
+                        .Join(db.RouteSteps, out routeStepsAlias)
+                        .On(db.Routes.Id == db.RouteSteps.RouteId)
+                        .Select(db.RouteSteps.AllColumns());
 
+                    _NotPresentPunches = Punch.GetNoOfNotPresentPunches(
+                        Punches,
+                        RouteSteps);
+                }
+                return _NotPresentPunches;
+            }
+        }
         #endregion
 
         public Competitor() : base()
@@ -124,27 +160,50 @@ namespace OrienteeringToolWPF.Model
             }
         }
 
-        #region ISelectable implementation
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get
-            {
-                return _isSelected;
-            }
-
-            set
-            {
-                _isSelected = value;
-                OnPropertyChanged(nameof(IsSelected));
-            }
-        }
-        #endregion
         #region INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+        #region IComparable<Competitor>
+        public int CompareTo(Competitor other)
+        {
+            int retVal = 0;
+            var left = this;
+            var right = other;
+
+            var leftPunches = left.WrongCollections;
+            var rightPunches = right.WrongCollections;
+
+            // When right competitor made more mistakes
+            if (leftPunches < rightPunches)
+            {
+                retVal = -1;
+            }
+            // When left competitor made more mistakes
+            else if (leftPunches > rightPunches)
+            {
+                retVal = 1;
+            }
+            // When competitors made the same amount of mistakes (this means none too)
+            else
+            {
+                var leftTime = left.Result.RunningTime;
+                var rightTime = right.Result.RunningTime;
+                // When left one ran longer
+                if (leftTime > rightTime)
+                    retVal = 1;
+                // When right one ran longer
+                else if (leftTime < rightTime)
+                    retVal = -1;
+                // When both ran the same time
+                else
+                    retVal = 0;
+            }
+
+            return retVal;
         }
         #endregion
     }

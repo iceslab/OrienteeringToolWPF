@@ -11,6 +11,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <utils:LongConverter x:Key="longConverter"/>
+        <utils:DeltaTimeConverter x:Key="deltaTimeConverter"/>
         <utils:TimestampConverter x:Key="timestampConverter"/>
         <utils:CorrectnessConverter x:Key="correctnessConverter"/>
     </UserControl.Resources>
@@ -141,7 +142,7 @@
                                 <Grid>
                                     <TextBlock Margin="2">
                                         <TextBlock.Text>
-                                            <Binding Converter="{StaticResource timestampConverter}" 
+                                            <Binding Converter="{StaticResource deltaTimeConverter}" 
                                                  ConverterParameter="{x:Static prop:Resources.DeltaTimeFormat}" 
                                                  Path="DeltaStart"/>
                                         </TextBlock.Text>
@@ -161,7 +162,7 @@
                                 <Grid>
                                     <TextBlock Margin="2">
                                         <TextBlock.Text>
-                                            <Binding Converter="{StaticResource timestampConverter}" 
+                                            <Binding Converter="{StaticResource deltaTimeConverter}" 
                                                  ConverterParameter="{x:Static prop:Resources.DeltaTimeFormat}" 
                                                  Path="DeltaPrevious"/>
                                         </TextBlock.Text>

@@ -4,8 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrienteeringToolWPF.Views"
+             xmlns:utils="clr-namespace:OrienteeringToolWPF.Utils"
+             xmlns:prop="clr-namespace:OrienteeringToolWPF.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <utils:TimestampConverter x:Key="timestampConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -14,7 +19,7 @@
         <ListView x:Name="relaysLV" DockPanel.Dock="Right" Grid.Row="0" SelectionChanged="relaysLV_SelectionChanged">
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
-                    <GridViewColumn>
+                    <GridViewColumn x:Name="IdGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate >
                                 <TextBlock Text="Id" Margin="2" />
@@ -29,7 +34,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn x:Name="NameGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Nazwa" Margin="2" />
@@ -40,6 +45,26 @@
                                 <Grid>
                                     <TextBlock Margin="2"
     											Text="{Binding Name}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="OverallRunningTimeGVC">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Całkowity czas biegu" Margin="2" />
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Margin="2">
+                                        <TextBlock.Text>
+                                            <Binding Converter="{StaticResource timestampConverter}" 
+                                                ConverterParameter="{x:Static prop:Resources.NormalTimeFormat}" 
+                                                Path="OverallRunningTime"/>
+                                        </TextBlock.Text>
+                                    </TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

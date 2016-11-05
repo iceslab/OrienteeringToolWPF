@@ -143,7 +143,7 @@ namespace OrienteeringToolWPF.DAO.Implementation
                     if (dr.ItemArray[3] != DBNull.Value)
                         t.FinishedAtTime = (DateTime?)dr.ItemArray[3];
                     t.Name = (string)dr.ItemArray[4];
-                    t.CourseType = (CourseEnum)dr.ItemArray[5];
+                    t.CourseType = (Course)dr.ItemArray[5];
                     t.Description = (string)dr.ItemArray[6];
 
                     tournaments.Add(t);

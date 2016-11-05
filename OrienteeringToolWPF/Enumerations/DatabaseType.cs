@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrienteeringToolWPF.Interfaces
+namespace OrienteeringToolWPF.Enumerations
 {
-    interface IExpandable
+    public enum DatabaseType
     {
-        bool IsExpanded { get; set; }
+        NONE, MYSQL, SQLITE3
     }
 }

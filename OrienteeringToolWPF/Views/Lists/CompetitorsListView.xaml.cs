@@ -116,7 +116,7 @@ namespace OrienteeringToolWPF.Views.Lists
                 ManageButtons((ListView)e.Source);
             else
                 Console.WriteLine("Not ListView: " + e.Source);
-            //e.Handled = true;
+            e.Handled = RefreshEnabled;
         }
     }
 }

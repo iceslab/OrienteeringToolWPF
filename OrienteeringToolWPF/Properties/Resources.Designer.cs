@@ -61,6 +61,15 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0:d-M-yyyy}.
+        /// </summary>
+        public static string BirthDateFormat {
+            get {
+                return ResourceManager.GetString("BirthDateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nie odnaleziono stacji.
         /// </summary>
         public static string CannotFindStation {
@@ -239,7 +248,7 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +{0:mm:ss}.
+        ///   Looks up a localized string similar to {0:##0}:{1:00}.
         /// </summary>
         public static string DeltaTimeFormat {
             get {
@@ -325,6 +334,15 @@ namespace OrienteeringToolWPF.Properties {
         public static string None {
             get {
                 return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:H:mm:ss}.
+        /// </summary>
+        public static string NormalTimeFormat {
+            get {
+                return ResourceManager.GetString("NormalTimeFormat", resourceCulture);
             }
         }
         
@@ -501,6 +519,24 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Klasyfikacja.
+        /// </summary>
+        public static string TournamentClassification {
+            get {
+                return ResourceManager.GetString("TournamentClassification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontynuuj.
+        /// </summary>
+        public static string TournamentContinue {
+            get {
+                return ResourceManager.GetString("TournamentContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Typ sztafety.
         /// </summary>
         public static string TournamentCourseType {
@@ -519,11 +555,29 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rozpocznij.
+        /// </summary>
+        public static string TournamentStart {
+            get {
+                return ResourceManager.GetString("TournamentStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Czas rozpoczęcia.
         /// </summary>
         public static string TournamentStartTime {
             get {
                 return ResourceManager.GetString("TournamentStartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:dd-M-yyyy H:mm:ss}.
+        /// </summary>
+        public static string TournamentStartTimeFormat {
+            get {
+                return ResourceManager.GetString("TournamentStartTimeFormat", resourceCulture);
             }
         }
         

@@ -8,7 +8,7 @@ using System.ComponentModel;
 /// </summary>
 namespace OrienteeringToolWPF.Model
 {
-    public class Relay : BaseModel, ISelectable, IExpandable, INotifyPropertyChanged
+    public class Relay : BaseModel, INotifyPropertyChanged, IComparable<Relay>
     {
         public long? Id { get; set; }
         public string Name { get; set; }
@@ -75,43 +75,28 @@ namespace OrienteeringToolWPF.Model
             return Name.GetHashCode() + Id.GetHashCode();
         }
         #endregion
-        #region ISelectable implementation
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get
-            {
-                return _isSelected;
-            }
-
-            set
-            {
-                _isSelected = value;
-                OnPropertyChanged(nameof(IsSelected));
-            }
-        }
-        #endregion
-        #region IExpandable implementation
-        private bool _isExpanded;
-        public bool IsExpanded
-        {
-            get
-            {
-                return _isExpanded;
-            }
-
-            set
-            {
-                _isExpanded = value;
-                OnPropertyChanged(nameof(IsExpanded));
-            }
-        }
-        #endregion
         #region INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+        #region IComparable<Relay> implementation
+        public int CompareTo(Relay other)
+        {
+            var retVal = 0;
+            var left = this;
+            var right = other;
+
+            if (left.OverallRunningTime < right.OverallRunningTime)
+                retVal = -1;
+            else if (left.OverallRunningTime > right.OverallRunningTime)
+                retVal = 1;
+            else
+                retVal = 0;
+
+            return retVal;
         }
         #endregion
     }

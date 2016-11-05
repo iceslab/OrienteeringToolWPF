@@ -2,7 +2,7 @@
 
 namespace OrienteeringToolWPF.Enumerations
 {
-    public enum CourseEnum : long
+    public enum Course : long
     {
         [Description("Czas startu to czas odbity na chipie")]
         START_ON_CHIP = 0L,

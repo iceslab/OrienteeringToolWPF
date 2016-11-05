@@ -38,11 +38,14 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             if (e.PropertyName == "DataFrame")
             {
                 var list = RouteStep.Parse(MainWindow.Listener.DataFrame.Punches, (long)route.Id);
-                routeStepsList.Clear();
-                foreach (var rs in list)
+                routeStepsLV.Dispatcher.Invoke(delegate
                 {
-                    routeStepsList.Add(rs);
-                }
+                    routeStepsList.Clear();
+                    foreach (var rs in list)
+                    {
+                        routeStepsList.Add(rs);
+                    }
+                });
             }
         }
 
@@ -191,7 +194,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             for (int i = 0; i < routeStepsList.Count; ++i)
                 routeStepsList[i].Order = i + 1;
             Dispatcher.Invoke(
-                delegate 
+                delegate
                 {
                     routeStepsLV.UnselectAll();
                 });

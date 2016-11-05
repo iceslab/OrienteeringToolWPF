@@ -27,6 +27,14 @@ namespace OrienteeringToolWPF.Views
             db.Tournament.DeleteAll(db.Tournament.Id != tournament.Id);
 
             tournamentG.DataContext = tournament;
+
+            // Assigning proper button name
+            if (tournament.HasFinished)
+                startTournamentB.Content = Properties.Resources.TournamentClassification;
+            else if (tournament.HasStarted)
+                startTournamentB.Content = Properties.Resources.TournamentContinue;
+            else
+                startTournamentB.Content = Properties.Resources.TournamentStart;
         }
 
         private void editB_Click(object sender, RoutedEventArgs e)
@@ -39,7 +47,7 @@ namespace OrienteeringToolWPF.Views
 
         private void startTournamentB_Click(object sender, RoutedEventArgs e)
         {
-            if(MessageUtils.PromptForConnection(this) == true)
+            if (tournament.HasFinished || MessageUtils.PromptForConnection(this) == true)
             {
                 var kcWindow = new ManagerWindow(tournament);
                 kcWindow.Owner = Window.GetWindow(this);

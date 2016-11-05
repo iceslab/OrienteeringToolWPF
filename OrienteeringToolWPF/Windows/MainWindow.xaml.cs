@@ -1,5 +1,6 @@
 ﻿using GecoSI.Net;
 using Microsoft.Win32;
+using OrienteeringToolWPF.Enumerations;
 using OrienteeringToolWPF.Interfaces;
 using OrienteeringToolWPF.Views;
 using OrienteeringToolWPF.Windows.Forms.KidsCompetition;
@@ -12,16 +13,12 @@ using System.Windows.Controls;
 
 namespace OrienteeringToolWPF.Windows
 {
-    public enum DatabaseTypeEnum
-    {
-        NONE, MYSQL, SQLITE3
-    }
-
     public partial class MainWindow : Window, INotifyPropertyChanged, ICurrentView
     {
         #region MainWindow fields
         public static SiHandler Handler { get; private set; }
         public static SiListener Listener { get; private set; }
+        #region ICurrentView implementation
         private UserControl _currentView;
         public UserControl CurrentView
         {
@@ -33,9 +30,10 @@ namespace OrienteeringToolWPF.Windows
                 OnPropertyChanged("CurrentView");
             }
         }
+        #endregion
 
         public static string DatabasePath { get; private set; }
-        private static DatabaseTypeEnum DatabaseType = DatabaseTypeEnum.NONE;
+        private static DatabaseType DatabaseType = DatabaseType.NONE;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
@@ -91,11 +89,11 @@ namespace OrienteeringToolWPF.Windows
         {
             switch (DatabaseType)
             {
-                case DatabaseTypeEnum.SQLITE3:
+                case DatabaseType.SQLITE3:
                     return GetDatabaseSQLite3();
-                case DatabaseTypeEnum.MYSQL:
+                case DatabaseType.MYSQL:
                     return GetDatabaseMysql();
-                case DatabaseTypeEnum.NONE:
+                case DatabaseType.NONE:
                 default:
                     throw new InvalidEnumArgumentException(
                         "Variable "
@@ -171,7 +169,7 @@ namespace OrienteeringToolWPF.Windows
             if (ofd.ShowDialog() == true)
             {
                 DatabasePath = ofd.FileName;
-                DatabaseType = DatabaseTypeEnum.SQLITE3;
+                DatabaseType = DatabaseType.SQLITE3;
                 CurrentView = new MainView();
             }
         }
@@ -193,7 +191,7 @@ namespace OrienteeringToolWPF.Windows
                 if (window.ShowDialog() == true)
                 {
                     DatabasePath = sfd.FileName;
-                    DatabaseType = DatabaseTypeEnum.SQLITE3;
+                    DatabaseType = DatabaseType.SQLITE3;
                     CreateKCDatabase();
                     window.Save();
                     CurrentView = new MainView();

@@ -1,4 +1,5 @@
-﻿using OrienteeringToolWPF.Model;
+﻿using OrienteeringToolWPF.Enumerations;
+using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Utils;
 using System;
 using System.Collections.Generic;
@@ -120,7 +121,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 }
             }
 
-            if (competitor.Gender == GenderEnum.MALE)
+            if (competitor.Gender == Gender.MALE)
                 MaleRB.IsChecked = true;
             else
                 FemaleRB.IsChecked = true;
@@ -136,7 +137,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 competitor.Chip = long.Parse(ChipTB.Text);
                 competitor.RelayId = (long)((Relay)RelayIdCB.SelectedItem).Id;
                 competitor.Category = (long)((Category)CategoryCB.SelectedItem).Id;
-                competitor.Gender = (bool)MaleRB.IsChecked ? GenderEnum.MALE : GenderEnum.FEMALE;
+                competitor.Gender = (bool)MaleRB.IsChecked ? Gender.MALE : Gender.FEMALE;
                 competitor.BirthDate = (DateTime)BirthDateDP.SelectedDate;
             }
             return errors;

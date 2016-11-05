@@ -69,7 +69,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             {
                 tournament.StartTime = (DateTime)StartTimeDP.Value;
                 tournament.Name = NameTB.Text;
-                tournament.CourseType = (CourseEnum)CourseTypeCB.SelectedIndex;
+                tournament.CourseType = (Course)CourseTypeCB.SelectedIndex;
                 tournament.Description = DescriptionTB.Text;
             }
             return errors;
@@ -82,10 +82,10 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 errors.Add(Properties.Resources.TournamentStartTime, Properties.Resources.InvalidDateError);
             if (string.IsNullOrWhiteSpace(NameTB.Text))
                 errors.Add(Properties.Resources.TournamentName, Properties.Resources.TournamentName);
-            switch ((CourseEnum)CourseTypeCB.SelectedIndex)
+            switch ((Course)CourseTypeCB.SelectedIndex)
             {
-                case CourseEnum.START_ON_CHIP:
-                case CourseEnum.START_CALCULATED:
+                case Course.START_ON_CHIP:
+                case Course.START_CALCULATED:
                     break;
                 default:
                     errors.Add(Properties.Resources.TournamentCourseType, Properties.Resources.InvalidCourseTypeError);

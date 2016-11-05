@@ -9,7 +9,7 @@ using System.Diagnostics;
 /// </summary>
 namespace OrienteeringToolWPF.Model
 {
-    public class Punch : BaseModel, IComparable
+    public class Punch : BaseModel, IComparable<Punch>
     {
         public long? Id { get; set; }
         public long Chip { get; set; }
@@ -74,9 +74,9 @@ namespace OrienteeringToolWPF.Model
         public static void CheckCorrectnessOrdered(ref List<Punch> punches, List<RouteStep> routeSteps)
         {
             if (punches == null)
-                throw new System.ArgumentNullException(nameof(punches), "List refers to null");
+                throw new ArgumentNullException(nameof(punches), "List refers to null");
             if (routeSteps == null)
-                throw new System.ArgumentNullException(nameof(routeSteps), "List refers to null");
+                throw new ArgumentNullException(nameof(routeSteps), "List refers to null");
 
             // Associative array of RouteStep code occurences
             var routeStepsAssociative = RouteStep.GetCodeOccurenceCount(routeSteps);
@@ -136,6 +136,32 @@ namespace OrienteeringToolWPF.Model
                         break;
                     }
                 }
+            }
+
+            return count;
+        }
+
+        // Counts number of punches which should be collected according to route
+        public static uint GetNoOfNotPresentPunches(IList<Punch> punches, IList<RouteStep> routeSteps)
+        {
+            uint count = 0;
+            if (punches == null)
+                punches = new List<Punch>();
+
+            var occurences = RouteStep.GetCodeOccurenceCount(routeSteps);
+
+            foreach(var punch in punches)
+            {
+                if(occurences.ContainsKey(punch.Code))
+                {
+                    occurences[punch.Code]--;
+                }
+            }
+
+            foreach(var code in occurences)
+            {
+                if (code.Value > 0)
+                    count++;
             }
 
             return count;
@@ -219,10 +245,10 @@ namespace OrienteeringToolWPF.Model
             return lhs?.Timestamp != rhs?.Timestamp;
         }
         #endregion
-        #region IComparable implementation
-        public int CompareTo(object obj)
+        #region IComparable<Punch> implementation
+        public int CompareTo(Punch other)
         {
-            return Timestamp.CompareTo(((Punch)obj).Timestamp);
+            return Timestamp.CompareTo(other.Timestamp);
         }
         #endregion
     }
