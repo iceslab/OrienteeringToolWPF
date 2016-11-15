@@ -2,7 +2,9 @@
 using Microsoft.Win32;
 using OrienteeringToolWPF.Enumerations;
 using OrienteeringToolWPF.Interfaces;
+using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Views;
+using OrienteeringToolWPF.Windows.Dialogs;
 using OrienteeringToolWPF.Windows.Forms.KidsCompetition;
 using Simple.Data;
 using System;
@@ -32,7 +34,8 @@ namespace OrienteeringToolWPF.Windows
         }
         #endregion
 
-        public static string DatabasePath { get; private set; }
+        private static string DatabasePath;
+        private static DatabaseConnectionData databaseConnectionData;
         private static DatabaseType DatabaseType = DatabaseType.NONE;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -45,6 +48,7 @@ namespace OrienteeringToolWPF.Windows
         {
             Listener = new SiListener();
             Handler = new SiHandler(Listener);
+            databaseConnectionData = new DatabaseConnectionData();
         }
 
         public MainWindow()
@@ -68,20 +72,33 @@ namespace OrienteeringToolWPF.Windows
 
         #region Database static methods
         // Get connection to database
-        public static SQLiteConnection GetConnection()
+        private static SQLiteConnection GetConnection()
         {
-            return new SQLiteConnection("Data Source=" + DatabasePath + ";Version=3;foreign keys=True");
+            return new SQLiteConnection(
+                string.Format(
+                    "Data Source={0};Version=3;foreign keys=True",
+                    DatabasePath));
         }
 
         // Get dynamic database object for SQLite3
         private static dynamic GetDatabaseSQLite3()
         {
-            return Database.OpenConnection("Data Source=" + DatabasePath + ";Version=3;foreign keys=True");
+            return Database.OpenConnection(
+                string.Format(
+                    "Data Source={0};Version=3;foreign keys=True",
+                    DatabasePath));
         }
 
         private static dynamic GetDatabaseMysql()
         {
-            throw new NotImplementedException("Mysql database connection is not implemented yet");
+            return Database.OpenConnection(
+                string.Format(
+                    "server={0}:{1};user={2};database={3};password={4};",
+                    databaseConnectionData.Server,
+                    databaseConnectionData.Port,
+                    databaseConnectionData.User,
+                    databaseConnectionData.Schema,
+                    databaseConnectionData.Password));
         }
 
         // Get dynamic database object
@@ -98,7 +115,7 @@ namespace OrienteeringToolWPF.Windows
                     throw new InvalidEnumArgumentException(
                         "Variable "
                         + "\"" + nameof(DatabaseType) + "\""
-                        + " does not provide valid database type. Provided type: " 
+                        + " does not provide valid database type. Provided type: "
                         + DatabaseType.ToString());
             }
         }
@@ -141,7 +158,7 @@ namespace OrienteeringToolWPF.Windows
         // Connect to station - menu
         private void connectToMItem_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionWindow window = new ConnectionWindow();
+            var window = new SiConnectionDialog();
             window.Owner = this;
             window.ShowDialog();
         }
@@ -158,18 +175,34 @@ namespace OrienteeringToolWPF.Windows
             Close();
         }
 
-        // Open project
-        private void openMItem_Click(object sender, RoutedEventArgs e)
+        // Open local project
+        private void openLocalMItem_Click(object sender, RoutedEventArgs e)
         {
             var ofd = new OpenFileDialog();
-            //ofd.InitialDirectory = Directory.GetCurrentDirectory();
+#if DEBUG
             ofd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
+#else
+            ofd.InitialDirectory = Directory.GetCurrentDirectory();            
+#endif
             ofd.Filter = Properties.Resources.DatabaseDialogFilters;
             ofd.FilterIndex = 1;
             if (ofd.ShowDialog() == true)
             {
                 DatabasePath = ofd.FileName;
                 DatabaseType = DatabaseType.SQLITE3;
+                CurrentView = new MainView();
+            }
+        }
+
+        // Open remote project
+        private void openRemoteMItem_Click(object sender, RoutedEventArgs e)
+        {
+            var rdw = new DatabseConnectionDialog(databaseConnectionData);
+            rdw.Owner = this;
+            if (rdw.ShowDialog() == true)
+            {
+                databaseConnectionData = rdw.databaseConnectionData;
+                DatabaseType = DatabaseType.MYSQL;
                 CurrentView = new MainView();
             }
         }

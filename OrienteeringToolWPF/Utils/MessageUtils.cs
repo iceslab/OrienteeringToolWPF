@@ -1,5 +1,6 @@
 ﻿using GecoSI.Net;
 using OrienteeringToolWPF.Windows;
+using OrienteeringToolWPF.Windows.Dialogs;
 using OrienteeringToolWPF.Windows.Forms;
 using System;
 using System.Windows;
@@ -78,9 +79,9 @@ namespace OrienteeringToolWPF.Utils
         {
             while (MainWindow.Handler.NotIsConnected)
             {
-                var connectionW = new ConnectionWindow();
-                connectionW.Owner = Window.GetWindow(obj);
-                if (connectionW.ShowDialog() != true)
+                var siConnectionDialog = new SiConnectionDialog();
+                siConnectionDialog.Owner = Window.GetWindow(obj);
+                if (siConnectionDialog.ShowDialog() != true)
                 {
                     // User refuses to connect
                     if (ShowConnectionNeeddedInfo(obj) == false)

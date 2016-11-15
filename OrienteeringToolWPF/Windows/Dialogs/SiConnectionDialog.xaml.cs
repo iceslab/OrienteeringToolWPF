@@ -3,15 +3,15 @@ using System.IO.Ports;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace OrienteeringToolWPF.Windows
+namespace OrienteeringToolWPF.Windows.Dialogs
 {
     /// <summary>
     /// Interaction logic for ConnectionWindow.xaml
     /// </summary>
-    public partial class ConnectionWindow : Window
+    public partial class SiConnectionDialog : Window
     {
         string portname;
-        public ConnectionWindow()
+        public SiConnectionDialog()
         {
             InitializeComponent();
             ProbePorts();

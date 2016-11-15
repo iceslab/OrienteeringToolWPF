@@ -216,6 +216,12 @@ Baza danych istnieje, czy chcesz nadpisać?</value>
   <data name="OriginalMessage" xml:space="preserve">
     <value>Oryginalna wiadomość:</value>
   </data>
+  <data name="PasswordName" xml:space="preserve">
+    <value>Hasło</value>
+  </data>
+  <data name="PortName" xml:space="preserve">
+    <value>Port</value>
+  </data>
   <data name="PunchChip" xml:space="preserve">
     <value>Chip</value>
   </data>
@@ -248,6 +254,12 @@ Baza danych istnieje, czy chcesz nadpisać?</value>
   </data>
   <data name="RouteStepOrder" xml:space="preserve">
     <value>Kolejność</value>
+  </data>
+  <data name="SchemaName" xml:space="preserve">
+    <value>Schemat</value>
+  </data>
+  <data name="ServerName" xml:space="preserve">
+    <value>Serwer</value>
   </data>
   <data name="SiHandlerError" xml:space="preserve">
     <value>Błąd stacji SPORTident</value>
@@ -282,6 +294,9 @@ Rozpocząć mimo to?</value>
   </data>
   <data name="TournamentStartTimeFormat" xml:space="preserve">
     <value>{0:dd-M-yyyy H:mm:ss}</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Użytkownik</value>
   </data>
   <data name="ValueAlreadyExistsError" xml:space="preserve">
     <value>Wartość już istnieje</value>

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
-        x:Class="OrienteeringToolWPF.Windows.ConnectionWindow"
+        x:Class="OrienteeringToolWPF.Windows.Dialogs.SiConnectionDialog"
         Title="Połącz ze stacją" Height="300" Width="300" ResizeMode="CanMinimize" 
         WindowStartupLocation="CenterOwner" 
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
@@ -14,7 +14,7 @@
         <StackPanel Height="22" Orientation="Horizontal" Margin="5,5,5,0" HorizontalAlignment="Center">
 
             <Button x:Name="probeButton" Content="Wyszukaj" Width="75" Click="probeButton_Click" Margin="5,0"/>
-            <Button x:Name="connectButton" Content="Połącz" Width="74" Margin="5,0" IsEnabled="False" Click="connectButton_Click"/>
+            <Button x:Name="connectButton" Content="Połącz" Width="75" Margin="5,0" IsEnabled="False" Click="connectButton_Click"/>
 
         </StackPanel>
 

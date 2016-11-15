@@ -19,7 +19,8 @@
                         <MenuItem x:Name="orienteeringCompetitionMItem" Header="Zawody BnO" IsEnabled="False"/>
                         <MenuItem x:Name="orienteeringTrainingMItem" Header="Trening BnO" IsEnabled="False"/>
                     </MenuItem>
-                    <MenuItem x:Name="openMItem" Header="Otwórz" Click="openMItem_Click"/>
+                    <MenuItem x:Name="openLocalMItem" Header="Otwórz lokalną bazę" Click="openLocalMItem_Click"/>
+                    <MenuItem x:Name="openRemoteMItem" Header="Otwórz zdalną bazę" Click="openRemoteMItem_Click"/>
                     <MenuItem x:Name="exitMItem" Header="Zakończ" Click="exitMItem_Click"/>
                 </MenuItem>
                 <MenuItem x:Name="connectionMItem" Header="Połączenie">

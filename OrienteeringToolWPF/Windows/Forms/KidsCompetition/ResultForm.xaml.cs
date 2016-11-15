@@ -1,5 +1,4 @@
-﻿using OrienteeringToolWPF.DAO.Implementation;
-using OrienteeringToolWPF.Model;
+﻿using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Utils;
 using System;
 using System.Collections.Generic;

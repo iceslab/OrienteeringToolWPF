@@ -374,6 +374,24 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hasło.
+        /// </summary>
+        public static string PasswordName {
+            get {
+                return ResourceManager.GetString("PasswordName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Port.
+        /// </summary>
+        public static string PortName {
+            get {
+                return ResourceManager.GetString("PortName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chip.
         /// </summary>
         public static string PunchChip {
@@ -473,11 +491,29 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Schemat.
+        /// </summary>
+        public static string SchemaName {
+            get {
+                return ResourceManager.GetString("SchemaName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wyszukiwanie....
         /// </summary>
         public static string Searching {
             get {
                 return ResourceManager.GetString("Searching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serwer.
+        /// </summary>
+        public static string ServerName {
+            get {
+                return ResourceManager.GetString("ServerName", resourceCulture);
             }
         }
         
@@ -578,6 +614,15 @@ namespace OrienteeringToolWPF.Properties {
         public static string TournamentStartTimeFormat {
             get {
                 return ResourceManager.GetString("TournamentStartTimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Użytkownik.
+        /// </summary>
+        public static string UserName {
+            get {
+                return ResourceManager.GetString("UserName", resourceCulture);
             }
         }
         
