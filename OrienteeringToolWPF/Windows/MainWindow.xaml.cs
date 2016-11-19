@@ -75,30 +75,24 @@ namespace OrienteeringToolWPF.Windows
         private static SQLiteConnection GetConnection()
         {
             return new SQLiteConnection(
-                string.Format(
-                    "Data Source={0};Version=3;foreign keys=True",
-                    DatabasePath));
+                ConnectionStringUtils.GetSqliteConnectionString(DatabasePath));
         }
 
         // Get dynamic database object for SQLite3
         private static dynamic GetDatabaseSQLite3()
         {
-            return Database.OpenConnection(
-                string.Format(
-                    "Data Source={0};Version=3;foreign keys=True",
-                    DatabasePath));
+            //return Database.OpenConnection(
+            //    ConnectionStringUtils.GetSqliteConnectionString(DatabasePath));
+            return Database.Opener.OpenConnection(
+                ConnectionStringUtils.GetSqliteConnectionString(DatabasePath),
+                Properties.Resources.ProviderNameSqlite);
         }
 
         private static dynamic GetDatabaseMysql()
         {
-            return Database.OpenConnection(
-                string.Format(
-                    "server={0}:{1};user={2};database={3};password={4};",
-                    databaseConnectionData.Server,
-                    databaseConnectionData.Port,
-                    databaseConnectionData.User,
-                    databaseConnectionData.Schema,
-                    databaseConnectionData.Password));
+            return Database.Opener.OpenConnection(
+                ConnectionStringUtils.GetMySqlConnectionString(databaseConnectionData),
+                Properties.Resources.ProviderNameMysql);
         }
 
         // Get dynamic database object
@@ -210,9 +204,13 @@ namespace OrienteeringToolWPF.Windows
         // Create project "Kids Competition"
         private void kidsCompetitionMItem_Click(object sender, RoutedEventArgs e)
         {
+
             var sfd = new SaveFileDialog();
-            //sfd.InitialDirectory = Directory.GetCurrentDirectory();
+#if DEBUG
             sfd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
+#else
+            sfd.InitialDirectory = Directory.GetCurrentDirectory();            
+#endif
             sfd.Filter = Properties.Resources.DatabaseDialogFilters;
             sfd.FilterIndex = 1;
 

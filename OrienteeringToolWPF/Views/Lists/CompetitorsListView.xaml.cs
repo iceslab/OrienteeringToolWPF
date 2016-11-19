@@ -5,7 +5,6 @@ using OrienteeringToolWPF.Windows;
 using OrienteeringToolWPF.Windows.Forms.KidsCompetition;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -39,11 +38,20 @@ namespace OrienteeringToolWPF.Views.Lists
             if (RefreshEnabled)
             {
                 var db = MainWindow.GetDatabase();
-                if (RelayId != null)
-                    CompetitorsList = db.Competitors.FindAllByRelayId(RelayId);
-                else
-                    CompetitorsList = db.Competitors.All();
-                competitorsLV.ItemsSource = CompetitorsList;
+                try
+                {
+                    if (RelayId != null)
+                        CompetitorsList = db.Competitors.FindAllByRelayId(RelayId);
+                    else
+                        CompetitorsList = db.Competitors.All();
+                    competitorsLV.ItemsSource = CompetitorsList;
+                }
+                catch (Exception e)
+                {
+
+                    throw e;
+                }
+                
             }
         }
 

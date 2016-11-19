@@ -160,6 +160,12 @@ Spróbować ponownie?</value>
   <data name="ConnectionNotConnected" xml:space="preserve">
     <value>Nie połączono się ze stacją</value>
   </data>
+  <data name="ConnectionStringMysql" xml:space="preserve">
+    <value>Server={0};Port={1};Database={2};Uid={3};Pwd={4};SslMode=Preferred;</value>
+  </data>
+  <data name="ConnectionStringSqlite" xml:space="preserve">
+    <value>Data Source={0};Version=3;foreign keys=True</value>
+  </data>
   <data name="ConnectionWindowUsage" xml:space="preserve">
     <value>Naciśnij "Wyszukaj" aby znaleźć stację</value>
   </data>
@@ -273,6 +279,12 @@ Baza danych istnieje, czy chcesz nadpisać?</value>
   </data>
   <data name="PortName" xml:space="preserve">
     <value>Port</value>
+  </data>
+  <data name="ProviderNameMysql" xml:space="preserve">
+    <value>MySql.Data.MySqlClient</value>
+  </data>
+  <data name="ProviderNameSqlite" xml:space="preserve">
+    <value>sqlite</value>
   </data>
   <data name="PunchChip" xml:space="preserve">
     <value>Chip</value>

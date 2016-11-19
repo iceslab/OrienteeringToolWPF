@@ -18,6 +18,17 @@ namespace OrienteeringToolWPF.Utils
                             MessageBoxImage.Error);
         }
 
+        public static void ShowExtendedValidatorErrors(DependencyObject obj, ErrorList errors, string extendedError)
+        {
+            // TODO: Change to collapsable textbox
+            MessageBox.Show(Window.GetWindow(obj),
+                            Properties.Resources.Errors + "\n" + errors.ToString() +
+                            "\n\n" + extendedError,
+                            Properties.Resources.InvalidDataTitle,
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+        }
+
         public static void ShowSiHandlerError(CommStatus errorStatus, string errorMessage)
         {
             Application.Current.Dispatcher.Invoke(new Action(() =>

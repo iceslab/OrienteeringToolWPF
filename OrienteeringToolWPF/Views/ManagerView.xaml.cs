@@ -4,7 +4,6 @@ using OrienteeringToolWPF.Windows;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Controls;
-using System;
 
 namespace OrienteeringToolWPF.Views
 {

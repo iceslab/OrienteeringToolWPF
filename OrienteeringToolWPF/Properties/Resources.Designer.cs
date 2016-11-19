@@ -188,6 +188,24 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Server={0};Port={1};Database={2};Uid={3};Pwd={4};SslMode=Preferred;.
+        /// </summary>
+        public static string ConnectionStringMysql {
+            get {
+                return ResourceManager.GetString("ConnectionStringMysql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data Source={0};Version=3;foreign keys=True.
+        /// </summary>
+        public static string ConnectionStringSqlite {
+            get {
+                return ResourceManager.GetString("ConnectionStringSqlite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Naciśnij &quot;Wyszukaj&quot; aby znaleźć stację.
         /// </summary>
         public static string ConnectionWindowUsage {
@@ -388,6 +406,24 @@ namespace OrienteeringToolWPF.Properties {
         public static string PortName {
             get {
                 return ResourceManager.GetString("PortName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MySql.Data.MySqlClient.
+        /// </summary>
+        public static string ProviderNameMysql {
+            get {
+                return ResourceManager.GetString("ProviderNameMysql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sqlite.
+        /// </summary>
+        public static string ProviderNameSqlite {
+            get {
+                return ResourceManager.GetString("ProviderNameSqlite", resourceCulture);
             }
         }
         

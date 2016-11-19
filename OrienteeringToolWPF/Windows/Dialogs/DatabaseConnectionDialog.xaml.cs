@@ -1,21 +1,10 @@
-﻿using MySql.Data.MySqlClient;
+﻿//#define USE_MYSQL
+#if USE_MYSQL
+using MySql.Data.MySqlClient;
+#endif
 using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Windows.Forms;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace OrienteeringToolWPF.Windows.Dialogs
 {
@@ -90,8 +79,10 @@ namespace OrienteeringToolWPF.Windows.Dialogs
 
         private ErrorList VerifyConnection()
         {
+
             var errors = new ErrorList();
             connectB.IsEnabled = false;
+            #if ALLOW_MYSQL
             using (var l_oConnection = new MySqlConnection(
                 string.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};SslMode=Preferred;",
                     databaseConnectionData.Server,
@@ -105,24 +96,21 @@ namespace OrienteeringToolWPF.Windows.Dialogs
                     l_oConnection.Open();
                 }
                 // TODO: change body of catch to add errors to error list
-                catch (SqlException e)
+                catch (MySqlException e)
                 {
-                    MessageBox.Show(e.Message);
                     errors.Add("Błąd połączenia", "Nie można połączyć się z bazą danych");
+                    MessageUtils.ShowExtendedValidatorErrors(this, errors, e.Message);
                 }
-                catch (InvalidOperationException e)
+                catch (Exception e)
                 {
-                    MessageBox.Show(e.Message);
-                    errors.Add("Błąd połączenia", "Nieprawidłowa operacja");
-                }
-                catch (ConfigurationErrorsException e)
-                {
-                    MessageBox.Show(e.Message);
-                    errors.Add("Błąd połączenia", "Nieprawidłowa konfiguracja połączenia");
+                    errors.Add("Błąd połączenia", "Nierozpoznany błąd. Skontaktuj się z twórcą oprogramowania");
+                    MessageUtils.ShowExtendedValidatorErrors(this, errors, e.Message);
                 }
 
-                connectB.IsEnabled = true;
+                
             }
+            #endif
+            connectB.IsEnabled = true;
             return errors;
         }
 
