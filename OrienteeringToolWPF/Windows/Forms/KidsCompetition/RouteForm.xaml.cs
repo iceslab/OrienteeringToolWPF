@@ -37,7 +37,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         {
             if (e.PropertyName == "DataFrame")
             {
-                var list = RouteStep.Parse(MainWindow.Listener.DataFrame.Punches, (long)route.Id);
+                var list = RouteStep.Parse(MainWindow.Listener.DataFrame.Punches);
                 routeStepsLV.Dispatcher.Invoke(delegate
                 {
                     routeStepsList.Clear();

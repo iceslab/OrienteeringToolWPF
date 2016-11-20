@@ -23,8 +23,6 @@ namespace GecoSI.Net
         public SiMessage TimeoutPoll()
         {
             SiMessage message;
-            var count = this.Count;
-            Console.WriteLine("Count: " + count);
             if (!TryTake(out message, new TimeSpan(0, 0, 0, 0, (int) defaultTimeout)))
             {
                 // Przy niektórych chipach wychodzi timeout, a w wersji Javowej biblioteki nie występuje

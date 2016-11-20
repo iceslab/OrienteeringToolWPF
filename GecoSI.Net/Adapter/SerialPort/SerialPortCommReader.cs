@@ -40,6 +40,13 @@ namespace GecoSI.Net.Adapter.SerialPort
             {
                 CheckTimeout();
                 Accumulate();
+                Console.WriteLine(
+                    string.Format(
+                        "{0}: {1}, {2}: {3} -> expected: 2",
+                        nameof(accSize),
+                        accSize, 
+                        nameof(accumulator) + "[0]",
+                        accumulator[0]));
                 if (accSize == 1 && accumulator[0] != 0x02)
                 {
                     SendMessage();
@@ -64,7 +71,7 @@ namespace GecoSI.Net.Adapter.SerialPort
 
         private void CheckTimeout()
         {
-            long currentTime = DateTime.Now.Ticks/TimeSpan.TicksPerMillisecond;
+            long currentTime = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             if (currentTime > lastTime + timeoutDelay)
             {
                 ResetAccumulator();
@@ -80,6 +87,7 @@ namespace GecoSI.Net.Adapter.SerialPort
             }
             else
             {
+                Console.WriteLine("Fragment");
                 GecoSiLogger.Debug("Fragment");
             }
         }

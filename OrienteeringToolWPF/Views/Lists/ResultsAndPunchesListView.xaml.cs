@@ -53,7 +53,7 @@ namespace OrienteeringToolWPF.Views.Lists
                                     .With(competitorAlias)
                                     .Where(db.Competitors.Chip == Chip)
                                     .OrderBy(db.RouteSteps.Order);
-                    Punch.CheckCorrectnessOrdered(ref PunchesList, RouteStepList);
+                    Punch.CheckCorrectnessSorted(ref PunchesList, RouteStepList);
                     Punch.CalculateDeltaStart(ref PunchesList, Result.StartTime);
                     Punch.CalculateDeltaPrevious(ref PunchesList);
                 }

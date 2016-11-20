@@ -81,8 +81,6 @@ namespace OrienteeringToolWPF.Windows
         // Get dynamic database object for SQLite3
         private static dynamic GetDatabaseSQLite3()
         {
-            //return Database.OpenConnection(
-            //    ConnectionStringUtils.GetSqliteConnectionString(DatabasePath));
             return Database.Opener.OpenConnection(
                 ConnectionStringUtils.GetSqliteConnectionString(DatabasePath),
                 Properties.Resources.ProviderNameSqlite);

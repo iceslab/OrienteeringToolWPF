@@ -38,7 +38,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                 new DateTime(DateTime.Now.Year - 8, 1, 1);
         }
 
-        public CompetitorForm(Competitor c)
+        public CompetitorForm(Competitor c) : this()
         {
             InitializeComponent();
             competitor = c;

@@ -119,7 +119,7 @@ namespace OrienteeringToolWPF.Views
                                     .OrderBy(db.RouteSteps.Order);
                     try
                     {
-                        Punch.CheckCorrectnessOrdered(ref punchesList, routeStepsList);
+                        Punch.CheckCorrectnessSorted(ref punchesList, routeStepsList);
                     }
                     // Ignoring exception for now, later show warning that not all competitors has results
                     catch (ArgumentNullException) { };

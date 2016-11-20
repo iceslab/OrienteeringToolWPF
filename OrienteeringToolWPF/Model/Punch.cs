@@ -71,7 +71,7 @@ namespace OrienteeringToolWPF.Model
 
         // Checks correctness of Punch list according to RouteStep list
         // Method assumes that Punches are sorted by Timestamp and RouteSteps by Order fields
-        public static void CheckCorrectnessOrdered(ref List<Punch> punches, List<RouteStep> routeSteps)
+        public static void CheckCorrectnessSorted(ref List<Punch> punches, List<RouteStep> routeSteps, bool allowRepeats = true)
         {
             if (punches == null)
                 throw new ArgumentNullException(nameof(punches), "List refers to null");
@@ -81,14 +81,15 @@ namespace OrienteeringToolWPF.Model
             // Associative array of RouteStep code occurences
             var routeStepsAssociative = RouteStep.GetCodeOccurenceCount(routeSteps);
 
-            // Normal for only because of using index comparision
+            // Normal "for loop" only because of using index comparision
             for (var i = 0; i < punches.Count; i++)
             {
                 // If Code matches in both lists set to CORRECT
                 if (i < routeSteps.Count && punches[i].Code == routeSteps[i].Code)
                 {
                     punches[i].Correctness = Correctness.CORRECT;
-                    routeStepsAssociative[punches[i].Code]--;
+                    if(!allowRepeats)
+                        routeStepsAssociative[punches[i].Code]--;
                 }
                 else
                 {
@@ -97,6 +98,7 @@ namespace OrienteeringToolWPF.Model
                 }
             }
 
+            // Check invalid punches if they're misplaced
             foreach (var punch in punches)
             {
                 if (punch.Correctness == Correctness.INVALID)
@@ -108,7 +110,8 @@ namespace OrienteeringToolWPF.Model
                         // If element exists and was collected proper number of times
                         if (value > 0)
                         {
-                            routeStepsAssociative[punch.Code]--;
+                            if(!allowRepeats)
+                                routeStepsAssociative[punch.Code]--;
                             punch.Correctness = Correctness.PRESENT;
                         }
                     }
