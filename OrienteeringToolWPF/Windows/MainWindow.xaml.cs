@@ -10,6 +10,7 @@ using Simple.Data;
 using System;
 using System.ComponentModel;
 using System.Data.SQLite;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 

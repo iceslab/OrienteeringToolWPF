@@ -14,7 +14,7 @@ namespace OrienteeringToolWPF.Model
     {
         public long? Id { get; set; }
         public string Name { get; set; }
-        public long Chip { get; set; }
+        public long? Chip { get; set; }
         public long RelayId { get; set; }
         public long Category { get; set; }
         public Gender Gender { get; set; }

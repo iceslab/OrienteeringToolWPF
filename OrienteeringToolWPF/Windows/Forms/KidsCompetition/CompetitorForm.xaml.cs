@@ -134,7 +134,10 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             if (errors.HasErrors() == false)
             {
                 competitor.Name = NameTB.Text;
-                competitor.Chip = long.Parse(ChipTB.Text);
+                if (string.IsNullOrWhiteSpace(ChipTB.Text))
+                    competitor.Chip = null;
+                else
+                    competitor.Chip = long.Parse(ChipTB.Text);
                 competitor.RelayId = (long)((Relay)RelayIdCB.SelectedItem).Id;
                 competitor.Category = (long)((Category)CategoryCB.SelectedItem).Id;
                 competitor.Gender = (bool)MaleRB.IsChecked ? Gender.MALE : Gender.FEMALE;
@@ -148,21 +151,24 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             var errors = new ErrorList();
             if (string.IsNullOrWhiteSpace(NameTB.Text))
                 errors.Add(Properties.Resources.CompetitorName, Properties.Resources.NullOrEmptyError);
-            long n;
-            if (!long.TryParse(ChipTB.Text, out n))
-                errors.Add(Properties.Resources.CompetitorChip, Properties.Resources.NotANumberError);
-            else
+            if (!string.IsNullOrWhiteSpace(ChipTB.Text))
             {
-                var count = MainWindow.GetDatabase().Competitors.GetCountByChip(n);
-                if (count > 1)
+                long n;
+                if (!long.TryParse(ChipTB.Text, out n))
+                    errors.Add(Properties.Resources.CompetitorChip, Properties.Resources.NotANumberError);
+                else
                 {
-                    errors.Add(Properties.Resources.CompetitorChip, Properties.Resources.ValueAlreadyExistsError);
-                }
-                else if (count == 1)
-                {
-                    Competitor c = MainWindow.GetDatabase().Competitors.FindByChip(n);
-                    if (c.Id != competitor?.Id)
+                    var count = MainWindow.GetDatabase().Competitors.GetCountByChip(n);
+                    if (count > 1)
+                    {
                         errors.Add(Properties.Resources.CompetitorChip, Properties.Resources.ValueAlreadyExistsError);
+                    }
+                    else if (count == 1)
+                    {
+                        Competitor c = MainWindow.GetDatabase().Competitors.FindByChip(n);
+                        if (c.Id != competitor?.Id)
+                            errors.Add(Properties.Resources.CompetitorChip, Properties.Resources.ValueAlreadyExistsError);
+                    }
                 }
             }
 
