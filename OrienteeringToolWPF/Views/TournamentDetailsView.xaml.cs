@@ -4,6 +4,7 @@ using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Windows;
 using OrienteeringToolWPF.Windows.Forms.KidsCompetition;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -25,7 +26,7 @@ namespace OrienteeringToolWPF.Views
         {
             var db = MainWindow.GetDatabase();
             tournament = db.Tournament.All().FirstOrDefault();
-            if(tournament.Id != null)
+            if (tournament.Id != null)
                 db.Tournament.DeleteAll(db.Tournament.Id != tournament.Id);
 
             tournamentG.DataContext = tournament;
@@ -49,7 +50,9 @@ namespace OrienteeringToolWPF.Views
 
         private void startTournamentB_Click(object sender, RoutedEventArgs e)
         {
-            if (tournament.HasFinished || MessageUtils.PromptForConnection(this) == true)
+            
+            if (tournament.HasFinished ||
+                (MessageUtils.CheckCompetitorsCosistency(this) && MessageUtils.PromptForConnection(this)))
             {
                 var kcWindow = new ManagerWindow(tournament);
                 kcWindow.Closed += KcWindow_Closed;

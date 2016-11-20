@@ -1,8 +1,10 @@
 ﻿using GecoSI.Net;
+using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Windows;
 using OrienteeringToolWPF.Windows.Dialogs;
 using OrienteeringToolWPF.Windows.Forms;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace OrienteeringToolWPF.Utils
@@ -112,6 +114,32 @@ namespace OrienteeringToolWPF.Utils
                         MessageBoxImage.Warning,
                         MessageBoxResult.No);
             return GetBoolFromMessageBoxResult(mbr);
+        }
+
+        private static void ShowCompetitorsIncosistencyError(DependencyObject obj)
+        {
+            MessageBox.Show(Window.GetWindow(obj),
+                        "Nie wszyscy zawodnicy mają przydzielony chip",
+                        "Błąd",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+        }
+
+        public static bool CheckCompetitorsCosistency(DependencyObject obj)
+        {
+            var retVal = false;
+            try
+            {
+                var db = MainWindow.GetDatabase();
+                var competitors = (List<Competitor>)db.Competitors.All();
+                retVal = competitors.TrueForAll(c => c.Chip != null);
+                if (retVal)
+                    ShowCompetitorsIncosistencyError(obj);
+            }
+            catch (Exception)
+            {}
+
+            return retVal;
         }
 
         private static bool GetBoolFromMessageBoxResult(MessageBoxResult mbr)
