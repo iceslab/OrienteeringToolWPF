@@ -1,17 +1,21 @@
 ﻿using OrienteeringToolWPF.Enumerations;
 using Simple.Data;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace OrienteeringToolWPF.Utils
 {
     public static class DatabaseUtils
     {
+        #region Properties
+        public static bool IsDatabaseAccessible
+        {
+            get
+            {
+                return DatabaseType != DatabaseType.NONE;
+            }
+        }
         public static string DatabasePath { get; set; }
         private static DatabaseConnectionData _DatabaseConnectionData;
 
@@ -26,8 +30,26 @@ namespace OrienteeringToolWPF.Utils
                     _DatabaseConnectionData = new DatabaseConnectionData();
             }
         }
-        public static DatabaseType DatabaseType { get; set; }
-
+        private static DatabaseType _DatabaseType;
+        public static DatabaseType DatabaseType
+        {
+            get { return _DatabaseType; }
+            set
+            {
+                _DatabaseType = value;
+                OnGlobalPropertyChanged(nameof(IsDatabaseAccessible));
+            }
+        }
+        #endregion
+        #region Notify GlobalPropertyChanged
+        public static event PropertyChangedEventHandler GlobalPropertyChanged = delegate { };
+        private static void OnGlobalPropertyChanged(string propertyName)
+        {
+            GlobalPropertyChanged(
+                typeof(MenuItem),
+                new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
         static DatabaseUtils()
         {
             DatabasePath = null;

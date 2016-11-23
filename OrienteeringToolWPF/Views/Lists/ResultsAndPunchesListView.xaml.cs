@@ -1,4 +1,5 @@
-﻿using OrienteeringToolWPF.Interfaces;
+﻿using OrienteeringToolWPF.DAO;
+using OrienteeringToolWPF.Interfaces;
 using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Windows;
@@ -35,24 +36,15 @@ namespace OrienteeringToolWPF.Views.Lists
         {
             if (RefreshEnabled)
             {
-                var db = DatabaseUtils.GetDatabase();
                 if (Chip != null)
                 {
+                    var db = DatabaseUtils.GetDatabase();
                     Result = db.Results.FindAllByChip(Chip).FirstOrDefault() ?? new Result { Chip = (long)Chip };
                     PunchesList = db.Punches.FindAllByChip(Chip).OrderBy(db.Punches.Timestamp) ?? new List<Punch>();
 
                     // Gets Route associated with Competitor and his Category for proper validation
-                    dynamic routesAlias, competitorAlias;
-                    RouteStepList = db.RouteSteps
-                                    .All()
-                                    .Join(db.Routes, out routesAlias)
-                                    .On(db.RouteSteps.RouteId == db.Routes.Id)
-                                    .Join(db.Competitors, out competitorAlias)
-                                    .On(db.Routes.Category == db.Competitors.Category)
-                                    .With(routesAlias)
-                                    .With(competitorAlias)
-                                    .Where(db.Competitors.Chip == Chip)
-                                    .OrderBy(db.RouteSteps.Order);
+                    RouteStepList = RouteStepsHelper.RouteStepsWhereChip((long)Chip);
+
                     Punch.CheckCorrectnessSorted(ref PunchesList, RouteStepList);
                     Punch.CalculateDeltaStart(ref PunchesList, Result.StartTime);
                     Punch.CalculateDeltaPrevious(ref PunchesList);

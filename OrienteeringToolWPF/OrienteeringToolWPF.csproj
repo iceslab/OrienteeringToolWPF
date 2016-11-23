@@ -166,6 +166,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DAO\RelayHelper.cs" />
+    <Compile Include="DAO\RouteStepsHelper.cs" />
     <Compile Include="Enumerations\Course.cs" />
     <Compile Include="Enumerations\DatabaseType.cs" />
     <Compile Include="Enumerations\Gender.cs" />
@@ -195,15 +197,16 @@
     <Compile Include="Model\RouteStep.cs" />
     <Compile Include="Model\Tournament.cs" />
     <Compile Include="SiListener.cs" />
+    <Compile Include="Utils\BindingUtils.cs" />
     <Compile Include="Utils\ConnectionStringUtils.cs" />
-    <Compile Include="Utils\CorrectnessConverter.cs" />
+    <Compile Include="Utils\Converters\CorrectnessConverter.cs" />
     <Compile Include="Utils\DatabaseConnectionData.cs" />
     <Compile Include="Utils\DatabaseUtils.cs" />
     <Compile Include="Utils\DocumentUtils.cs" />
-    <Compile Include="Utils\LongConverter.cs" />
-    <Compile Include="Utils\DateTimeConverter.cs" />
-    <Compile Include="Utils\DeltaTimeConverter.cs" />
-    <Compile Include="Utils\TimestampConverter.cs" />
+    <Compile Include="Utils\Converters\LongConverter.cs" />
+    <Compile Include="Utils\Converters\DateTimeConverter.cs" />
+    <Compile Include="Utils\Converters\DeltaTimeConverter.cs" />
+    <Compile Include="Utils\Converters\TimestampConverter.cs" />
     <Compile Include="Utils\MessageUtils.cs" />
     <Compile Include="Utils\TreeViewExtension.cs" />
     <Compile Include="Views\ClassificationView.xaml.cs">
@@ -485,6 +488,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

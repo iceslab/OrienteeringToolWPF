@@ -1,12 +1,12 @@
 ﻿using GecoSI.Net;
 using Microsoft.Win32;
+using OrienteeringToolWPF.DAO;
 using OrienteeringToolWPF.Enumerations;
 using OrienteeringToolWPF.Interfaces;
 using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Views;
 using OrienteeringToolWPF.Windows.Dialogs;
 using OrienteeringToolWPF.Windows.Forms.KidsCompetition;
-using Simple.Data;
 using System;
 using System.ComponentModel;
 using System.Data.SQLite;
@@ -47,7 +47,6 @@ namespace OrienteeringToolWPF.Windows
         {
             Listener = new SiListener();
             Handler = new SiHandler(Listener);
-            //databaseConnectionData = new DatabaseConnectionData();
         }
 
         public MainWindow()
@@ -58,7 +57,6 @@ namespace OrienteeringToolWPF.Windows
             // Needed for bindings
             menuBar.DataContext = Handler;
             label.DataContext = Listener;
-            //mainWindowCC.DataContext = this;
 
             Listener.Notify(CommStatus.Off);
         }
@@ -69,11 +67,9 @@ namespace OrienteeringToolWPF.Windows
             Handler?.Stop();
         }
 
-#region Database static methods
-        
-#endregion
-
-        // Create project and database for "Kids Competition"
+        ///<summary>
+        ///Creates project and database for "Kids Competition"
+        ///</summary>
         private void CreateKCDatabase()
         {
             // Create database file
@@ -159,6 +155,14 @@ namespace OrienteeringToolWPF.Windows
             }
         }
 
+        // Closes connection to database
+        private void closeDatabaseMItem_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentView = null;
+            DatabaseUtils.DatabaseType = DatabaseType.NONE;
+            DatabaseUtils.DatabaseConnectionData.Password = null;
+        }
+
         // Create project "Kids Competition"
         private void kidsCompetitionMItem_Click(object sender, RoutedEventArgs e)
         {
@@ -185,6 +189,29 @@ namespace OrienteeringToolWPF.Windows
                     window.Save();
                     CurrentView = new MainView();
                 }
+            }
+        }
+
+        // Create starting list
+        private void startingListMItem_Click(object sender, RoutedEventArgs e)
+        {
+            var sfd = new SaveFileDialog();
+#if DEBUG
+            sfd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
+#else
+            sfd.InitialDirectory = Directory.GetCurrentDirectory();            
+#endif
+            // TODO: Change to resources
+            sfd.Filter = "Dokument Word|*.docx";
+            sfd.FilterIndex = 1;
+#if !DEBUG
+            if (sfd.ShowDialog() == true)
+#else
+            sfd.FileName = sfd.InitialDirectory + @"\test.docx";
+#endif
+            {
+                var relays = RelayHelper.RelaysWithCompetitors();
+                DocumentUtils.CreateStartingList(sfd.FileName, relays);
             }
         }
 #endregion

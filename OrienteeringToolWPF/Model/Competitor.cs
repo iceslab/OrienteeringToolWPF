@@ -125,6 +125,7 @@ namespace OrienteeringToolWPF.Model
             {
                 if (_NotPresentPunches == null)
                 {
+                    // TODO: Change to helper
                     var db = DatabaseUtils.GetDatabase();
                     dynamic routesAlias, routeStepsAlias;
                     var RouteSteps = (List<RouteStep>)db.Categories
@@ -143,6 +144,17 @@ namespace OrienteeringToolWPF.Model
             }
         }
         #endregion
+
+        public static List<Competitor> ExtractGender(IList<Competitor> competitors, Gender gender)
+        {
+            var retVal = new List<Competitor>();
+            foreach(var c in competitors)
+            {
+                if (c.Gender == gender)
+                    retVal.Add(c);
+            }
+            return retVal;
+        }
 
         public Competitor() : base()
         {

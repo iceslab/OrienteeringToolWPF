@@ -85,6 +85,7 @@ namespace OrienteeringToolWPF.Model
         #region IComparable<Relay> implementation
         public int CompareTo(Relay other)
         {
+            // TODO: Consider total errors made by competitors
             var retVal = 0;
             var left = this;
             var right = other;

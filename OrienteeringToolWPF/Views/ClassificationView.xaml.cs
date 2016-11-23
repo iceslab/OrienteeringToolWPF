@@ -1,4 +1,5 @@
-﻿using OrienteeringToolWPF.Enumerations;
+﻿using OrienteeringToolWPF.DAO;
+using OrienteeringToolWPF.Enumerations;
 using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Windows;
@@ -106,23 +107,13 @@ namespace OrienteeringToolWPF.Views
                 foreach (var competitor in relay.Competitors)
                 {
                     var db = DatabaseUtils.GetDatabase();
-                    dynamic routesAlias, competitorAlias;
                     var punchesList = (List<Punch>)competitor.Punches;
-                    var routeStepsList = (List<RouteStep>)db.RouteSteps
-                                    .All()
-                                    .Join(db.Routes, out routesAlias)
-                                    .On(db.RouteSteps.RouteId == db.Routes.Id)
-                                    .Join(db.Competitors, out competitorAlias)
-                                    .On(db.Routes.Category == db.Competitors.Category)
-                                    .With(routesAlias)
-                                    .With(competitorAlias)
-                                    .Where(db.Competitors.Chip == competitor.Chip)
-                                    .OrderBy(db.RouteSteps.Order);
+                    var routeStepsList = RouteStepsHelper.RouteStepsWhereChip((long)competitor.Chip);
                     try
                     {
                         Punch.CheckCorrectnessSorted(ref punchesList, routeStepsList);
                     }
-                    // Ignoring exception for now, later show warning that not all competitors has results
+                    // TODO: Ignoring exception for now, later show warning that not all competitors has results
                     catch (ArgumentNullException) { };
 
                     competitor.Punches = punchesList;

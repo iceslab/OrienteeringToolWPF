@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.ComponentModel;
+using OrienteeringToolWPF.DAO;
 
 namespace OrienteeringToolWPF.Views
 {
@@ -123,14 +124,7 @@ namespace OrienteeringToolWPF.Views
         // Refreshes data
         public void Refresh()
         {
-            var db = DatabaseUtils.GetDatabase();
-            dynamic alias;
-            RelayList = db.Relays
-                            .All()
-                            .LeftJoin(db.Competitors, out alias)
-                            .On(db.Competitors.RelayId == db.Relays.Id)
-                            .With(alias);
-            relaysAndCompetitorsTV.ItemsSource = RelayList;
+            relaysAndCompetitorsTV.ItemsSource = RelayHelper.RelaysWithCompetitors();
         }
         #endregion
     }
