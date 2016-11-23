@@ -47,7 +47,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             var errors = FormToObject();
             if (errors.HasErrors() == false)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
 
                 using (var tx = db.BeginTransaction())
                 {
@@ -171,7 +171,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 
         private void PrepareRouteStepsList()
         {
-            var db = MainWindow.GetDatabase();
+            var db = DatabaseUtils.GetDatabase();
             punchesList = db.RouteSteps.FindAllByChip(result.Chip);
 
             punchesLV.ItemsSource = punchesList;

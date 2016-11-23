@@ -37,7 +37,7 @@ namespace OrienteeringToolWPF.Views.Lists
         {
             if (RefreshEnabled)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 try
                 {
                     if (RelayId != null)
@@ -76,7 +76,7 @@ namespace OrienteeringToolWPF.Views.Lists
         {
             if (MessageUtils.ShowDeleteWarning(this) == true)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 foreach (Competitor c in competitorsLV.SelectedItems)
                     db.Competitors.DeleteById(c.Id);
                 Refresh();

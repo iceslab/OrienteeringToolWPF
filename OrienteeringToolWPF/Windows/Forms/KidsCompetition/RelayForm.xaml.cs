@@ -29,7 +29,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             var errors = FormToObject();
             if (errors.HasErrors() == false)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 db.Relays.Upsert(relay);
 
                 Close();
@@ -45,7 +45,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             var errors = FormToObject();
             if (errors.HasErrors() == false)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 db.Relays.Upsert(relay);
                 relay = new Relay();
 

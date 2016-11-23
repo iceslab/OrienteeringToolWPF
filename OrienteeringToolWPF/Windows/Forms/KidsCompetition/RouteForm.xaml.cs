@@ -54,7 +54,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             var errors = FormToObject();
             if (errors.HasErrors() == false)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
 
                 using (var tx = db.BeginTransaction())
                 {
@@ -180,7 +180,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
 
         private void PrepareRouteStepsList()
         {
-            var db = MainWindow.GetDatabase();
+            var db = DatabaseUtils.GetDatabase();
             List<RouteStep> list = db.RouteSteps.FindAllByRouteId(route.Id);
             routeStepsList.Clear();
             foreach (var rs in list)
@@ -203,7 +203,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         #region CategoryCB methods
         private void PopulateCategoryCB()
         {
-            var db = MainWindow.GetDatabase();
+            var db = DatabaseUtils.GetDatabase();
             categoriesList = db.Categories.All();
 
             CategoryCB.Items.Clear();
@@ -234,7 +234,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                     window.ShowDialog();
 
                     // Get current data
-                    var db = MainWindow.GetDatabase();
+                    var db = DatabaseUtils.GetDatabase();
                     List<Category> newCategories = db.Categories.All();
 
                     // Check if data was inserted

@@ -1,5 +1,6 @@
 ﻿using OrienteeringToolWPF.Enumerations;
 using OrienteeringToolWPF.Interfaces;
+using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Windows;
 using System;
 using System.Collections.Generic;
@@ -124,7 +125,7 @@ namespace OrienteeringToolWPF.Model
             {
                 if (_NotPresentPunches == null)
                 {
-                    var db = MainWindow.GetDatabase();
+                    var db = DatabaseUtils.GetDatabase();
                     dynamic routesAlias, routeStepsAlias;
                     var RouteSteps = (List<RouteStep>)db.Categories
                         .FindAllById(Category)

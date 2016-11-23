@@ -29,7 +29,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             var errors = FormToObject();
             if (errors.HasErrors() == false)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 db.Categories.Upsert(category);
 
                 Close();
@@ -45,7 +45,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             var errors = FormToObject();
             if (errors.HasErrors() == false)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 db.Categories.Upsert(category);
                 category = new Category();
 

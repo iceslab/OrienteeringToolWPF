@@ -24,7 +24,7 @@ namespace OrienteeringToolWPF.Views
 
         public void Refresh()
         {
-            var db = MainWindow.GetDatabase();
+            var db = DatabaseUtils.GetDatabase();
             tournament = db.Tournament.All().FirstOrDefault();
             if (tournament.Id != null)
                 db.Tournament.DeleteAll(db.Tournament.Id != tournament.Id);

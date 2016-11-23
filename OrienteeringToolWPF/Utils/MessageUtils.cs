@@ -86,8 +86,9 @@ namespace OrienteeringToolWPF.Utils
                     MessageBoxImage.Information);
         }
 
-        // Prompts user for connection to station if not connected
-        // returns true when connected, false when user refuses to connect
+        /// <summary>Prompts user for connection to station if not connected</summary> 
+        /// <param name="obj">Represents control which called this method (used for getting window)</param>
+        /// <returns>true when connected, false when user refuses to connect</returns>
         public static bool PromptForConnection(DependencyObject obj)
         {
             while (MainWindow.Handler.NotIsConnected)
@@ -130,7 +131,7 @@ namespace OrienteeringToolWPF.Utils
             var retVal = false;
             try
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 var competitors = (List<Competitor>)db.Competitors.All();
                 retVal = competitors.TrueForAll(c => c.Chip != null);
                 if (retVal)

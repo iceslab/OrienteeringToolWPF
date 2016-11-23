@@ -50,7 +50,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             var errors = FormToObject();
             if (errors.HasErrors() == false)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 db.Competitors.Upsert(competitor);
 
                 Close();
@@ -66,7 +66,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             var errors = FormToObject();
             if (errors.HasErrors() == false)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 db.Competitors.Upsert(competitor);
 
                 competitor = new Competitor();
@@ -158,14 +158,14 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                     errors.Add(Properties.Resources.CompetitorChip, Properties.Resources.NotANumberError);
                 else
                 {
-                    var count = MainWindow.GetDatabase().Competitors.GetCountByChip(n);
+                    var count = DatabaseUtils.GetDatabase().Competitors.GetCountByChip(n);
                     if (count > 1)
                     {
                         errors.Add(Properties.Resources.CompetitorChip, Properties.Resources.ValueAlreadyExistsError);
                     }
                     else if (count == 1)
                     {
-                        Competitor c = MainWindow.GetDatabase().Competitors.FindByChip(n);
+                        Competitor c = DatabaseUtils.GetDatabase().Competitors.FindByChip(n);
                         if (c.Id != competitor?.Id)
                             errors.Add(Properties.Resources.CompetitorChip, Properties.Resources.ValueAlreadyExistsError);
                     }
@@ -184,7 +184,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         #region RelayCB methods
         private void PopulateRelayCB()
         {
-            var db = MainWindow.GetDatabase();
+            var db = DatabaseUtils.GetDatabase();
             relaysList = db.Relays.All();
 
             RelayIdCB.Items.Clear();
@@ -214,7 +214,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                     window.ShowDialog();
 
                     // Get current data
-                    var db = MainWindow.GetDatabase();
+                    var db = DatabaseUtils.GetDatabase();
                     List<Relay> newRelays = db.Relays.All();
 
                     // Check if data was inserted
@@ -253,7 +253,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         #region CategoryCB methods
         private void PopulateCategoryCB()
         {
-            var db = MainWindow.GetDatabase();
+            var db = DatabaseUtils.GetDatabase();
             categoriesList = db.Categories.All();
 
             CategoryCB.Items.Clear();
@@ -284,7 +284,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                     window.ShowDialog();
 
                     // Get current data
-                    var db = MainWindow.GetDatabase();
+                    var db = DatabaseUtils.GetDatabase();
                     List<Category> newCategories = db.Categories.All();
 
                     // Check if data was inserted

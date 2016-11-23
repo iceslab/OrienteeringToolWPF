@@ -1,5 +1,6 @@
 ﻿using OrienteeringToolWPF.Enumerations;
 using OrienteeringToolWPF.Model;
+using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Windows;
 using System;
 using System.Collections.Generic;
@@ -56,7 +57,7 @@ namespace OrienteeringToolWPF.Views
             // NOTE: In this version of Simple.Data there is no populating of fields in nested objects 
             // (so called grandchild's fields). You need to populate them manually
 
-            var db = MainWindow.GetDatabase();
+            var db = DatabaseUtils.GetDatabase();
             RelayList = (List<Relay>)db.Relays.All();
             dynamic resultsAlias, punchAlias;
             foreach (var relay in RelayList)
@@ -104,7 +105,7 @@ namespace OrienteeringToolWPF.Views
             {
                 foreach (var competitor in relay.Competitors)
                 {
-                    var db = MainWindow.GetDatabase();
+                    var db = DatabaseUtils.GetDatabase();
                     dynamic routesAlias, competitorAlias;
                     var punchesList = (List<Punch>)competitor.Punches;
                     var routeStepsList = (List<RouteStep>)db.RouteSteps

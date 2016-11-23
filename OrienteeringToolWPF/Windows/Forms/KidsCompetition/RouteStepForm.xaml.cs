@@ -43,7 +43,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             {
                 if(!noSave)
                 {
-                    var db = MainWindow.GetDatabase();
+                    var db = DatabaseUtils.GetDatabase();
                     db.RouteSteps.Upsert(routeStep);
                 }
                 

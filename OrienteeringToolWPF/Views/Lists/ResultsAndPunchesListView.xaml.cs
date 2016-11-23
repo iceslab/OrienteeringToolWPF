@@ -35,7 +35,7 @@ namespace OrienteeringToolWPF.Views.Lists
         {
             if (RefreshEnabled)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 if (Chip != null)
                 {
                     Result = db.Results.FindAllByChip(Chip).FirstOrDefault() ?? new Result { Chip = (long)Chip };
@@ -106,7 +106,7 @@ namespace OrienteeringToolWPF.Views.Lists
         {
             if (MessageUtils.ShowDeleteWarning(this) == true)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 foreach (Punch p in punchesLV.SelectedItems)
                     db.Punches.DeleteById(p.Id);
                 Refresh();

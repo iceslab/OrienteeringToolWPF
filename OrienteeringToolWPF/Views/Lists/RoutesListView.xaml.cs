@@ -25,7 +25,7 @@ namespace OrienteeringToolWPF.Views.Lists
 
         public void Refresh()
         {
-            var db = MainWindow.GetDatabase();
+            var db = DatabaseUtils.GetDatabase();
             RoutesList = db.Routes.All();
             routesLV.ItemsSource = RoutesList;
         }
@@ -50,7 +50,7 @@ namespace OrienteeringToolWPF.Views.Lists
         {
             if (MessageUtils.ShowDeleteWarning(this) == true)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 foreach (Route r in routesLV.SelectedItems)
                     db.Routes.DeleteById(r.Id);
                 Refresh();

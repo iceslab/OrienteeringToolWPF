@@ -1,5 +1,6 @@
 ﻿using OrienteeringToolWPF.Interfaces;
 using OrienteeringToolWPF.Model;
+using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Windows;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -67,7 +68,7 @@ namespace OrienteeringToolWPF.Views
                 if (competitor != null)
                 {
                     var punchesList = Punch.Parse(MainWindow.Listener.DataFrame.Punches, result.Chip);
-                    var db = MainWindow.GetDatabase();
+                    var db = DatabaseUtils.GetDatabase();
                     using (var tx = db.BeginTransaction())
                     {
                         tx.Results.Upsert(result);

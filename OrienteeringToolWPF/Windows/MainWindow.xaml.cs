@@ -10,18 +10,20 @@ using Simple.Data;
 using System;
 using System.ComponentModel;
 using System.Data.SQLite;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+#if !DEBUG
+using System.IO;
+#endif
 
 namespace OrienteeringToolWPF.Windows
 {
     public partial class MainWindow : Window, INotifyPropertyChanged, ICurrentView
     {
-        #region MainWindow fields
+#region MainWindow fields
         public static SiHandler Handler { get; private set; }
         public static SiListener Listener { get; private set; }
-        #region ICurrentView implementation
+#region ICurrentView implementation
         private UserControl _currentView;
         public UserControl CurrentView
         {
@@ -33,23 +35,19 @@ namespace OrienteeringToolWPF.Windows
                 OnPropertyChanged("CurrentView");
             }
         }
-        #endregion
-
-        private static string DatabasePath;
-        private static DatabaseConnectionData databaseConnectionData;
-        private static DatabaseType DatabaseType = DatabaseType.NONE;
+#endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        #endregion
+#endregion
         static MainWindow()
         {
             Listener = new SiListener();
             Handler = new SiHandler(Listener);
-            databaseConnectionData = new DatabaseConnectionData();
+            //databaseConnectionData = new DatabaseConnectionData();
         }
 
         public MainWindow()
@@ -71,55 +69,16 @@ namespace OrienteeringToolWPF.Windows
             Handler?.Stop();
         }
 
-        #region Database static methods
-        // Get connection to database
-        private static SQLiteConnection GetConnection()
-        {
-            return new SQLiteConnection(
-                ConnectionStringUtils.GetSqliteConnectionString(DatabasePath));
-        }
-
-        // Get dynamic database object for SQLite3
-        private static dynamic GetDatabaseSQLite3()
-        {
-            return Database.Opener.OpenConnection(
-                ConnectionStringUtils.GetSqliteConnectionString(DatabasePath),
-                Properties.Resources.ProviderNameSqlite);
-        }
-
-        private static dynamic GetDatabaseMysql()
-        {
-            return Database.Opener.OpenConnection(
-                ConnectionStringUtils.GetMySqlConnectionString(databaseConnectionData),
-                Properties.Resources.ProviderNameMysql);
-        }
-
-        // Get dynamic database object
-        public static dynamic GetDatabase()
-        {
-            switch (DatabaseType)
-            {
-                case DatabaseType.SQLITE3:
-                    return GetDatabaseSQLite3();
-                case DatabaseType.MYSQL:
-                    return GetDatabaseMysql();
-                case DatabaseType.NONE:
-                default:
-                    throw new InvalidEnumArgumentException(
-                        "Variable "
-                        + "\"" + nameof(DatabaseType) + "\""
-                        + " does not provide valid database type. Provided type: "
-                        + DatabaseType.ToString());
-            }
-        }
-        #endregion
+#region Database static methods
+        
+#endregion
 
         // Create project and database for "Kids Competition"
         private void CreateKCDatabase()
         {
             // Create database file
-            SQLiteConnection.CreateFile(DatabasePath);
-            var connection = GetConnection();
+            SQLiteConnection.CreateFile(DatabaseUtils.DatabasePath);
+            var connection = DatabaseUtils.GetConnection();
             var command = connection.CreateCommand();
 
             // Prepare creation command
@@ -147,7 +106,7 @@ namespace OrienteeringToolWPF.Windows
             Disconnect();
         }
 
-        #region Menu callback methods
+#region Menu callback methods
         // Connect to station - menu
         private void connectToMItem_Click(object sender, RoutedEventArgs e)
         {
@@ -181,8 +140,8 @@ namespace OrienteeringToolWPF.Windows
             ofd.FilterIndex = 1;
             if (ofd.ShowDialog() == true)
             {
-                DatabasePath = ofd.FileName;
-                DatabaseType = DatabaseType.SQLITE3;
+                DatabaseUtils.DatabasePath = ofd.FileName;
+                DatabaseUtils.DatabaseType = DatabaseType.SQLITE3;
                 CurrentView = new MainView();
             }
         }
@@ -190,12 +149,12 @@ namespace OrienteeringToolWPF.Windows
         // Open remote project
         private void openRemoteMItem_Click(object sender, RoutedEventArgs e)
         {
-            var rdw = new DatabseConnectionDialog(databaseConnectionData);
+            var rdw = new DatabseConnectionDialog(DatabaseUtils.DatabaseConnectionData);
             rdw.Owner = this;
             if (rdw.ShowDialog() == true)
             {
-                databaseConnectionData = rdw.databaseConnectionData;
-                DatabaseType = DatabaseType.MYSQL;
+                DatabaseUtils.DatabaseConnectionData = rdw.databaseConnectionData;
+                DatabaseUtils.DatabaseType = DatabaseType.MYSQL;
                 CurrentView = new MainView();
             }
         }
@@ -220,14 +179,14 @@ namespace OrienteeringToolWPF.Windows
 
                 if (window.ShowDialog() == true)
                 {
-                    DatabasePath = sfd.FileName;
-                    DatabaseType = DatabaseType.SQLITE3;
+                    DatabaseUtils.DatabasePath = sfd.FileName;
+                    DatabaseUtils.DatabaseType = DatabaseType.SQLITE3;
                     CreateKCDatabase();
                     window.Save();
                     CurrentView = new MainView();
                 }
             }
         }
-        #endregion
+#endregion
     }
 }

@@ -33,7 +33,7 @@ namespace OrienteeringToolWPF.Views.Lists
         {
             if (RefreshEnabled)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 RelaysList = db.Relays.All();
                 relaysLV.ItemsSource = RelaysList;
             }
@@ -75,7 +75,7 @@ namespace OrienteeringToolWPF.Views.Lists
         {
             if (MessageUtils.ShowDeleteWarning(this) == true)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 foreach (Relay r in relaysLV.SelectedItems)
                     db.Relays.DeleteById(r.Id);
                 Refresh();

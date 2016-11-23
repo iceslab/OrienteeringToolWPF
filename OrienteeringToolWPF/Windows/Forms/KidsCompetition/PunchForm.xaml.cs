@@ -35,7 +35,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
             {
                 if (!noSave)
                 {
-                    var db = MainWindow.GetDatabase();
+                    var db = DatabaseUtils.GetDatabase();
                     db.Punches.Upsert(punch);
                 }
 

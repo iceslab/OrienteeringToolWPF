@@ -26,7 +26,7 @@ namespace OrienteeringToolWPF.Views.Lists
 
         public void Refresh()
         {
-            var db = MainWindow.GetDatabase();
+            var db = DatabaseUtils.GetDatabase();
             CategoriesList = db.Categories.All();
             categoriesLV.ItemsSource = CategoriesList;
         }
@@ -51,7 +51,7 @@ namespace OrienteeringToolWPF.Views.Lists
         {
             if (MessageUtils.ShowDeleteWarning(this) == true)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 foreach (Category c in categoriesLV.SelectedItems)
                     db.Categories.DeleteById(c.Id);
                 Refresh();

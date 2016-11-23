@@ -72,7 +72,7 @@ namespace OrienteeringToolWPF.Windows
                     {
                         // Save actual start of tournament
                         tournament.StartedAtTime = DateTime.Now;
-                        var db = MainWindow.GetDatabase();
+                        var db = DatabaseUtils.GetDatabase();
                         db.Tournament.Update(tournament);
 
                         // Set current view to Manager
@@ -89,7 +89,7 @@ namespace OrienteeringToolWPF.Windows
         {
             // Save competition finish time
             tournament.FinishedAtTime = DateTime.Now;
-            var db = MainWindow.GetDatabase();
+            var db = DatabaseUtils.GetDatabase();
             db.Tournament.Update(tournament);
 
             // Close window

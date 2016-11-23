@@ -48,7 +48,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         {
             if (tournament != null)
             {
-                var db = MainWindow.GetDatabase();
+                var db = DatabaseUtils.GetDatabase();
                 db.Tournament.Upsert(tournament);
             }
         }
