@@ -133,10 +133,12 @@ namespace OrienteeringToolWPF.Utils
         {
             using (var outputFile = new StreamWriter(fullFilePath))
             {
+                var first = true;
                 foreach (var relay in relays)
                 {
                     foreach (var competitor in relay.Competitors)
                     {
+                        var newline = first ? "" : "\n";
                         string category = categories.Find(cat => cat.Id == competitor.Category)?.Name ?? "";
                         category = category.ToUpper().PadRight(9);
                         var name = competitor.Name.PadRight(24);
@@ -147,9 +149,9 @@ namespace OrienteeringToolWPF.Utils
                         name = name.Substring(0, 24);
                         club = club.Substring(0, 3);
 
-                        // TODO: Change to properties
-                        var line = string.Format("{0} {1} {2} {3}", category, name, club, empty);
-                        outputFile.WriteLine(line);
+                        var line = string.Format($"{newline}{category} {name} {club} {empty}");
+                        outputFile.Write(line);
+                        first = false;
                     }
                 }
             }
