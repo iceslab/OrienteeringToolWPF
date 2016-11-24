@@ -214,6 +214,29 @@ namespace OrienteeringToolWPF.Windows
                 DocumentUtils.CreateStartingList(sfd.FileName, relays);
             }
         }
-#endregion
+        #endregion
+
+        private void exportMItem_Click(object sender, RoutedEventArgs e)
+        {
+            var sfd = new SaveFileDialog();
+#if DEBUG
+            sfd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
+#else
+            sfd.InitialDirectory = Directory.GetCurrentDirectory();            
+#endif
+            // TODO: Change to resources
+            sfd.Filter = "Dokument tekstowy|*.txt";
+            sfd.FilterIndex = 1;
+#if !DEBUG
+            if (sfd.ShowDialog() == true)
+#else
+            sfd.FileName = sfd.InitialDirectory + @"\test.txt";
+#endif
+            {
+                var relays = RelayHelper.RelaysWithCompetitors();
+                var categories = CategoryHelper.Categories();
+                DocumentUtils.ExportCompetitors(sfd.FileName, relays, categories);
+            }
+        }
     }
 }

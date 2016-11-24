@@ -1,7 +1,10 @@
-﻿using OrienteeringToolWPF.Enumerations;
+﻿using Microsoft.Win32;
+using OrienteeringToolWPF.Enumerations;
 using OrienteeringToolWPF.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -118,6 +121,40 @@ namespace OrienteeringToolWPF.Utils
                 //paragraph.Range.Text = Environment.NewLine;
             }
 
+        }
+
+        /// <summary>
+        /// Creates competitors list as text file compatibile with OORG 10 format
+        /// </summary>
+        /// <param name="fullFilePath">Full path to file which will be created</param>
+        /// <param name="relays">List of relays with competitors</param>
+        /// <param name="categories">List of categories</param>
+        public static void ExportCompetitors(string fullFilePath, List<Relay> relays, List<Category> categories)
+        {
+            using (var outputFile = new StreamWriter(fullFilePath))
+            {
+                foreach (var relay in relays)
+                {
+                    foreach (var competitor in relay.Competitors)
+                    {
+                        string category = categories.Find(cat => cat.Id == competitor.Category)?.Name ?? "";
+                        category = category.ToUpper().PadRight(9);
+                        var name = competitor.Name.PadRight(24);
+                        var club = relay.Name.ToUpper().PadRight(3);
+                        var empty = "".PadRight(15);
+
+                        category = category.Substring(0, 9);
+                        name = name.Substring(0, 24);
+                        club = club.Substring(0, 3);
+
+                        // TODO: Change to properties
+                        var line = string.Format("{0} {1} {2} {3}", category, name, club, empty);
+                        outputFile.WriteLine(line);
+                    }
+                }
+            }
+
+            Process.Start(fullFilePath);
         }
     }
 }

@@ -34,8 +34,7 @@
                 </MenuItem>
                 <MenuItem x:Name="dataMItem" Header="Dane">
                     <MenuItem x:Name="startingListMItem" Header="Utwórz listę startową" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}" Click="startingListMItem_Click"/>
-                    <MenuItem x:Name="exportMItem" Header="Eksportuj zawodników" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}"/>
-                    <MenuItem x:Name="importMItem" Header="Importuj zawodników" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}"/>
+                    <MenuItem x:Name="exportMItem" Header="Eksportuj zawodników" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}" Click="exportMItem_Click"/>
                 </MenuItem>
                 <MenuItem x:Name="settingsMItem" Header="Ustawienia">
                     <MenuItem Header="..." IsEnabled="False"/>
