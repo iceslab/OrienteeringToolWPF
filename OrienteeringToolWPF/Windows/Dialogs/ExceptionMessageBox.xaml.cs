@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Media;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -30,6 +31,8 @@ namespace OrienteeringToolWPF.Windows.Dialogs
         public static void Show(Window owner, string messageBoxText, string title, Exception ex)
         {
             var emb = new ExceptionMessageBox(owner, messageBoxText, title, ex);
+            SystemSounds.Exclamation.Play();
+            emb.Activate();
             emb.ShowDialog();
         }
 

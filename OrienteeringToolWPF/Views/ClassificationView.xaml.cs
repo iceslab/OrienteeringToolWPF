@@ -84,7 +84,6 @@ namespace OrienteeringToolWPF.Views
                     {
                         Punch.CheckCorrectnessSorted(ref punchesList, routeStepsList);
                     }
-                    // TODO: Ignoring exception for now, later show warning that not all competitors has results
                     catch (Exception e)
                     {
                         MessageUtils.ShowException(this, "Nie wszyscy zawodnicy mają wyniki", e);

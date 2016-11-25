@@ -120,6 +120,11 @@ namespace OrienteeringToolWPF.Windows
         // Close from menu
         private void exitMItem_Click(object sender, RoutedEventArgs e)
         {
+#if DEBUG
+            MessageUtils.ShowException(this,
+                "Sample long and meaningless string whose only purpose is testing this simple dialog",
+                new Exception(Properties.Resources.LoremIpsum));
+#endif
             Close();
         }
 
