@@ -20,10 +20,10 @@ namespace OrienteeringToolWPF.Windows
 {
     public partial class MainWindow : Window, INotifyPropertyChanged, ICurrentView
     {
-#region MainWindow fields
+        #region MainWindow fields
         public static SiHandler Handler { get; private set; }
         public static SiListener Listener { get; private set; }
-#region ICurrentView implementation
+        #region ICurrentView implementation
         private UserControl _currentView;
         public UserControl CurrentView
         {
@@ -35,14 +35,14 @@ namespace OrienteeringToolWPF.Windows
                 OnPropertyChanged("CurrentView");
             }
         }
-#endregion
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-#endregion
+        #endregion
         static MainWindow()
         {
             Listener = new SiListener();
@@ -102,7 +102,7 @@ namespace OrienteeringToolWPF.Windows
             Disconnect();
         }
 
-#region Menu callback methods
+        #region Menu callback methods
         // Connect to station - menu
         private void connectToMItem_Click(object sender, RoutedEventArgs e)
         {
@@ -130,7 +130,7 @@ namespace OrienteeringToolWPF.Windows
 #if DEBUG
             ofd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
 #else
-            ofd.InitialDirectory = Directory.GetCurrentDirectory();            
+            ofd.InitialDirectory = Directory.GetCurrentDirectory();
 #endif
             ofd.Filter = Properties.Resources.DatabaseDialogFilters;
             ofd.FilterIndex = 1;
@@ -171,7 +171,7 @@ namespace OrienteeringToolWPF.Windows
 #if DEBUG
             sfd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
 #else
-            sfd.InitialDirectory = Directory.GetCurrentDirectory();            
+            sfd.InitialDirectory = Directory.GetCurrentDirectory();
 #endif
             sfd.Filter = Properties.Resources.DatabaseDialogFilters;
             sfd.FilterIndex = 1;
@@ -199,7 +199,7 @@ namespace OrienteeringToolWPF.Windows
 #if DEBUG
             sfd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
 #else
-            sfd.InitialDirectory = Directory.GetCurrentDirectory();            
+            sfd.InitialDirectory = Directory.GetCurrentDirectory();
 #endif
             // TODO: Change to resources
             sfd.Filter = "Dokument Word|*.docx";
@@ -210,8 +210,16 @@ namespace OrienteeringToolWPF.Windows
             sfd.FileName = sfd.InitialDirectory + @"\test.docx";
 #endif
             {
-                var relays = RelayHelper.RelaysWithCompetitors();
-                DocumentUtils.CreateStartingList(sfd.FileName, relays);
+                try
+                {
+                    var relays = RelayHelper.RelaysWithCompetitors();
+                    DocumentUtils.CreateStartingList(sfd.FileName, relays);
+                    MessageUtils.ShowSuccessfulSave(this);
+                }
+                catch(Exception ex)
+                {
+                    MessageUtils.ShowException(this, "Nie można utworzyć listy startowej", ex);
+                }
             }
         }
         #endregion
@@ -222,7 +230,7 @@ namespace OrienteeringToolWPF.Windows
 #if DEBUG
             sfd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
 #else
-            sfd.InitialDirectory = Directory.GetCurrentDirectory();            
+            sfd.InitialDirectory = Directory.GetCurrentDirectory();
 #endif
             // TODO: Change to resources
             sfd.Filter = "Dokument tekstowy|*.txt";
@@ -233,9 +241,17 @@ namespace OrienteeringToolWPF.Windows
             sfd.FileName = sfd.InitialDirectory + @"\test.txt";
 #endif
             {
-                var relays = RelayHelper.RelaysWithCompetitors();
-                var categories = CategoryHelper.Categories();
-                DocumentUtils.ExportCompetitors(sfd.FileName, relays, categories);
+                try
+                {
+                    var relays = RelayHelper.RelaysWithCompetitors();
+                    var categories = CategoryHelper.Categories();
+                    DocumentUtils.ExportCompetitors(sfd.FileName, relays, categories);
+                    MessageUtils.ShowSuccessfulSave(this);
+                }
+                catch (Exception ex)
+                {
+                    MessageUtils.ShowException(this, "Nie można wyeksportować listy zawodników", ex);
+                }
             }
         }
     }

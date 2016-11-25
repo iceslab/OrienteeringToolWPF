@@ -31,6 +31,14 @@ namespace OrienteeringToolWPF.Utils
                             MessageBoxImage.Error);
         }
 
+        public static void ShowException(DependencyObject obj, string description, Exception ex)
+        {
+            ExceptionMessageBox.Show(Window.GetWindow(obj),
+                description,
+                "Wystąpił wyjątek",
+                ex);
+        }
+
         public static void ShowSiHandlerError(CommStatus errorStatus, string errorMessage)
         {
             Application.Current.Dispatcher.Invoke(new Action(() =>
@@ -119,6 +127,7 @@ namespace OrienteeringToolWPF.Utils
 
         private static void ShowCompetitorsIncosistencyError(DependencyObject obj)
         {
+            // Change to resources
             MessageBox.Show(Window.GetWindow(obj),
                         "Nie wszyscy zawodnicy mają przydzielony chip",
                         "Błąd",
@@ -138,9 +147,21 @@ namespace OrienteeringToolWPF.Utils
                     ShowCompetitorsIncosistencyError(obj);
             }
             catch (Exception)
-            {}
+            { }
 
             return retVal;
+        }
+
+        /// <summary>Shows successful save popup</summary> 
+        /// <param name="obj">Represents control which called this method (used for getting window)</param>
+        /// <returns>true when connected, false when user refuses to connect</returns>
+        public static void ShowSuccessfulSave(DependencyObject obj)
+        {
+            MessageBox.Show(Window.GetWindow(obj),
+                            "Zapis do pliku wykonany pomyślnie",
+                            "Zapisano dokument",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
         }
 
         private static bool GetBoolFromMessageBoxResult(MessageBoxResult mbr)

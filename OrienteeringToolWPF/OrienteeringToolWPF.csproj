@@ -281,6 +281,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\Dialogs\ExceptionMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Dialogs\SiConnectionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -342,6 +346,9 @@
     </Compile>
     <Compile Include="Views\TournamentDetailsView.xaml.cs">
       <DependentUpon>TournamentDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Dialogs\ExceptionMessageBox.xaml.cs">
+      <DependentUpon>ExceptionMessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Dialogs\SiConnectionDialog.xaml.cs">
       <DependentUpon>SiConnectionDialog.xaml</DependentUpon>

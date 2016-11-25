@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace OrienteeringToolWPF.Utils
@@ -20,6 +20,7 @@ namespace OrienteeringToolWPF.Utils
         /// </summary>
         /// <param name="fullFilePath">Full path to file which will be created</param>
         /// <param name="relays">List of relays with competitors</param>
+        /// <param name="obj">Represents control which called this method (used for getting window)</param>
         /// <exception cref="NotSupportedException">
         /// Throws when there is different amount of males and females in relay
         /// </exception>
@@ -30,6 +31,9 @@ namespace OrienteeringToolWPF.Utils
 
             // Create application
             var application = new Word.Application();
+            if (application == null)
+                throw new NotSupportedException("Cannot start Microsoft Office Word. Is it installed?");
+
             application.ShowAnimation = false;
 #if DEBUG
             application.Visible = true;
@@ -116,11 +120,15 @@ namespace OrienteeringToolWPF.Utils
 
                 // Add paragraph
                 rangePara = document.Bookmarks.get_Item(ref endOfDoc).Range;
-                //paragraph = document.Content.Paragraphs.Add(ref missing);
-
-                //paragraph.Range.Text = Environment.NewLine;
             }
 
+            document.SaveAs2(fullFilePath);
+#if !DEBUG
+            document.Close(ref missing, ref missing, ref missing);
+            document = null;
+            application.Quit(ref missing, ref missing, ref missing);
+            application = null;
+#endif
         }
 
         /// <summary>
