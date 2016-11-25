@@ -167,6 +167,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DAO\CategoryHelper.cs" />
+    <Compile Include="DAO\CompetitorHelper.cs" />
     <Compile Include="DAO\RelayHelper.cs" />
     <Compile Include="DAO\RouteStepsHelper.cs" />
     <Compile Include="DAO\TournamentHelper.cs" />

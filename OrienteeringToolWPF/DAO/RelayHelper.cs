@@ -60,5 +60,17 @@ namespace OrienteeringToolWPF.DAO
             
             return RelayList;
         }
+
+        public static List<Relay> RelaysWithCompetitorsJoined()
+        {
+            // NOTE: In this version of Simple.Data there is no populating of fields in nested objects 
+            // (so called grandchild's fields). You need to populate them manually
+            var RelayList = Relays();
+            foreach (var relay in RelayList)
+            {
+                relay.Competitors = CompetitorHelper.CompetitorsJoinedWhereRelayId((long)relay.Id);
+            }
+            return RelayList;
+        }
     }
 }

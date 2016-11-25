@@ -55,36 +55,7 @@ namespace OrienteeringToolWPF.Views
         // Gets current data from database
         private void RefreshData()
         {
-            // NOTE: In this version of Simple.Data there is no populating of fields in nested objects 
-            // (so called grandchild's fields). You need to populate them manually
-
-            var db = DatabaseUtils.GetDatabase();
-            RelayList = (List<Relay>)db.Relays.All();
-            dynamic resultsAlias, punchAlias;
-            foreach (var relay in RelayList)
-            {
-                relay.Competitors =
-                    (List<Competitor>)db.Competitors.FindAllByRelayId(relay.Id)
-                        .LeftJoin(db.Results, out resultsAlias)
-                        .On(db.Results.Chip == db.Competitors.Chip)
-                        .LeftJoin(db.Punches, out punchAlias)
-                        .On(db.Punches.Chip == db.Competitors.Chip)
-                        .With(resultsAlias)
-                        .With(punchAlias);
-
-                foreach (var competitor in relay.Competitors)
-                {
-                    var punches = (List<Punch>)competitor.Punches;
-                    try
-                    {
-                        punches?.Sort();
-                        Punch.CalculateDeltaStart(ref punches, competitor.Result.StartTime);
-                        Punch.CalculateDeltaPrevious(ref punches);
-                    }
-                    catch (ArgumentNullException) { }
-                    competitor.Punches = punches;
-                }
-            }
+            RelayList = RelayHelper.RelaysWithCompetitorsJoined();
         }
 
         private void RefreshSetSource()
@@ -114,7 +85,10 @@ namespace OrienteeringToolWPF.Views
                         Punch.CheckCorrectnessSorted(ref punchesList, routeStepsList);
                     }
                     // TODO: Ignoring exception for now, later show warning that not all competitors has results
-                    catch (ArgumentNullException) { };
+                    catch (Exception e)
+                    {
+                        MessageUtils.ShowException(this, "Nie wszyscy zawodnicy mają wyniki", e);
+                    }
 
                     competitor.Punches = punchesList;
                 }
