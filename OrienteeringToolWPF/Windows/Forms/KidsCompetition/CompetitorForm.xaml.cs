@@ -1,4 +1,5 @@
-﻿using OrienteeringToolWPF.Enumerations;
+﻿using OrienteeringToolWPF.DAO;
+using OrienteeringToolWPF.Enumerations;
 using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Utils;
 using System;
@@ -184,9 +185,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
         #region RelayCB methods
         private void PopulateRelayCB()
         {
-            var db = DatabaseUtils.GetDatabase();
-            relaysList = db.Relays.All();
-
+            relaysList = RelayHelper.Relays();
             RelayIdCB.Items.Clear();
 
             foreach (var relay in relaysList)
@@ -214,8 +213,7 @@ namespace OrienteeringToolWPF.Windows.Forms.KidsCompetition
                     window.ShowDialog();
 
                     // Get current data
-                    var db = DatabaseUtils.GetDatabase();
-                    List<Relay> newRelays = db.Relays.All();
+                    var newRelays = RelayHelper.Relays();
 
                     // Check if data was inserted
                     if (newRelays.Count > relaysList.Count)

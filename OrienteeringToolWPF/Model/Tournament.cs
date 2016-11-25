@@ -7,7 +7,7 @@ using System.ComponentModel;
 /// </summary>
 namespace OrienteeringToolWPF.Model
 {
-    public class Tournament : BaseModel, INotifyPropertyChanged
+    public class Tournament : INotifyPropertyChanged
     {
         public long? Id { get; set; }
         protected DateTime _startTime;

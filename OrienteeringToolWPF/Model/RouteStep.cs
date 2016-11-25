@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 /// </summary>
 namespace OrienteeringToolWPF.Model
 {
-    public class RouteStep : BaseModel
+    public class RouteStep
     {
         public long? Id { get; set; }
         public long Order { get; set; }

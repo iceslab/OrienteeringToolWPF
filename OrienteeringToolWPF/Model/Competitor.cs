@@ -11,7 +11,7 @@ using System.ComponentModel;
 /// </summary>
 namespace OrienteeringToolWPF.Model
 {
-    public class Competitor : BaseModel, INotifyPropertyChanged, IComparable<Competitor>
+    public class Competitor : INotifyPropertyChanged, IComparable<Competitor>
     {
         public long? Id { get; set; }
         public string Name { get; set; }

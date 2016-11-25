@@ -1,4 +1,5 @@
-﻿using OrienteeringToolWPF.Interfaces;
+﻿using OrienteeringToolWPF.DAO;
+using OrienteeringToolWPF.Interfaces;
 using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Windows;
@@ -33,9 +34,15 @@ namespace OrienteeringToolWPF.Views.Lists
         {
             if (RefreshEnabled)
             {
-                var db = DatabaseUtils.GetDatabase();
-                RelaysList = db.Relays.All();
-                relaysLV.ItemsSource = RelaysList;
+                try
+                {
+                    RelaysList = RelayHelper.Relays();
+                    relaysLV.ItemsSource = RelaysList;
+                }
+                catch (Exception e)
+                {
+                    MessageUtils.ShowException(this, "Nie można pobrać listy sztafet", e);
+                }
             }
         }
 

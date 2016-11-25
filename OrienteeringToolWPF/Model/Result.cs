@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 /// </summary>
 namespace OrienteeringToolWPF.Model
 {
-    public class Result : BaseModel
+    public class Result
     {
         public long Chip { get; set; }
         public long StartTime { get; set; }

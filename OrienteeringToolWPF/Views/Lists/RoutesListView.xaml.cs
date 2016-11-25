@@ -25,9 +25,16 @@ namespace OrienteeringToolWPF.Views.Lists
 
         public void Refresh()
         {
-            var db = DatabaseUtils.GetDatabase();
-            RoutesList = db.Routes.All();
-            routesLV.ItemsSource = RoutesList;
+            try
+            {
+                var db = DatabaseUtils.GetDatabase();
+                RoutesList = db.Routes.All();
+                routesLV.ItemsSource = RoutesList;
+            }
+            catch (Exception e)
+            {
+                MessageUtils.ShowException(this, "Nie można pobrać listy tras", e);
+            }
         }
 
         private void addB_Click(object sender, RoutedEventArgs e)

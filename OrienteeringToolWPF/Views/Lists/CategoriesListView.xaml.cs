@@ -26,9 +26,16 @@ namespace OrienteeringToolWPF.Views.Lists
 
         public void Refresh()
         {
-            var db = DatabaseUtils.GetDatabase();
-            CategoriesList = db.Categories.All();
-            categoriesLV.ItemsSource = CategoriesList;
+            try
+            {
+                var db = DatabaseUtils.GetDatabase();
+                CategoriesList = db.Categories.All();
+                categoriesLV.ItemsSource = CategoriesList;
+            }
+            catch (Exception e)
+            {
+                MessageUtils.ShowException(this, "Nie można pobrać listy kategorii", e);
+            }
         }
 
         private void addB_Click(object sender, RoutedEventArgs e)

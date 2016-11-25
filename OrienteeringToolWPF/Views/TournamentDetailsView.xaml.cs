@@ -1,4 +1,5 @@
-﻿using OrienteeringToolWPF.Interfaces;
+﻿using OrienteeringToolWPF.DAO;
+using OrienteeringToolWPF.Interfaces;
 using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Windows;
@@ -24,20 +25,23 @@ namespace OrienteeringToolWPF.Views
 
         public void Refresh()
         {
-            var db = DatabaseUtils.GetDatabase();
-            tournament = db.Tournament.All().FirstOrDefault();
-            if (tournament.Id != null)
-                db.Tournament.DeleteAll(db.Tournament.Id != tournament.Id);
+            try
+            {
+                tournament = TournamentHelper.Tournament();
+                tournamentG.DataContext = tournament;
 
-            tournamentG.DataContext = tournament;
-
-            // Assigning proper button name
-            if (tournament.HasFinished)
-                startTournamentB.Content = Properties.Resources.TournamentClassification;
-            else if (tournament.HasStarted)
-                startTournamentB.Content = Properties.Resources.TournamentContinue;
-            else
-                startTournamentB.Content = Properties.Resources.TournamentStart;
+                // Assigning proper button name
+                if (tournament.HasFinished)
+                    startTournamentB.Content = Properties.Resources.TournamentClassification;
+                else if (tournament.HasStarted)
+                    startTournamentB.Content = Properties.Resources.TournamentContinue;
+                else
+                    startTournamentB.Content = Properties.Resources.TournamentStart;
+            }
+            catch (Exception e)
+            {
+                MessageUtils.ShowException(null, "Nie można pobrać obiektu zawodów", e);
+            }
         }
 
         private void editB_Click(object sender, RoutedEventArgs e)
@@ -50,7 +54,6 @@ namespace OrienteeringToolWPF.Views
 
         private void startTournamentB_Click(object sender, RoutedEventArgs e)
         {
-            
             if (tournament.HasFinished ||
                 (MessageUtils.CheckCompetitorsCosistency(this) && MessageUtils.PromptForConnection(this)))
             {

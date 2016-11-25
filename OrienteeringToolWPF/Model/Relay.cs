@@ -8,7 +8,7 @@ using System.ComponentModel;
 /// </summary>
 namespace OrienteeringToolWPF.Model
 {
-    public class Relay : BaseModel, INotifyPropertyChanged, IComparable<Relay>
+    public class Relay : INotifyPropertyChanged, IComparable<Relay>
     {
         public long? Id { get; set; }
         public string Name { get; set; }

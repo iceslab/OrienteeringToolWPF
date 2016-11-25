@@ -9,7 +9,7 @@ using System.Diagnostics;
 /// </summary>
 namespace OrienteeringToolWPF.Model
 {
-    public class Punch : BaseModel, IComparable<Punch>
+    public class Punch : IComparable<Punch>
     {
         public long? Id { get; set; }
         public long Chip { get; set; }

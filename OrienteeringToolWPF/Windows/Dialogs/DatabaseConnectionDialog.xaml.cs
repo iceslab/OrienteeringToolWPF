@@ -34,7 +34,7 @@ namespace OrienteeringToolWPF.Windows.Dialogs
             portTB.Text = databaseConnectionData.Port ?? "3306";
             schemaTB.Text = databaseConnectionData.Schema ?? "orienteering";
             userTB.Text = databaseConnectionData.User ?? "root";
-            passwordPB.Password = "";
+            passwordPB.Password = "motznehaslo";
 #else
             serverTB.Text = databaseConnectionData.Server ?? "";
             portTB.Text = databaseConnectionData.Port ?? "3306";

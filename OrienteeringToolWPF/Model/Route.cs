@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 /// </summary>
 namespace OrienteeringToolWPF.Model
 {
-    public class Route : BaseModel
+    public class Route
     {
         public long? Id { get; set; }
         public string Name { get; set; }

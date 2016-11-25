@@ -37,9 +37,9 @@ namespace OrienteeringToolWPF.Views.Lists
         {
             if (RefreshEnabled)
             {
-                var db = DatabaseUtils.GetDatabase();
                 try
                 {
+                    var db = DatabaseUtils.GetDatabase();
                     if (RelayId != null)
                         CompetitorsList = db.Competitors.FindAllByRelayId(RelayId);
                     else
@@ -48,10 +48,8 @@ namespace OrienteeringToolWPF.Views.Lists
                 }
                 catch (Exception e)
                 {
-
-                    throw e;
+                    MessageUtils.ShowException(this, "Nie można pobrać listy zawodników", e);
                 }
-                
             }
         }
 

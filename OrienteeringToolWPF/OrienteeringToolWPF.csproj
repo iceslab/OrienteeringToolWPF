@@ -128,8 +128,8 @@
       <HintPath>..\packages\Simple.Data.Ado.0.18.3.1\lib\net40\Simple.Data.Ado.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Simple.Data.Mysql, Version=0.18.3.3, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\Simple.Data.Mysql.0.18.3.3\lib\net40\Simple.Data.Mysql.dll</HintPath>
+    <Reference Include="Simple.Data.Mysql, Version=0.18.3.2, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\packages\Simple.Data.Mysql.0.18.3.2\lib\net40\Simple.Data.Mysql.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Simple.Data.Sqlite, Version=0.18.3.2, Culture=neutral, processorArchitecture=MSIL">
@@ -169,6 +169,7 @@
     <Compile Include="DAO\CategoryHelper.cs" />
     <Compile Include="DAO\RelayHelper.cs" />
     <Compile Include="DAO\RouteStepsHelper.cs" />
+    <Compile Include="DAO\TournamentHelper.cs" />
     <Compile Include="Enumerations\Course.cs" />
     <Compile Include="Enumerations\DatabaseType.cs" />
     <Compile Include="Enumerations\Gender.cs" />
@@ -188,9 +189,7 @@
     <Compile Include="Utils\ActualTime.cs" />
     <Compile Include="CompetitionManagers\CommonManager.cs" />
     <Compile Include="Interfaces\ICurrentView.cs" />
-    <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Competitor.cs" />
-    <Compile Include="Model\ProjectInfo.cs" />
     <Compile Include="Model\Punch.cs" />
     <Compile Include="Model\Relay.cs" />
     <Compile Include="Model\Result.cs" />
