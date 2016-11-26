@@ -15,9 +15,6 @@
     </UserControl.DataContext>
     <TabControl x:Name="summaryViewTC" Grid.Row="0" Grid.Column="0"
                     Margin="5">
-        <!--<TabItem Header="Sztafety i zawodnicy" Name="relaysAndCompetitorsTV" >
-            <local:RelaysAndCompetitorsView/>
-        </TabItem>-->
         <TabItem Header="Klasyfikacja">
             <local:ClassificationView/>
         </TabItem>

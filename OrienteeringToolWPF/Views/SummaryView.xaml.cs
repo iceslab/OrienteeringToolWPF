@@ -9,46 +9,9 @@ namespace OrienteeringToolWPF.Views
 
     public partial class SummaryView : UserControl
     {
-        // TODO: Change logic and appearance to aggregate RelaysAndCompetitorsView
         public SummaryView()
         {
             InitializeComponent();
-            //MainWindow.Listener.PropertyChanged += Listener_PropertyChanged;
         }
-
-        //private void Listener_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        //{
-        //    if (e.PropertyName == "DataFrame")
-        //    {
-        //        var result = new Result(MainWindow.Listener.DataFrame);
-        //        Competitor competitor = null;
-        //        foreach (var relay in relaysTV.RelayList)
-        //        {
-        //            competitor = ((List<Competitor>)relay.Competitors).Find(y
-        //                => y.Chip == result.Chip);
-        //            if (competitor != null)
-        //                break;
-        //        }
-
-        //        // If competitor exists insert punches and select from tree view
-        //        if (competitor != null)
-        //        {
-        //            var punchesList = Punch.Parse(MainWindow.Listener.DataFrame.Punches, result.Chip);
-        //            var db = MainWindow.GetDatabase();
-        //            using (var tx = db.BeginTransaction())
-        //            {
-        //                tx.Results.Upsert(result);
-        //                var deleted = tx.Punches.DeleteByChip(result.Chip);
-        //                Punch inserted = null;
-        //                foreach (var p in punchesList)
-        //                {
-        //                    inserted = tx.Punches.Insert(p);
-        //                }
-        //                tx.Commit();
-        //            }
-        //            relaysTV.SelectCompetitor(competitor);
-        //        }
-        //    }
-        //}
     }
 }
