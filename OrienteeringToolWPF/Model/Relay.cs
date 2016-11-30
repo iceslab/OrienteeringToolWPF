@@ -28,6 +28,7 @@ namespace OrienteeringToolWPF.Model
             {
                 // Invalidate calculated values
                 _OverallRunningTime = null;
+                _OverallWrongCollections = null;
             }
         }
 
@@ -46,6 +47,23 @@ namespace OrienteeringToolWPF.Model
                     }
                 }
                 return _OverallRunningTime;
+            }
+        }
+
+        private uint? _OverallWrongCollections;
+        public uint? OverallWrongCollections
+        {
+            get
+            {
+                if (_OverallWrongCollections == null && Competitors != null)
+                {
+                    _OverallWrongCollections = 0;
+                    foreach (var c in Competitors)
+                    {
+                        _OverallWrongCollections += c.WrongCollections;
+                    }
+                }
+                return _OverallWrongCollections;
             }
         }
         #endregion
@@ -85,17 +103,29 @@ namespace OrienteeringToolWPF.Model
         #region IComparable<Relay> implementation
         public int CompareTo(Relay other)
         {
-            // TODO: Consider total errors made by competitors
             var retVal = 0;
             var left = this;
             var right = other;
-
-            if (left.OverallRunningTime < right.OverallRunningTime)
+            // When right relay has more mistakes
+            if (left.OverallWrongCollections < right.OverallWrongCollections)
+            {
                 retVal = -1;
-            else if (left.OverallRunningTime > right.OverallRunningTime)
+            }
+            // When left relay has more mistakes
+            else if (left.OverallWrongCollections > right.OverallWrongCollections)
+            {
                 retVal = 1;
+            }
+            // When relays have the same amount of mistakes (this means none too)
             else
-                retVal = 0;
+            {
+                if (left.OverallRunningTime < right.OverallRunningTime)
+                    retVal = -1;
+                else if (left.OverallRunningTime > right.OverallRunningTime)
+                    retVal = 1;
+                else
+                    retVal = 0;
+            }
 
             return retVal;
         }
