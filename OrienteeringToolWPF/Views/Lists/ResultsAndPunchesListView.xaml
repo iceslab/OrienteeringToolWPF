@@ -61,7 +61,7 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
-                    <GridViewColumn Width="Auto">
+                    <!--<GridViewColumn x:Name="IdGVC" Width="Auto">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate >
                                 <TextBlock Text="Id" Margin="2" />
@@ -76,7 +76,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="Auto">
+                    <GridViewColumn x:Name="ChipGVC" Width="Auto">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Chip" Margin="2" />
@@ -90,8 +90,8 @@
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="Auto">
+                    </GridViewColumn>-->
+                    <GridViewColumn x:Name="CodeGVC" Width="Auto">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Kod" Margin="2" />
@@ -112,10 +112,10 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="Auto">
+                    <GridViewColumn x:Name="TimestampGVC" Width="Auto">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="Timestamp" Margin="2" />
+                                <TextBlock Text="Czas" Margin="2" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
@@ -132,10 +132,10 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="Auto">
+                    <!--<GridViewColumn x:Name="DeltaStartGVC" Width="Auto">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="DeltaStart" Margin="2" />
+                                <TextBlock Text="Delta start" Margin="2" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
@@ -151,11 +151,11 @@
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="Auto">
+                    </GridViewColumn>-->
+                    <GridViewColumn x:Name="DeltaPreviousGVC" Width="Auto">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="DeltaPrevious" Margin="2" />
+                                <TextBlock Text="Międzyczas" Margin="2" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>

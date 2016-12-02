@@ -11,6 +11,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <conv:DateTimeConverter x:Key="dateTimeConverter"/>
+        <conv:TimestampConverter x:Key="timestampConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -20,7 +21,7 @@
         <ListView x:Name="competitorsLV" DockPanel.Dock="Right" Grid.Row="0" SelectionChanged="competitorsLV_SelectionChanged">
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
-                    <GridViewColumn x:Name="IdGVC">
+                    <!--<GridViewColumn x:Name="IdGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate >
                                 <TextBlock Text="Id" Margin="2" />
@@ -34,7 +35,7 @@
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    </GridViewColumn>-->
                     <GridViewColumn x:Name="NameGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
@@ -130,7 +131,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="InvalidPunchesGVC">
+                    <!--<GridViewColumn x:Name="InvalidPunchesGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Błędne podbicia" Margin="2" />
@@ -189,8 +190,8 @@
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="GoodCollectionsGVC">
+                    </GridViewColumn>-->
+                    <!--<GridViewColumn x:Name="GoodCollectionsGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Prawidłowe zebrania" Margin="2" />
@@ -204,11 +205,11 @@
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    </GridViewColumn>-->
                     <GridViewColumn x:Name="WrongCollectionsGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="Złe zebrania" Margin="2" />
+                                <TextBlock Text="Błędy" Margin="2" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
@@ -216,6 +217,26 @@
                                 <Grid>
                                     <TextBlock Margin="2"
     											Text="{Binding WrongCollections}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="RunningTimeGVC">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Czas" Margin="2" />
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Margin="2">
+                                        <TextBlock.Text>
+                                            <Binding Converter="{StaticResource timestampConverter}" 
+                                                ConverterParameter="{x:Static prop:Resources.NormalTimeFormat}" 
+                                                Path="Result.RunningTime"/>
+                                        </TextBlock.Text>
+                                    </TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

@@ -20,7 +20,7 @@
         <ListView x:Name="relaysLV" DockPanel.Dock="Right" Grid.Row="0" SelectionChanged="relaysLV_SelectionChanged">
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
-                    <GridViewColumn x:Name="IdGVC">
+                    <!--<GridViewColumn x:Name="IdGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate >
                                 <TextBlock Text="Id" Margin="2" />
@@ -34,7 +34,7 @@
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    </GridViewColumn>-->
                     <GridViewColumn x:Name="NameGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
@@ -53,7 +53,7 @@
                     <GridViewColumn x:Name="OverallRunningTimeGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="Całkowity czas biegu" Margin="2" />
+                                <TextBlock Text="Czas" Margin="2" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
@@ -73,7 +73,7 @@
                     <GridViewColumn x:Name="OverallWrongCollectionsGVC">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="Całkowita ilość błędów" Margin="2" />
+                                <TextBlock Text="Błędy" Margin="2" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>

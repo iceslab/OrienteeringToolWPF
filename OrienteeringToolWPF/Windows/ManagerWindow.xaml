@@ -19,7 +19,7 @@
                         x:Name="managerWindowCC" 
                         Content="{Binding CurrentView}" />
         <WrapPanel Grid.Row="1" HorizontalAlignment="Right" Margin="5">
-            <Button Name="finishB" Content="Zakończ zawody" Width="75" Margin="2" Click="finishB_Click"/>
+            <Button Name="finishB" Content="Zakończ zawody" MinWidth="75" Width="Auto" Margin="2" Click="finishB_Click"/>
         </WrapPanel>
     </Grid>
 </Window>

@@ -183,6 +183,9 @@ Database exists, do you want to overwrite?</value>
   <data name="FinishTimeFormat" xml:space="preserve">
     <value>Finish time: {0:H:mm:ss}</value>
   </data>
+  <data name="ImageDialogFilter" xml:space="preserve">
+    <value>Image files|*.png;*.jpeg,*.jpg,*.bmp|All files(*.*)|*.*</value>
+  </data>
   <data name="InvalidCategoryError" xml:space="preserve">
     <value>Selected category is invalid</value>
   </data>
@@ -217,7 +220,7 @@ Database exists, do you want to overwrite?</value>
     <value>Orignal message:</value>
   </data>
   <data name="PasswordName" xml:space="preserve">
-    <value>Hasło</value>
+    <value>Password</value>
   </data>
   <data name="PortName" xml:space="preserve">
     <value>Port</value>

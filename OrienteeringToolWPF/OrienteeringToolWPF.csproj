@@ -289,6 +289,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\Dialogs\StartListDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Forms\KidsCompetition\CompetitorForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -352,6 +356,9 @@
     </Compile>
     <Compile Include="Windows\Dialogs\SiConnectionDialog.xaml.cs">
       <DependentUpon>SiConnectionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Dialogs\StartListDialog.xaml.cs">
+      <DependentUpon>StartListDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Forms\ErrorList.cs" />
     <Compile Include="Windows\Forms\IForm.cs" />

@@ -183,6 +183,9 @@ Baza danych istnieje, czy chcesz nadpisać?</value>
   <data name="FinishTimeFormat" xml:space="preserve">
     <value>Czas mety: {0:H:mm:ss}</value>
   </data>
+  <data name="ImageDialogFilter" xml:space="preserve">
+    <value>Pliki obrazów|*.png;*.jpeg,*.jpg,*.bmp|Wszystkie pliki (*.*)|*.*</value>
+  </data>
   <data name="InvalidCategoryError" xml:space="preserve">
     <value>Wybrana kategoria jest nieprawidłowa</value>
   </data>

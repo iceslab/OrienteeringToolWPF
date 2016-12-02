@@ -292,6 +292,15 @@ namespace OrienteeringToolWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pliki obrazów|*.png;*.jpeg,*.jpg,*.bmp|Wszystkie pliki (*.*)|*.*.
+        /// </summary>
+        public static string ImageDialogFilter {
+            get {
+                return ResourceManager.GetString("ImageDialogFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wybrana kategoria jest nieprawidłowa.
         /// </summary>
         public static string InvalidCategoryError {

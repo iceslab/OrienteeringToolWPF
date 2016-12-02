@@ -143,11 +143,13 @@ namespace OrienteeringToolWPF.Utils
                 var db = DatabaseUtils.GetDatabase();
                 var competitors = (List<Competitor>)db.Competitors.All();
                 retVal = competitors.TrueForAll(c => c.Chip != null);
-                if (retVal)
+                if (!retVal)
                     ShowCompetitorsIncosistencyError(obj);
             }
-            catch (Exception)
-            { }
+            catch (Exception e)
+            {
+                ShowException(obj, "Nie można sprawdzić spójności zawodników", e);
+            }
 
             return retVal;
         }

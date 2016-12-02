@@ -61,8 +61,8 @@ namespace OrienteeringToolWPF.Utils
                 var males = Competitor.ExtractGender(relay.Competitors, Gender.MALE);
                 var females = Competitor.ExtractGender(relay.Competitors, Gender.FEMALE);
 
-                if (males.Count != females.Count)
-                    throw new NotSupportedException("Different amount of males and females in relay is illegal");
+                if (males.Count != females.Count || males.Count <= 0 || females.Count <= 0)
+                    throw new NotSupportedException("Different or less than zero amount of males and females in relay");
 
                 var halfCompetitorsCount = relay.Competitors.Count / 2;
                 table = document.Tables.Add(
@@ -87,12 +87,13 @@ namespace OrienteeringToolWPF.Utils
                                 Word.WdLineWidth.wdLineWidth225pt;
                         }
 
+                        //MessageBox.Show(string.Format($"{cell.RowIndex}, female: {females.Count}, male: {males.Count}"));
                         // Set headers for table
                         if (cell.RowIndex == 1)
                         {
                             cell.Range.Text = headers[cell.ColumnIndex - 1];
                         }
-                        else
+                        else if(cell.RowIndex > 1)
                         {
                             var text = "";
                             switch (cell.ColumnIndex)
