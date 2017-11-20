@@ -1,5 +1,4 @@
-﻿using OrienteeringToolWPF.CompetitionManagers;
-using OrienteeringToolWPF.Interfaces;
+﻿using OrienteeringToolWPF.Interfaces;
 using OrienteeringToolWPF.Model;
 using OrienteeringToolWPF.Utils;
 using OrienteeringToolWPF.Views;

@@ -1,7 +1,9 @@
 ﻿//  
 //  Copyright (c) 2013-2014 Simon Denier & Yannis Guedel
 //  
-#define SI_NOT_AVAILABLE
+#if DEBUG
+//#define SI_NOT_AVAILABLE
+#endif
 using System;
 using System.Collections.Concurrent;
 using System.IO.Ports;

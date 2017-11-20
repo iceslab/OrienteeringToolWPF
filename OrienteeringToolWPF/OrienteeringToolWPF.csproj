@@ -116,6 +116,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
@@ -146,6 +147,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -188,7 +190,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Utils\ActualTime.cs" />
-    <Compile Include="CompetitionManagers\CommonManager.cs" />
     <Compile Include="Interfaces\ICurrentView.cs" />
     <Compile Include="Model\Competitor.cs" />
     <Compile Include="Model\Punch.cs" />
@@ -431,6 +432,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="OrienteeringToolWPF_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />

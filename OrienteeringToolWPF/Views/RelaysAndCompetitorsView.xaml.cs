@@ -124,7 +124,8 @@ namespace OrienteeringToolWPF.Views
         // Refreshes data
         public void Refresh()
         {
-            relaysAndCompetitorsTV.ItemsSource = RelayHelper.RelaysWithCompetitors();
+            RelayList = RelayHelper.RelaysWithCompetitors();
+            relaysAndCompetitorsTV.ItemsSource = RelayList;
         }
         #endregion
     }
