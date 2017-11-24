@@ -148,10 +148,14 @@ namespace OrienteeringToolWPF.Model
         public static List<Competitor> ExtractGender(IList<Competitor> competitors, Gender gender)
         {
             var retVal = new List<Competitor>();
-            foreach(var c in competitors)
+
+            if(competitors != null)
             {
-                if (c.Gender == gender)
-                    retVal.Add(c);
+                foreach (var c in competitors)
+                {
+                    if (c.Gender == gender)
+                        retVal.Add(c);
+                }
             }
             return retVal;
         }
