@@ -61,6 +61,9 @@ namespace OrienteeringToolWPF.Utils
                 var males = Competitor.ExtractGender(relay.Competitors, Gender.MALE);
                 var females = Competitor.ExtractGender(relay.Competitors, Gender.FEMALE);
 
+                males.Sort(Competitor.CompareById);
+                females.Sort(Competitor.CompareById);
+
                 if (males.Count != females.Count || males.Count <= 0 || females.Count <= 0)
                     throw new NotSupportedException("Different or less than zero amount of males and females in relay");
 

@@ -223,5 +223,28 @@ namespace OrienteeringToolWPF.Model
             return retVal;
         }
         #endregion
+
+        public static int CompareById(Competitor left, Competitor right)
+        {
+            int retVal = 0;
+
+            if (left != null && right != null)
+            {
+                if (left.Id < right.Id)
+                {
+                    retVal = -1;
+                }
+                else if (left.Id > right.Id)
+                {
+                    retVal = 1;
+                }
+                else
+                {
+                    retVal = 0;
+                }
+            }
+
+            return retVal;
+        }
     }
 }
