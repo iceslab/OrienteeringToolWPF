@@ -31,7 +31,7 @@ namespace OrienteeringToolWPF.DAO
                     Punch.CalculateDeltaStart(ref punches, competitor.Result.StartTime);
                     Punch.CalculateDeltaPrevious(ref punches);
                 }
-                catch (ArgumentNullException) { }
+                catch (NullReferenceException) { }
                 competitor.Punches = punches;
             }
 
