@@ -264,10 +264,6 @@ namespace OrienteeringToolWPF.Windows
 
         }
 
-        private void formattingMItem_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
         #endregion
     }
 }

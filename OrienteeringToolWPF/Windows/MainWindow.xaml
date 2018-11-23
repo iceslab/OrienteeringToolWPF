@@ -37,7 +37,6 @@
                     <MenuItem x:Name="exportMItem" Header="Eksportuj zawodników" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}" Click="exportMItem_Click"/>
                     <Separator></Separator>
                     <MenuItem x:Name="generalClassificationMItem" Header="Klasyfikacja generalna (BnO)" Click="generalClassificationMItem_Click"></MenuItem>
-                    <MenuItem x:Name="formattingMItem" Header="Konwersja formatu (BnO)" Click="formattingMItem_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem x:Name="settingsMItem" Header="Ustawienia">
                     <MenuItem Header="..." IsEnabled="False"/>
