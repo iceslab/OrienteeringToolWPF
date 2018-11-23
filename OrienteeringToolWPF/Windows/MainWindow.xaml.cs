@@ -227,7 +227,6 @@ namespace OrienteeringToolWPF.Windows
                 }
             }
         }
-        #endregion
 
         private void exportMItem_Click(object sender, RoutedEventArgs e)
         {
@@ -259,5 +258,16 @@ namespace OrienteeringToolWPF.Windows
                 }
             }
         }
+
+        private void generalClassificationMItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void formattingMItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        #endregion
     }
 }
