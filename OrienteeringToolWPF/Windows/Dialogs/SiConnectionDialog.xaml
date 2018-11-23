@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterOwner" 
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
     <StackPanel Orientation="Vertical" Margin="5">
-        <ListBox x:Name="portLBox" Height="225" SelectionChanged="portLBox_SelectionChanged" IsEnabled="False">
+        <ListBox x:Name="portLBox" Height="220" SelectionChanged="portLBox_SelectionChanged" IsEnabled="False">
             <ListBoxItem Content="Naciśnij &quot;Wyszukaj&quot; aby znaleźć stację"/>
         </ListBox>
         <StackPanel Height="22" Orientation="Horizontal" Margin="5,5,5,0" HorizontalAlignment="Center">
