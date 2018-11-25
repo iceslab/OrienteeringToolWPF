@@ -261,7 +261,33 @@ namespace OrienteeringToolWPF.Windows
 
         private void generalClassificationMItem_Click(object sender, RoutedEventArgs e)
         {
+            var ofd = new OpenFileDialog();
+#if DEBUG
+            ofd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
+#else
+            ofd.InitialDirectory = Directory.GetCurrentDirectory();
+#endif
+            // TODO: Change to resources
+            ofd.Filter = "Dokument tekstowy|*.txt";
+            ofd.FilterIndex = 1;
+#if !DEBUG
+            if (ofd.ShowDialog() == true)
+#else
+            ofd.FileName = ofd.InitialDirectory + @"\test.txt";
+#endif
+            {
+                try
+                {
 
+                    var relays = RelayHelper.RelaysWithCompetitors();
+                    DocumentUtils.CreateStartingList(ofd.FileName, relays);
+                    MessageUtils.ShowSuccessfulSave(this);
+                }
+                catch (Exception ex)
+                {
+                    MessageUtils.ShowException(this, "Nie można utworzyć listy startowej", ex);
+                }
+            }
         }
 
         #endregion

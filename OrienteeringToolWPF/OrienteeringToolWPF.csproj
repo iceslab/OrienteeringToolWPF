@@ -116,6 +116,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.8.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.8.1\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -157,6 +160,7 @@
       <HintPath>..\packages\System.Data.SQLite.1.0.91.0\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -234,6 +238,7 @@
     <Compile Include="Utils\Converters\DateTimeConverter.cs" />
     <Compile Include="Utils\Converters\DeltaTimeConverter.cs" />
     <Compile Include="Utils\Converters\TimestampConverter.cs" />
+    <Compile Include="Utils\GeneralClassification.cs" />
     <Compile Include="Utils\MessageUtils.cs" />
     <Compile Include="Utils\TreeViewExtension.cs" />
     <Compile Include="Views\ClassificationView.xaml.cs">
