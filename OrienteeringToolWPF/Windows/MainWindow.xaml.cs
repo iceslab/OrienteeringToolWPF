@@ -291,5 +291,35 @@ namespace OrienteeringToolWPF.Windows
         }
 
         #endregion
+
+        private void generateReportMItem_Click(object sender, RoutedEventArgs e)
+        {
+            var sfd = new SaveFileDialog();
+#if DEBUG
+            sfd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
+#else
+            sfd.InitialDirectory = Directory.GetCurrentDirectory();
+#endif
+            // TODO: Change to resources
+            sfd.Filter = "Dokument Excel|*.xlsx";
+            sfd.FilterIndex = 1;
+#if !DEBUG
+            if (sfd.ShowDialog() == true)
+#else
+            sfd.FileName = sfd.InitialDirectory + @"\test.xlsx";
+#endif
+            {
+                try
+                {
+                    var relays = RelayHelper.RelaysWithCompetitorsJoined();
+                    DocumentUtils.CreateReport(sfd.FileName, relays);
+                    MessageUtils.ShowSuccessfulSave(this);
+                }
+                catch (Exception ex)
+                {
+                    MessageUtils.ShowException(this, "Nie można utworzyć raportu końcowego", ex);
+                }
+            }
+        }
     }
 }

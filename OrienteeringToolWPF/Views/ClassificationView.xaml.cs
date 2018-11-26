@@ -48,7 +48,7 @@ namespace OrienteeringToolWPF.Views
         public void Refresh()
         {
             RefreshData();
-            ClassifyAll();
+            ClassificationUtils.ClassifyAll(RelayList);
             RefreshSetSource();
         }
 
@@ -69,54 +69,5 @@ namespace OrienteeringToolWPF.Views
             var c = (Competitor)competitorsLV.View.SelectedItem;
             resultsAndPunchesLV.SetSource(c?.Result, (List<Punch>)c?.Punches);
         }
-
-        // Performs corectness check on all competitors
-        private void CheckCorrectness()
-        {
-            foreach (var relay in RelayList)
-            {
-                foreach (var competitor in relay.Competitors)
-                {
-                    var db = DatabaseUtils.GetDatabase();
-                    var punchesList = (List<Punch>)competitor.Punches;
-                    var routeStepsList = RouteStepsHelper.RouteStepsWhereChip((long)competitor.Chip);
-                    try
-                    {
-                        Punch.CheckCorrectnessSorted(ref punchesList, routeStepsList);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageUtils.ShowException(this, "Nie wszyscy zawodnicy mają wyniki", e);
-                    }
-
-                    competitor.Punches = punchesList;
-                }
-            }
-        }
-
-        #region Classification methods
-        // Performs general classification
-        private void ClassifyAll()
-        {
-            ClassifyCompetitors();
-            ClassifyRelays();
-        }
-
-        // Classifies competitors
-        private void ClassifyCompetitors()
-        {
-            CheckCorrectness();
-            foreach (var relay in RelayList)
-            {
-                ((List<Competitor>)relay.Competitors).Sort();
-            }
-        }
-
-        // Classifies relays
-        private void ClassifyRelays()
-        {
-            RelayList.Sort();
-        }
-        #endregion
     }
 }

@@ -35,6 +35,7 @@
                 <MenuItem x:Name="dataMItem" Header="Dane">
                     <MenuItem x:Name="startingListMItem" Header="Utwórz listę startową" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}" Click="startingListMItem_Click"/>
                     <MenuItem x:Name="exportMItem" Header="Eksportuj zawodników" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}" Click="exportMItem_Click"/>
+                    <MenuItem x:Name="generateReportMItem" Header="Wygeneruj raport końcowy" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}" Click="generateReportMItem_Click"/>
                     <Separator></Separator>
                     <MenuItem x:Name="generalClassificationMItem" Header="Klasyfikacja generalna (BnO)" Click="generalClassificationMItem_Click"></MenuItem>
                 </MenuItem>
