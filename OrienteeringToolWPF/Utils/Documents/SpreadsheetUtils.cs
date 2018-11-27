@@ -45,7 +45,13 @@ namespace OrienteeringToolWPF.Utils.Documents
             {
                 InsertCompetitor(worksheet, c, row++, relaysDict, ref maxSteps);
             }
+            maxSteps++; // Count finish punch
             InsertHeader(worksheet, maxSteps);
+
+            var minimums = new List<long>(maxSteps);
+            var maximums = new List<long>(maxSteps);
+            CalculateExtremums(worksheet, ref minimums, ref maximums, competitors.Count);
+            ColourResults(worksheet, minimums, maximums, competitors.Count);
 
             workbook.SaveAs(fullFilePath);
         }
@@ -90,7 +96,6 @@ namespace OrienteeringToolWPF.Utils.Documents
 
             var row = ws.Row(rowIdx);
             int column = 1;
-
             row.Cell(column++).Value = rowIdx - 1;
             row.Cell(column++).Value = competitor.Name;
 
@@ -98,28 +103,126 @@ namespace OrienteeringToolWPF.Utils.Documents
             relaysDict.TryGetValue(competitor.RelayId, out relayName);
             row.Cell(column++).Value = relayName;
             row.Cell(column++).Value = (long)competitor.Chip;
-            //row.Cell(column++).Value = competitor.Result.RunningTime;
-            row.Cell(column++).Value = tsc.Convert(
-                competitor.Result.RunningTime,
-                null,
-                Properties.Resources.TimestampFormat,
-                null);
 
+            row.Cell(column++).Value = competitor.Result.RunningTime;
 
+            long lastStep = competitor.Result.StartTime;
             foreach (var s in rs)
             {
                 var punchesWithCode = competitor.Punches.Where(p => p.Code == s.Code).ToList();
                 long delta = 0;
-                if (punchesWithCode.Count == 1)
+                if (punchesWithCode.Count >= 1)
                 {
                     delta = punchesWithCode[0].DeltaPrevious;
+                    lastStep = punchesWithCode[0].Timestamp;
                 }
 
-                row.Cell(column++).Value = dtc.Convert(
-                        delta,
-                        null,
-                        Properties.Resources.DeltaTimeFormat,
-                        null);
+                row.Cell(column++).Value = delta;
+            }
+
+            row.Cell(column++).Value = competitor.Result.FinishTime - lastStep;
+            if (competitor.WrongCollections > 0)
+            {
+                row.Cell(column++).Value = competitor.WrongCollections;
+            }
+        }
+
+        private static void CalculateExtremums(
+            IXLWorksheet worksheet,
+            ref List<long> minimums,
+            ref List<long> maximums,
+            int competitorsCount)
+        {
+            int maxSteps = minimums.Capacity;
+            int rowOffset = 2;
+            int columnOffset = 6;
+            for (int column = 0; column < maxSteps; column++)
+            {
+                maximums.Add(long.MinValue);
+                minimums.Add(long.MaxValue);
+                for (int row = 0; row < competitorsCount; row++)
+                {
+                    var value = Convert.ToInt64((double)worksheet.Cell(row + rowOffset, column + columnOffset).Value);
+                    if (value != 0 && value > maximums[column])
+                    {
+                        maximums[column] = value;
+                    }
+
+                    if (value != 0 && value < minimums[column])
+                    {
+                        minimums[column] = value;
+                    }
+                }
+            }
+        }
+
+        private static void ColourResults(
+            IXLWorksheet worksheet,
+            List<long> minimums,
+            List<long> maximums,
+            int competitorsCount)
+        {
+            var tsc = new TimestampConverter();
+            var dtc = new DeltaTimeConverter();
+
+            int maxSteps = minimums.Count;
+            int rowOffset = 2;
+            int columnOffset = 5;
+            int runningTimeColumnIdx = 5;
+
+            // Color worst times in red
+            for (int i = 0; i < 3; i++)
+            {
+                worksheet.Cell(rowOffset - 1 + competitorsCount - i, runningTimeColumnIdx).Style.Fill.BackgroundColor = XLColor.Red;
+            }
+
+            // Color best times in green
+            for (int i = 0; i < 3; i++)
+            {
+                worksheet.Cell(rowOffset + i, runningTimeColumnIdx).Style.Fill.BackgroundColor = XLColor.Green;
+            }
+
+            // Determine if worst or best and then color respectively
+            for (int column = 0; column < maxSteps + 1; column++)
+            {
+                for (int row = 0; row < competitorsCount; row++)
+                {
+                    var cell = worksheet.Cell(row + rowOffset, column + columnOffset);
+                    var value = Convert.ToInt64((double)cell.Value);
+                    if (column == 0)
+                    {
+                        cell.Value = tsc.Convert(
+                            value,
+                            null,
+                            Properties.Resources.TimestampFormat,
+                            null);
+                    }
+                    else
+                    {
+                        var best = minimums[column - 1];
+                        var worst = maximums[column - 1];
+                        if (value == worst)
+                        {
+                            cell.Style.Fill.BackgroundColor = XLColor.Red;
+                        }
+
+                        if (value == best)
+                        {
+                            cell.Style.Fill.BackgroundColor = XLColor.Green;
+                        }
+
+                        if (value == 0)
+                        {
+                            cell.Style.Fill.BackgroundColor = XLColor.Blue;
+                        }
+
+                        cell.Value = dtc.Convert(
+                            value,
+                            null,
+                            Properties.Resources.DeltaTimeFormat,
+                            null);
+                    }
+                }
             }
         }
     }
