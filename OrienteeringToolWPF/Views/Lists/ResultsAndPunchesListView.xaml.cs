@@ -47,7 +47,7 @@ namespace OrienteeringToolWPF.Views.Lists
 
                     Punch.CheckCorrectnessSorted(ref PunchesList, RouteStepList);
                     Punch.CalculateDeltaStart(ref PunchesList, Result.StartTime);
-                    Punch.CalculateDeltaPrevious(ref PunchesList);
+                    Punch.CalculateDeltaPrevious(ref PunchesList, Result.StartTime);
                 }
                 else
                 {

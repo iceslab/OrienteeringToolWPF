@@ -179,16 +179,15 @@ namespace OrienteeringToolWPF.Model
                 punch.CalculateDeltaStart(StartTime);
         }
 
-        public static void CalculateDeltaPrevious(ref List<Punch> punches)
+        public static void CalculateDeltaPrevious(ref List<Punch> punches, long StartTime)
         {
             if (punches == null)
                 return;// throw new System.ArgumentNullException(nameof(punches), "List refers to null");
-
-            for(int i = 1; i < punches.Count; i++)
+            punches[0].CalculateDeltaPrevious(StartTime);
+            for (int i = 1; i < punches.Count; i++)
             {
                 punches[i].CalculateDeltaPrevious(punches[i - 1].Timestamp);
             }
-                
         }
         #endregion
         #region Object overrides

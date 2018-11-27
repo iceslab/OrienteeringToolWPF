@@ -29,7 +29,7 @@ namespace OrienteeringToolWPF.DAO
                 {
                     punches?.Sort();
                     Punch.CalculateDeltaStart(ref punches, competitor.Result.StartTime);
-                    Punch.CalculateDeltaPrevious(ref punches);
+                    Punch.CalculateDeltaPrevious(ref punches, competitor.Result.StartTime);
                 }
                 catch (NullReferenceException) { }
                 competitor.Punches = punches;
