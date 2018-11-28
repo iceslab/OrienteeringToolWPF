@@ -71,6 +71,7 @@ namespace OrienteeringToolWPF.Views.Lists
 
         public void SetSource(Result result, List<Punch> punches)
         {
+            Chip = result?.Chip;
             Result = result;
             PunchesList = punches;
             labelsWP.DataContext = Result;
@@ -80,7 +81,7 @@ namespace OrienteeringToolWPF.Views.Lists
         #region Buttons
         private void addB_Click(object sender, RoutedEventArgs e)
         {
-            Window window = new PunchForm();
+            Window window = new PunchForm(Result);
             window.Owner = Window.GetWindow(this);
             window.ShowDialog();
             Refresh();

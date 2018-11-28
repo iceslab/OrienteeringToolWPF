@@ -21,7 +21,7 @@ namespace OrienteeringToolWPF.Views
             InitializeComponent();
             relaysLV.RefreshEnabled = false;
             competitorsLV.RefreshEnabled = false;
-            resultsAndPunchesLV.RefreshEnabled = false;
+            resultsAndPunchesLV.RefreshEnabled = true;
 
             relaysLV.View.SelectionChanged += RelaysLV_SelectionChanged;
             competitorsLV.View.SelectionChanged += CompetitorsLV_SelectionChanged;
@@ -68,6 +68,11 @@ namespace OrienteeringToolWPF.Views
 
             var c = (Competitor)competitorsLV.View.SelectedItem;
             resultsAndPunchesLV.SetSource(c?.Result, (List<Punch>)c?.Punches);
+        }
+
+        private void refresh_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Refresh();
         }
     }
 }
