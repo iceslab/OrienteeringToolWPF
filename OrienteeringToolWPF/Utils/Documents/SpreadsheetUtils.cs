@@ -106,7 +106,6 @@ namespace OrienteeringToolWPF.Utils.Documents
 
             row.Cell(column++).Value = competitor.Result.RunningTime;
 
-            long lastStep = competitor.Result.StartTime;
             foreach (var s in rs)
             {
                 var punchesWithCode = competitor.Punches.Where(p => p.Code == s.Code).ToList();
@@ -114,13 +113,12 @@ namespace OrienteeringToolWPF.Utils.Documents
                 if (punchesWithCode.Count >= 1)
                 {
                     delta = punchesWithCode[0].DeltaPrevious;
-                    lastStep = punchesWithCode[0].Timestamp;
                 }
 
                 row.Cell(column++).Value = delta;
             }
 
-            row.Cell(column++).Value = competitor.Result.FinishTime - lastStep;
+            row.Cell(column++).Value = competitor.Result.FinishTime - competitor.Punches.Last().Timestamp;
             if (competitor.WrongCollections > 0)
             {
                 row.Cell(column++).Value = competitor.WrongCollections;
