@@ -14,11 +14,44 @@ namespace OrienteeringToolWPF.Views.Lists
     /// <summary>
     /// Interaction logic for ResultsAndPunchesListView.xaml
     /// </summary>
+
+    class PunchesWrapper
+    {
+        public long Index { get; set; }
+        public Punch Punch { get; set; }
+
+        public PunchesWrapper(int index, Punch punch)
+        {
+            Index = index;
+            Punch = punch;
+        }
+
+        public static List<PunchesWrapper> FromPunchesList(List<Punch> punches)
+        {
+            var retVal = new List<PunchesWrapper>();
+            for(int i = 0; punches != null && i < punches.Count; i++)
+            {
+                retVal.Add(new PunchesWrapper(i + 1, punches[i]));
+            }
+            return retVal;
+        }
+
+        public static List<Punch> ToPunchesList(List<PunchesWrapper> punches)
+        {
+            var retVal = new List<Punch>();
+            for (int i = 0; punches != null && i < punches.Count; i++)
+            {
+                retVal.Add(punches[i].Punch);
+            }
+            return retVal;
+        }
+    }
+
     public partial class ResultsAndPunchesListView : UserControl, IRefreshable, IButtonsManageable
     {
         private long? Chip;
         private Result Result;
-        private List<Punch> PunchesList;
+        private List<PunchesWrapper> PunchesListWrapped;
         private List<RouteStep> RouteStepList;
         public bool RefreshEnabled { get; set; } = true;
 
@@ -40,23 +73,24 @@ namespace OrienteeringToolWPF.Views.Lists
                 {
                     var db = DatabaseUtils.GetDatabase();
                     Result = db.Results.FindAllByChip(Chip).FirstOrDefault() ?? new Result { Chip = (long)Chip };
-                    PunchesList = db.Punches.FindAllByChip(Chip).OrderBy(db.Punches.Timestamp) ?? new List<Punch>();
+                    List<Punch> punchesList = db.Punches.FindAllByChip(Chip).OrderBy(db.Punches.Timestamp) ?? new List<Punch>();
 
                     // Gets Route associated with Competitor and his Category for proper validation
                     RouteStepList = RouteStepsHelper.RouteStepsWhereChip((long)Chip);
 
-                    Punch.CheckCorrectnessSorted(ref PunchesList, RouteStepList);
-                    Punch.CalculateDeltaStart(ref PunchesList, Result.StartTime);
-                    Punch.CalculateDeltaPrevious(ref PunchesList, Result.StartTime);
+                    Punch.CheckCorrectnessSorted(ref punchesList, RouteStepList);
+                    Punch.CalculateDeltaStart(ref punchesList, Result.StartTime);
+                    Punch.CalculateDeltaPrevious(ref punchesList, Result.StartTime);
+                    PunchesListWrapped = PunchesWrapper.FromPunchesList(punchesList);
                 }
                 else
                 {
                     Result = new Result();
-                    PunchesList = new List<Punch>();
+                    PunchesListWrapped = new List<PunchesWrapper>();
                 }
 
                 labelsWP.DataContext = Result;
-                punchesLV.ItemsSource = PunchesList;
+                punchesLV.ItemsSource = PunchesListWrapped;
             }
         }
 
@@ -73,9 +107,10 @@ namespace OrienteeringToolWPF.Views.Lists
         {
             Chip = result?.Chip;
             Result = result;
-            PunchesList = punches;
+
+            PunchesListWrapped = PunchesWrapper.FromPunchesList(punches);
             labelsWP.DataContext = Result;
-            punchesLV.ItemsSource = PunchesList;
+            punchesLV.ItemsSource = PunchesListWrapped;
         }
 
         #region Buttons

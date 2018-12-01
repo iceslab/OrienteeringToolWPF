@@ -61,36 +61,27 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
-                    <!--<GridViewColumn x:Name="IdGVC" Width="Auto">
+                    <GridViewColumn x:Name="IndexGVC" Width="Auto">
                         <GridViewColumn.HeaderTemplate>
-                            <DataTemplate >
-                                <TextBlock Text="Id" Margin="2" />
+                            <DataTemplate>
+                                <TextBlock Text="Lp." Margin="2" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
+                                    <Grid.Background>
+                                        <Binding Converter="{StaticResource longConverter}"
+                                                 ConverterParameter="{x:Static prop:Resources.OrdinalNumberFormat}"
+                                                 Path="Index"/>
+                                    </Grid.Background>
                                     <TextBlock Margin="2"
-    											Text="{Binding Id}" />
+                                               Text="{Binding Index}" >
+                                    </TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="ChipGVC" Width="Auto">
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="Chip" Margin="2" />
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <TextBlock Margin="2"
-    											Text="{Binding Chip}" />
-                                </Grid>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>-->
                     <GridViewColumn x:Name="CodeGVC" Width="Auto">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
@@ -103,10 +94,10 @@
                                     <Grid.Background>
                                         <Binding Converter="{StaticResource correctnessConverter}" 
                                                  ConverterParameter="{x:Static enum:Order.UNORDERED}" 
-                                                 Path="Correctness"/>
+                                                 Path="Punch.Correctness"/>
                                     </Grid.Background>
                                     <TextBlock Margin="2"
-    											Text="{Binding Code}" >
+                                               Text="{Binding Punch.Code}" >
                                     </TextBlock>
                                 </Grid>
                             </DataTemplate>
@@ -125,33 +116,13 @@
                                         <TextBlock.Text>
                                             <Binding Converter="{StaticResource timestampConverter}" 
                                                  ConverterParameter="{x:Static prop:Resources.TimestampFormat}" 
-                                                 Path="Timestamp"/>
+                                                 Path="Punch.Timestamp"/>
                                         </TextBlock.Text>
                                     </TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <!--<GridViewColumn x:Name="DeltaStartGVC" Width="Auto">
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="Delta start" Margin="2" />
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <TextBlock Margin="2">
-                                        <TextBlock.Text>
-                                            <Binding Converter="{StaticResource deltaTimeConverter}" 
-                                                 ConverterParameter="{x:Static prop:Resources.DeltaTimeFormat}" 
-                                                 Path="DeltaStart"/>
-                                        </TextBlock.Text>
-                                    </TextBlock>
-                                </Grid>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>-->
                     <GridViewColumn x:Name="DeltaPreviousGVC" Width="Auto">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
@@ -165,7 +136,7 @@
                                         <TextBlock.Text>
                                             <Binding Converter="{StaticResource deltaTimeConverter}" 
                                                  ConverterParameter="{x:Static prop:Resources.DeltaTimeFormat}" 
-                                                 Path="DeltaPrevious"/>
+                                                 Path="Punch.DeltaPrevious"/>
                                         </TextBlock.Text>
                                     </TextBlock>
                                 </Grid>

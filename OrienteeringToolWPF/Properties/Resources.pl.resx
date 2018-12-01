@@ -216,6 +216,9 @@ Baza danych istnieje, czy chcesz nadpisać?</value>
   <data name="NullOrEmptyError" xml:space="preserve">
     <value>Pole jest puste lub zawiera tylko białe znaki</value>
   </data>
+  <data name="OrdinalNumberFormat" xml:space="preserve">
+    <value>{0}</value>
+  </data>
   <data name="OriginalMessage" xml:space="preserve">
     <value>Oryginalna wiadomość:</value>
   </data>

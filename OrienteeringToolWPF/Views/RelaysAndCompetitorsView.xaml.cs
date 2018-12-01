@@ -77,14 +77,12 @@ namespace OrienteeringToolWPF.Views
                 {
                     var c = (Competitor)NewValue;
                     var uc = new ResultsAndPunchesListView(c.Chip);
-                    uc.SetButtonsVisibility(Visibility.Collapsed);
                     CurrentView = uc;
                 }
                 else if (NewValue is Relay)
                 {
                     var r = (Relay)NewValue;
                     var uc = new CompetitorsListView(r.Id);
-                    uc.SetButtonsVisibility(Visibility.Collapsed);
                     CurrentView = uc;
                 }
             }

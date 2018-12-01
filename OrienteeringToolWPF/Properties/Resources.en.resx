@@ -216,6 +216,9 @@ Database exists, do you want to overwrite?</value>
   <data name="NullOrEmptyError" xml:space="preserve">
     <value>Field is empty or contains only whitespaces</value>
   </data>
+  <data name="OrdinalNumberFormat" xml:space="preserve">
+    <value>{0}</value>
+  </data>
   <data name="OriginalMessage" xml:space="preserve">
     <value>Orignal message:</value>
   </data>
