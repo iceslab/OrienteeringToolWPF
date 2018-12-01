@@ -2,7 +2,7 @@
 //  Copyright (c) 2013-2014 Simon Denier & Yannis Guedel
 //  
 #if DEBUG
-//#define SI_NOT_AVAILABLE
+#define SI_NOT_AVAILABLE
 #endif
 using System;
 using System.Collections.Concurrent;

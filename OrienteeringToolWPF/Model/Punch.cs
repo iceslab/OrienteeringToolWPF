@@ -181,7 +181,7 @@ namespace OrienteeringToolWPF.Model
 
         public static void CalculateDeltaPrevious(ref List<Punch> punches, long StartTime)
         {
-            if (punches == null)
+            if (punches == null || punches.Count <= 0)
                 return;// throw new System.ArgumentNullException(nameof(punches), "List refers to null");
             punches[0].CalculateDeltaPrevious(StartTime);
             for (int i = 1; i < punches.Count; i++)
