@@ -244,6 +244,7 @@
     <Compile Include="Utils\DatabaseConnectionData.cs" />
     <Compile Include="Utils\DatabaseUtils.cs" />
     <Compile Include="Utils\Documents\DocumentValidator.cs" />
+    <Compile Include="Utils\Documents\GeneralClassificationUtils.cs" />
     <Compile Include="Utils\DocumentUtils.cs" />
     <Compile Include="Utils\Converters\LongConverter.cs" />
     <Compile Include="Utils\Converters\DateTimeConverter.cs" />

@@ -4,6 +4,7 @@ using OrienteeringToolWPF.DAO;
 using OrienteeringToolWPF.Enumerations;
 using OrienteeringToolWPF.Interfaces;
 using OrienteeringToolWPF.Utils;
+using OrienteeringToolWPF.Utils.Documents;
 using OrienteeringToolWPF.Views;
 using OrienteeringToolWPF.Windows.Dialogs;
 using OrienteeringToolWPF.Windows.Forms.KidsCompetition;
@@ -273,15 +274,12 @@ namespace OrienteeringToolWPF.Windows
 #if !DEBUG
             if (ofd.ShowDialog() == true)
 #else
-            ofd.FileName = ofd.InitialDirectory + @"\test.txt";
+            ofd.FileName = ofd.InitialDirectory + @"\gen.TXT";
 #endif
             {
                 try
                 {
-
-                    var relays = RelayHelper.RelaysWithCompetitors();
-                    DocumentUtils.CreateStartingList(ofd.FileName, relays);
-                    MessageUtils.ShowSuccessfulSave(this);
+                    GeneralClassificationUtils.Classify(ofd.FileName, ofd.FileName + "classified.txt");
                 }
                 catch (Exception ex)
                 {
