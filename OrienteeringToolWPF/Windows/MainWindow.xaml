@@ -8,7 +8,7 @@
         xmlns:utils="clr-namespace:OrienteeringToolWPF.Utils" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
         x:Name="mainWindow" x:Class="OrienteeringToolWPF.Windows.MainWindow"
-        Title="Main Window" Height="400" Width="550" Closing="mainWindow_Closing" 
+        Title="Main Window" Height="400" Width="550" Closing="MainWindow_Closing"
         MinHeight="400" MinWidth="550"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
     <Window.Resources>
@@ -19,25 +19,25 @@
             <Menu x:Name="menuBar" DockPanel.Dock="Top" Height="23" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
                 <MenuItem x:Name="fileMItem" Header="Plik">
                     <MenuItem x:Name="createMItem" Header="Utwórz">
-                        <MenuItem x:Name="kidsCompetitionMItem" Header="Zawody &quot;Dziecinada&quot;" Click="kidsCompetitionMItem_Click"/>
+                        <MenuItem x:Name="kidsCompetitionMItem" Header="Zawody &quot;Dziecinada&quot;" Click="KidsCompetitionMItem_Click"/>
                         <MenuItem x:Name="orienteeringCompetitionMItem" Header="Zawody BnO" IsEnabled="False"/>
                         <MenuItem x:Name="orienteeringTrainingMItem" Header="Trening BnO" IsEnabled="False"/>
                     </MenuItem>
-                    <MenuItem x:Name="openLocalMItem" Header="Otwórz lokalną bazę" Click="openLocalMItem_Click"/>
-                    <MenuItem x:Name="openRemoteMItem" Header="Otwórz zdalną bazę" Click="openRemoteMItem_Click"/>
-                    <MenuItem x:Name="closeDatabaseMItem" Header="Zamknij bazę" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}" Click="closeDatabaseMItem_Click"/>
-                    <MenuItem x:Name="exitMItem" Header="Zakończ" Click="exitMItem_Click"/>
+                    <MenuItem x:Name="openLocalMItem" Header="Otwórz lokalną bazę" Click="OpenLocalMItem_Click"/>
+                    <MenuItem x:Name="openRemoteMItem" Header="Otwórz zdalną bazę" Click="OpenRemoteMItem_Click"/>
+                    <MenuItem x:Name="closeDatabaseMItem" Header="Zamknij bazę" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}" Click="CloseDatabaseMItem_Click"/>
+                    <MenuItem x:Name="exitMItem" Header="Zakończ" Click="ExitMItem_Click"/>
                 </MenuItem>
                 <MenuItem x:Name="connectionMItem" Header="Połączenie">
-                    <MenuItem x:Name="connectToMItem" Header="Połącz ze stacją..." Click="connectToMItem_Click" IsEnabled="{Binding NotIsConnected}"/>
-                    <MenuItem x:Name="disconnectMItem" Header="Rozłącz" Click="disconnectMItem_Click" IsEnabled="{Binding IsConnected}"/>
+                    <MenuItem x:Name="connectToMItem" Header="Połącz ze stacją..." Click="ConnectToMItem_Click" IsEnabled="{Binding NotIsConnected}"/>
+                    <MenuItem x:Name="disconnectMItem" Header="Rozłącz" Click="DisconnectMItem_Click" IsEnabled="{Binding IsConnected}"/>
                 </MenuItem>
                 <MenuItem x:Name="dataMItem" Header="Dane">
-                    <MenuItem x:Name="startingListMItem" Header="Utwórz listę startową" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}" Click="startingListMItem_Click"/>
-                    <MenuItem x:Name="exportMItem" Header="Eksportuj zawodników" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}" Click="exportMItem_Click"/>
-                    <MenuItem x:Name="generateReportMItem" Header="Wygeneruj raport końcowy" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}" Click="generateReportMItem_Click"/>
+                    <MenuItem x:Name="startingListMItem" Header="Utwórz listę startową" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}" Click="StartingListMItem_Click"/>
+                    <MenuItem x:Name="exportMItem" Header="Eksportuj zawodników" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}" Click="ExportMItem_Click"/>
+                    <MenuItem x:Name="generateReportMItem" Header="Wygeneruj raport końcowy" IsEnabled="{Binding Source={StaticResource bindingUtils}, Path=IsDatabaseAccessible}" Click="GenerateReportMItem_Click"/>
                     <Separator></Separator>
-                    <MenuItem x:Name="generalClassificationMItem" Header="Klasyfikacja generalna (BnO)" Click="generalClassificationMItem_Click"></MenuItem>
+                    <MenuItem x:Name="generalClassificationMItem" Header="Klasyfikacja generalna (BnO)" Click="GeneralClassificationMItem_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem x:Name="settingsMItem" Header="Ustawienia">
                     <MenuItem Header="..." IsEnabled="False"/>

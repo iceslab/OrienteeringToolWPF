@@ -98,14 +98,14 @@ namespace OrienteeringToolWPF.Windows
         }
 
         // Closing window
-        private void mainWindow_Closing(object sender, CancelEventArgs e)
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
             Disconnect();
         }
 
         #region Menu callback methods
         // Connect to station - menu
-        private void connectToMItem_Click(object sender, RoutedEventArgs e)
+        private void ConnectToMItem_Click(object sender, RoutedEventArgs e)
         {
             var window = new SiConnectionDialog
             {
@@ -115,13 +115,13 @@ namespace OrienteeringToolWPF.Windows
         }
 
         // Disconnect from station - menu
-        private void disconnectMItem_Click(object sender, RoutedEventArgs e)
+        private void DisconnectMItem_Click(object sender, RoutedEventArgs e)
         {
             Disconnect();
         }
 
         // Close from menu
-        private void exitMItem_Click(object sender, RoutedEventArgs e)
+        private void ExitMItem_Click(object sender, RoutedEventArgs e)
         {
 #if DEBUG
             MessageUtils.ShowException(this,
@@ -132,7 +132,7 @@ namespace OrienteeringToolWPF.Windows
         }
 
         // Open local project
-        private void openLocalMItem_Click(object sender, RoutedEventArgs e)
+        private void OpenLocalMItem_Click(object sender, RoutedEventArgs e)
         {
             var ofd = new OpenFileDialog
             {
@@ -153,7 +153,7 @@ namespace OrienteeringToolWPF.Windows
         }
 
         // Open remote project
-        private void openRemoteMItem_Click(object sender, RoutedEventArgs e)
+        private void OpenRemoteMItem_Click(object sender, RoutedEventArgs e)
         {
             var rdw = new DatabseConnectionDialog(DatabaseUtils.DatabaseConnectionData)
             {
@@ -168,7 +168,7 @@ namespace OrienteeringToolWPF.Windows
         }
 
         // Closes connection to database
-        private void closeDatabaseMItem_Click(object sender, RoutedEventArgs e)
+        private void CloseDatabaseMItem_Click(object sender, RoutedEventArgs e)
         {
             CurrentView = null;
             DatabaseUtils.DatabaseType = DatabaseType.NONE;
@@ -176,7 +176,7 @@ namespace OrienteeringToolWPF.Windows
         }
 
         // Create project "Kids Competition"
-        private void kidsCompetitionMItem_Click(object sender, RoutedEventArgs e)
+        private void KidsCompetitionMItem_Click(object sender, RoutedEventArgs e)
         {
 
             var sfd = new SaveFileDialog
@@ -209,7 +209,7 @@ namespace OrienteeringToolWPF.Windows
         }
 
         // Create starting list
-        private void startingListMItem_Click(object sender, RoutedEventArgs e)
+        private void StartingListMItem_Click(object sender, RoutedEventArgs e)
         {
             var sfd = new SaveFileDialog
             {
@@ -241,7 +241,7 @@ namespace OrienteeringToolWPF.Windows
             }
         }
 
-        private void exportMItem_Click(object sender, RoutedEventArgs e)
+        private void ExportMItem_Click(object sender, RoutedEventArgs e)
         {
             var sfd = new SaveFileDialog
             {
@@ -274,7 +274,7 @@ namespace OrienteeringToolWPF.Windows
             }
         }
 
-        private void generalClassificationMItem_Click(object sender, RoutedEventArgs e)
+        private void GeneralClassificationMItem_Click(object sender, RoutedEventArgs e)
         {
             var ofd = new OpenFileDialog
             {
@@ -306,7 +306,7 @@ namespace OrienteeringToolWPF.Windows
 
         #endregion
 
-        private void generateReportMItem_Click(object sender, RoutedEventArgs e)
+        private void GenerateReportMItem_Click(object sender, RoutedEventArgs e)
         {
             var sfd = new SaveFileDialog
             {
