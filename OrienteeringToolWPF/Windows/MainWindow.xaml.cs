@@ -107,8 +107,10 @@ namespace OrienteeringToolWPF.Windows
         // Connect to station - menu
         private void connectToMItem_Click(object sender, RoutedEventArgs e)
         {
-            var window = new SiConnectionDialog();
-            window.Owner = this;
+            var window = new SiConnectionDialog
+            {
+                Owner = this
+            };
             window.ShowDialog();
         }
 
@@ -132,14 +134,16 @@ namespace OrienteeringToolWPF.Windows
         // Open local project
         private void openLocalMItem_Click(object sender, RoutedEventArgs e)
         {
-            var ofd = new OpenFileDialog();
+            var ofd = new OpenFileDialog
+            {
 #if DEBUG
-            ofd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
+                InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy",
 #else
-            ofd.InitialDirectory = Directory.GetCurrentDirectory();
+                InitialDirectory = Directory.GetCurrentDirectory(),
 #endif
-            ofd.Filter = Properties.Resources.DatabaseDialogFilters;
-            ofd.FilterIndex = 1;
+                Filter = Properties.Resources.DatabaseDialogFilters,
+                FilterIndex = 1
+            };
             if (ofd.ShowDialog() == true)
             {
                 DatabaseUtils.DatabasePath = ofd.FileName;
@@ -151,8 +155,10 @@ namespace OrienteeringToolWPF.Windows
         // Open remote project
         private void openRemoteMItem_Click(object sender, RoutedEventArgs e)
         {
-            var rdw = new DatabseConnectionDialog(DatabaseUtils.DatabaseConnectionData);
-            rdw.Owner = this;
+            var rdw = new DatabseConnectionDialog(DatabaseUtils.DatabaseConnectionData)
+            {
+                Owner = this
+            };
             if (rdw.ShowDialog() == true)
             {
                 DatabaseUtils.DatabaseConnectionData = rdw.databaseConnectionData;
@@ -173,19 +179,23 @@ namespace OrienteeringToolWPF.Windows
         private void kidsCompetitionMItem_Click(object sender, RoutedEventArgs e)
         {
 
-            var sfd = new SaveFileDialog();
+            var sfd = new SaveFileDialog
+            {
 #if DEBUG
-            sfd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
+                InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy",
 #else
-            sfd.InitialDirectory = Directory.GetCurrentDirectory();
+                InitialDirectory = Directory.GetCurrentDirectory(),
 #endif
-            sfd.Filter = Properties.Resources.DatabaseDialogFilters;
-            sfd.FilterIndex = 1;
+                Filter = Properties.Resources.DatabaseDialogFilters,
+                FilterIndex = 1
+            };
 
             if (sfd.ShowDialog() == true)
             {
-                var window = new TournamentForm(true);
-                window.Owner = this;
+                var window = new TournamentForm(true)
+                {
+                    Owner = this
+                };
 
                 if (window.ShowDialog() == true)
                 {
@@ -201,15 +211,17 @@ namespace OrienteeringToolWPF.Windows
         // Create starting list
         private void startingListMItem_Click(object sender, RoutedEventArgs e)
         {
-            var sfd = new SaveFileDialog();
+            var sfd = new SaveFileDialog
+            {
 #if DEBUG
-            sfd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
+                InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy",
 #else
-            sfd.InitialDirectory = Directory.GetCurrentDirectory();
+                InitialDirectory = Directory.GetCurrentDirectory(),
 #endif
-            // TODO: Change to resources
-            sfd.Filter = "Dokument Word|*.docx";
-            sfd.FilterIndex = 1;
+                // TODO: Change to resources
+                Filter = "Dokument Word|*.docx",
+                FilterIndex = 1
+            };
 #if !DEBUG
             if (sfd.ShowDialog() == true)
 #else
@@ -231,15 +243,17 @@ namespace OrienteeringToolWPF.Windows
 
         private void exportMItem_Click(object sender, RoutedEventArgs e)
         {
-            var sfd = new SaveFileDialog();
+            var sfd = new SaveFileDialog
+            {
 #if DEBUG
-            sfd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
+                InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy",
 #else
-            sfd.InitialDirectory = Directory.GetCurrentDirectory();
+                InitialDirectory = Directory.GetCurrentDirectory(),
 #endif
-            // TODO: Change to resources
-            sfd.Filter = "Dokument tekstowy|*.txt";
-            sfd.FilterIndex = 1;
+                // TODO: Change to resources
+                Filter = "Dokument tekstowy|*.txt",
+                FilterIndex = 1
+            };
 #if !DEBUG
             if (sfd.ShowDialog() == true)
 #else
@@ -262,15 +276,17 @@ namespace OrienteeringToolWPF.Windows
 
         private void generalClassificationMItem_Click(object sender, RoutedEventArgs e)
         {
-            var ofd = new OpenFileDialog();
+            var ofd = new OpenFileDialog
+            {
 #if DEBUG
-            ofd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
+                InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy",
 #else
-            ofd.InitialDirectory = Directory.GetCurrentDirectory();
+                InitialDirectory = Directory.GetCurrentDirectory(),
 #endif
-            // TODO: Change to resources
-            ofd.Filter = "Dokument tekstowy|*.txt";
-            ofd.FilterIndex = 1;
+                // TODO: Change to resources
+                Filter = "Dokument tekstowy|*.txt",
+                FilterIndex = 1
+            };
 #if !DEBUG
             if (ofd.ShowDialog() == true)
 #else
@@ -292,15 +308,17 @@ namespace OrienteeringToolWPF.Windows
 
         private void generateReportMItem_Click(object sender, RoutedEventArgs e)
         {
-            var sfd = new SaveFileDialog();
+            var sfd = new SaveFileDialog
+            {
 #if DEBUG
-            sfd.InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy";
+                InitialDirectory = @"C:\Users\Bartosz\Desktop\testowe_bazy",
 #else
-            sfd.InitialDirectory = Directory.GetCurrentDirectory();
+                InitialDirectory = Directory.GetCurrentDirectory(),
 #endif
-            // TODO: Change to resources
-            sfd.Filter = "Dokument Excel|*.xlsx";
-            sfd.FilterIndex = 1;
+                // TODO: Change to resources
+                Filter = "Dokument Excel|*.xlsx",
+                FilterIndex = 1
+            };
 #if !DEBUG
             if (sfd.ShowDialog() == true)
 #else
